@@ -115,7 +115,7 @@ return (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
             
             <div className="service-matrix-card" style={{ padding: '40px', backgroundColor: '#05080F', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column' }}>
-              <div className="matrix-card-bg" style={{ backgroundImage: 'url(https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/sourcing.png)' }}></div>
+              <div className="matrix-card-bg" style={{ backgroundImage: 'url(/images/services/sourcing.png)' }}></div>
               <div style={{ position: 'relative', zIndex: 1 }}>
                 <MapPin size={32} color="var(--brand-orange)" style={{ marginBottom: '24px' }} />
                 <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Specialized Vendor Ecosystem</h3>

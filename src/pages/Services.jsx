@@ -236,7 +236,7 @@ return (
                 flexDirection: 'column',
                 justifyContent: 'center'
               }}>
-                <div className="matrix-card-bg" style={{ backgroundImage: 'url(https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/sourcing.png)' }} />
+                <div className="matrix-card-bg" style={{ backgroundImage: 'url(/images/services/sourcing.png)' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   <Globe size={32} color="var(--brand-orange)" style={{ marginBottom: '20px' }} />
                   <h3 style={{ fontSize: '22px', marginBottom: '12px' }}>Sourcing</h3>

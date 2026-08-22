@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AAA2Logo from '../common/AAA2Logo';
 
 const Preloader = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +33,7 @@ const Preloader = () => {
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: '#02040A',
+            backgroundColor: '#220150',
             zIndex: 9999,
             display: 'flex',
             flexDirection: 'column',
@@ -45,7 +46,7 @@ const Preloader = () => {
           <div style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
+            backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px)',
             backgroundSize: '40px 40px',
             opacity: 0.5,
             pointerEvents: 'none'
@@ -58,7 +59,7 @@ const Preloader = () => {
               transition={{ duration: 0.5 }}
               style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}
             >
-               <img src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/aaa2_logo.png" alt="AAA 2 Innovate Logo" width="600" height="200" style={{ height: '200px', width: 'auto', objectFit: 'contain' }} />
+               <AAA2Logo mode="dark" size={160} />
             </motion.div>
 
             {/* Progress counter */}

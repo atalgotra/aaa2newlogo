@@ -1,205 +1,210 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Search, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import AAA2Logo from '../common/AAA2Logo';
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+  const [heroProgress, setHeroProgress] = useState(0); // 0 = top of hero, 1 = past hero
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const heroEl = document.getElementById('hero');
+      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : window.innerHeight;
+      const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
+      // Ramp from 0→1 through the bottom 50% of the hero
+      const rawProgress = Math.min(1, Math.max(0, (window.scrollY - heroHeight * 0.5) / (heroHeight * 0.5)));
+      setHeroProgress(rawProgress);
+      setPastHero(window.scrollY + 90 >= heroBottom);
+
+      const sections = ['hero', 'about', 'services', 'products', 'ethical-sourcing', 'team', 'contact'];
+      const scrollPosition = window.scrollY + 140;
+
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (id) => {
+    setMobileMenuOpen(false);
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 90;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const navLinks = [
-    { name: 'Home', path: '/' },
-    {
-      name: 'Company', path: '/about', hasDropdown: true,
-      dropdownItems: [
-        { name: 'About Us', path: '/about' },
-        { name: 'Our Team', path: '/team' }
-      ]
-    },
-    { name: 'Services', path: '/services' },
-    { name: 'Products', path: '/products' },
-    { name: 'Ethical Sourcing', path: '/ethical-sourcing' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Home', sectionId: 'hero' },
+    { name: 'About Us', sectionId: 'about' },
+    { name: 'Capabilities', sectionId: 'services' },
+    { name: 'Products', sectionId: 'products' },
+    { name: 'Ethical Sourcing', sectionId: 'ethical-sourcing' },
+    { name: 'Team', sectionId: 'team' },
+    { name: 'Contact', sectionId: 'contact' },
   ];
 
   return (
     <header
       style={{
         position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        backgroundColor: '#FFFFFF',
-        boxShadow: isScrolled ? '0 2px 10px rgba(0,0,0,0.05)' : 'none',
+        top: pastHero ? '12px' : '20px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 'calc(100% - 32px)',
+        maxWidth: '1280px',
+        backgroundColor: pastHero
+          ? 'rgba(34, 1, 80, 0.95)'
+          : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`,
+        backdropFilter: (heroProgress > 0.1 || pastHero)
+          ? `blur(${Math.round(heroProgress * 10 + (pastHero ? 10 : 0))}px)`
+          : 'none',
+        borderRadius: '50px',
+        border: pastHero
+          ? '1px solid rgba(255, 255, 255, 0.15)'
+          : `1px solid rgba(255, 255, 255, ${(0.08 + heroProgress * 0.18).toFixed(2)})`,
+        boxShadow: pastHero ? '0 15px 40px rgba(0, 0, 0, 0.6)' : 'none',
         zIndex: 1000,
-        transition: 'all 0.3s ease'
+        transition: 'top 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease',
+        padding: '0 24px'
       }}
     >
-      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '90px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '68px' }}>
 
-        {/* Text-based Logo for Perfect Fit */}
-        <Link to="/" style={{ textDecoration: 'none', display: 'block', width: '220px', height: '90px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', height: '100%', paddingTop: '10px' }}>
-            <img className="nav-logo-unified" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/aaa2_logo.png" alt="AAA2 Innovate Logo" width="300" height="100" style={{ paddingTop: '5px', height: '100px', width: 'auto', transform: 'scale(3.2)', transformOrigin: 'left center', transition: 'all 0.3s', pointerEvents: 'none' }} />
-          </div>
-        </Link>
+        {/* AAA2 Logo */}
+        <div 
+          onClick={() => scrollToSection('hero')} 
+          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+        >
+          <AAA2Logo mode="dark" size={50} />
+        </div>
 
-        {/* Desktop Navigation */}
-        <nav style={{ display: 'flex', alignItems: 'stretch', gap: '10px', height: '90px' }} className="desktop-nav">
+        {/* Desktop Floating Navigation Items */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '4px', height: '100%' }} className="desktop-nav">
           {navLinks.map((link, index) => {
-            if (link.name === 'Services') {
-              return (
-                <div key={index} className="nav-dropdown-container" style={{ position: 'relative', display: 'flex', alignItems: 'stretch' }}>
-                  <Link
-                    to={link.path}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '0 20px',
-                      fontSize: '15px',
-                      fontWeight: 500,
-                      textDecoration: 'none',
-                      color: location.pathname === link.path ? 'var(--brand-orange)' : 'var(--text-primary)',
-                      fontFamily: 'Inter',
-                      borderTop: location.pathname === link.path ? '4px solid var(--brand-orange)' : '4px solid transparent',
-                      marginTop: '0'
-                    }}
-                  >
-                    {link.name}
-                  </Link>
-                  <div className="nav-dropdown-menu" style={{
-                    position: 'absolute', top: '100%', left: 0,
-                    backgroundColor: '#FFFFFF', boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-                    borderRadius: '0 0 12px 12px', padding: '16px 0', minWidth: '240px',
-                    display: 'none', flexDirection: 'column', borderTop: '2px solid var(--brand-orange)'
-                  }}>
-                    {[
-                      { name: 'Sourcing', path: '/services/sourcing' },
-                      { name: 'Design & PD', path: '/services/design' },
-                      { name: 'Manufacturing', path: '/services/manufacturing' },
-                      { name: 'Inspection & Compliance', path: '/services/quality-control-compliance' },
-                      { name: 'Warehousing', path: '/services/warehousing' },
-                      { name: 'Global Logistics', path: '/services/logistics' },
-                      { name: 'Digital Ops & Gen-Z Tech', path: '/services/tech' }
-                    ].map((subItem, subIdx) => (
-                      <Link key={subIdx} to={subItem.path} className="nav-dropdown-item" style={{
-                        padding: '12px 24px', fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)', textDecoration: 'none', fontFamily: 'Inter', display: 'block', transition: 'background-color 0.2s, color 0.2s'
-                      }}>
-                        {subItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              );
-            } else if (link.hasDropdown) {
-              return (
-                <div key={index} className="nav-dropdown-container" style={{ position: 'relative', display: 'flex', alignItems: 'stretch' }}>
-                  <Link
-                    to={link.path}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '0 20px',
-                      fontSize: '15px',
-                      fontWeight: 500,
-                      textDecoration: 'none',
-                      color: location.pathname === link.path ? 'var(--brand-orange)' : 'var(--text-primary)',
-                      fontFamily: 'Inter',
-                      borderTop: location.pathname === link.path ? '4px solid var(--brand-orange)' : '4px solid transparent',
-                      marginTop: '0'
-                    }}
-                  >
-                    {link.name}
-                  </Link>
-                  <div className="nav-dropdown-menu" style={{
-                    position: 'absolute', top: '100%', left: 0,
-                    backgroundColor: '#FFFFFF', boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-                    borderRadius: '0 0 12px 12px', padding: '16px 0', minWidth: '200px',
-                    display: 'none', flexDirection: 'column', borderTop: '2px solid var(--brand-orange)'
-                  }}>
-                    {link.dropdownItems.map((subItem, subIdx) => (
-                      <Link key={subIdx} to={subItem.path} className="nav-dropdown-item" style={{
-                        padding: '12px 24px', fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)', textDecoration: 'none', fontFamily: 'Inter', display: 'block', transition: 'background-color 0.2s, color 0.2s'
-                      }}>
-                        {subItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              );
-            }
+            const isActive = activeSection === link.sectionId;
             return (
-              <Link
+              <button
                 key={index}
-                to={link.path}
+                onClick={() => scrollToSection(link.sectionId)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  padding: '0 20px',
-                  fontSize: '15px',
-                  fontWeight: 500,
-                  textDecoration: 'none',
-                  color: location.pathname === link.path ? 'var(--brand-orange)' : 'var(--text-primary)',
-                  fontFamily: 'Inter',
-                  borderTop: location.pathname === link.path ? '4px solid var(--brand-orange)' : '4px solid transparent',
-                  marginTop: '0'
+                  padding: '8px 16px',
+                  borderRadius: '30px',
+                  fontSize: '14px',
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? '#FFFFFF' : '#CBD5E1',
+                  fontFamily: "'Chakra Petch', sans-serif",
+                  backgroundColor: isActive ? '#220150' : 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
                 }}
               >
                 {link.name}
-              </Link>
+              </button>
             );
           })}
-          <div style={{ display: 'flex', alignItems: 'center', padding: '0 10px' }}>
-            <button aria-label="Search" style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }}>
-              <Search size={20} />
-            </button>
-          </div>
         </nav>
 
-        {/* Mobile Menu Toggle */}
-        <div className="mobile-menu-toggle" style={{ display: 'none' }}>
-          <button aria-label="Toggle Mobile Menu" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} style={{ color: 'var(--text-primary)', border: 'none', background: 'transparent', cursor: 'pointer' }}>
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        {/* Action Button */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button
+            onClick={() => scrollToSection('contact')}
+            className="btn-primary"
+            style={{
+              padding: '10px 22px',
+              fontSize: '13px',
+              fontWeight: 600,
+              borderRadius: '30px',
+              backgroundColor: '#2563EB',
+              color: '#FFFFFF',
+              boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
+            }}
+          >
+            Get In Touch
           </button>
+
+          {/* Mobile Menu Toggle */}
+          <div className="mobile-menu-toggle" style={{ display: 'none' }}>
+            <button 
+              aria-label="Toggle Mobile Menu" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+              style={{ color: '#FFFFFF', border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '4px' }}
+            >
+              {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+            </button>
+          </div>
         </div>
+
       </div>
 
-      {/* Basic Mobile Navigation CSS & Logic (Inline for simplicity) */}
       <style>{`
         @media (max-width: 992px) {
           .desktop-nav { display: none !important; }
           .mobile-menu-toggle { display: block !important; }
         }
-        .nav-dropdown-container:hover .nav-dropdown-menu {
-          display: flex !important;
-        }
-        .nav-dropdown-item:hover {
-          background-color: rgba(255, 87, 34, 0.05);
-          color: var(--brand-orange) !important;
-        }
       `}</style>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Dropdown Card */}
       {mobileMenuOpen && (
-        <div style={{ position: 'absolute', top: '90px', left: 0, width: '100%', backgroundColor: '#FFFFFF', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', padding: '20px', borderTop: '1px solid var(--border-light)' }}>
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+        <div 
+          style={{ 
+            position: 'absolute', 
+            top: '76px', 
+            left: 0, 
+            width: '100%', 
+            backgroundColor: 'rgba(34, 1, 80, 0.95)', 
+            backdropFilter: 'blur(20px)',
+            borderRadius: '24px',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.5)', 
+            padding: '24px', 
+            border: '1px solid rgba(255, 255, 255, 0.15)' 
+          }}
+        >
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {navLinks.map((link, index) => (
-              <Link
+              <button
                 key={index}
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                style={{ fontSize: '16px', fontWeight: 500, textDecoration: 'none', color: location.pathname === link.path ? 'var(--brand-orange)' : 'var(--text-primary)' }}
+                onClick={() => scrollToSection(link.sectionId)}
+                style={{ 
+                  fontSize: '15px', 
+                  fontWeight: 600, 
+                  textAlign: 'left', 
+                  padding: '12px 16px', 
+                  borderRadius: '12px',
+                  border: 'none', 
+                  backgroundColor: activeSection === link.sectionId ? '#2563EB' : 'transparent', 
+                  color: '#FFFFFF', 
+                  cursor: 'pointer' 
+                }}
               >
                 {link.name}
-              </Link>
+              </button>
             ))}
           </nav>
         </div>
