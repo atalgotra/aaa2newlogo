@@ -90,7 +90,7 @@ const ProductSpecModal = ({ isOpen, onClose, productData, onSelectCategory }) =>
             <div style={{ fontSize: '11px', fontWeight: 700, color: '#38BDF8', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '4px' }}>
               {productData.category || 'B2B Specimen'}
             </div>
-            <h3 style={{ fontSize: '26px', fontWeight: 800, margin: 0, fontFamily: "'Outfit', sans-serif" }}>
+            <h3 style={{ fontSize: '26px', fontWeight: 800, margin: 0 }}>
               {productData.title}
             </h3>
           </div>

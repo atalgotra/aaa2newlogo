@@ -101,7 +101,7 @@ Notes: ${formData.message || 'None'}`;
       {/* STEP 1: CATEGORY SELECTOR */}
       {step === 1 && (
         <div>
-          <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px', fontFamily: "'Outfit', sans-serif" }}>
+          <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>
             1. Select Your Sourcing Category
           </h3>
           <p style={{ color: '#94A3B8', fontSize: '14px', marginBottom: '24px' }}>
@@ -149,7 +149,7 @@ Notes: ${formData.message || 'None'}`;
       {/* STEP 2: VOLUME & MOQ SELECTOR */}
       {step === 2 && (
         <div>
-          <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px', fontFamily: "'Outfit', sans-serif" }}>
+          <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>
             2. Select Estimated Order Scale ({selectedCat.title})
           </h3>
           <p style={{ color: '#94A3B8', fontSize: '14px', marginBottom: '24px' }}>
@@ -201,7 +201,7 @@ Notes: ${formData.message || 'None'}`;
       {/* STEP 3: CONTACT & REAL-TIME AUDIT SUMMARY */}
       {step === 3 && (
         <form onSubmit={handleSubmit}>
-          <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px', fontFamily: "'Outfit', sans-serif" }}>
+          <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>
             3. Finalize &amp; Dispatch Project Brief
           </h3>
 

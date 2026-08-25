@@ -34,7 +34,7 @@ const teamMembers = [
 
 const Team = () => {
 return (
-    <div style={{paddingTop: '90px',  backgroundColor: '#02040A', minHeight: '100vh', fontFamily: 'Outfit, sans-serif' }}>
+    <div style={{paddingTop: '90px',  backgroundColor: '#02040A', minHeight: '100vh' }}>
       <Helmet>
         <title>Leadership Team | Global Supply Chain Visionaries | AAA 2 Innovate</title>
         <meta name="description" content="Meet the visionary directors behind AAA 2 Innovate. Discover the experts driving our corporate finance, logistics operations, and international market expansion." />

@@ -43,7 +43,6 @@ const Footer = () => {
       <footer style={{
         padding: '60px 0 20px',
         background: 'linear-gradient(180deg, #220150 0%, #140038 100%)',
-        fontFamily: 'Outfit, sans-serif',
         position: 'relative'
       }}>
         <div className="container footer-grid" style={{ display: 'grid', gap: '40px' }}>
@@ -82,7 +81,6 @@ const Footer = () => {
               <li><button onClick={() => scrollToSection('services')} style={{ border: 'none', background: 'transparent', color: '#CBD5E1', cursor: 'pointer', padding: 0, fontSize: '15px' }}>Capabilities</button></li>
               <li><button onClick={() => scrollToSection('products')} style={{ border: 'none', background: 'transparent', color: '#CBD5E1', cursor: 'pointer', padding: 0, fontSize: '15px' }}>Products</button></li>
               <li><button onClick={() => scrollToSection('ethical-sourcing')} style={{ border: 'none', background: 'transparent', color: '#CBD5E1', cursor: 'pointer', padding: 0, fontSize: '15px' }}>Ethical Sourcing</button></li>
-              <li><button onClick={() => scrollToSection('team')} style={{ border: 'none', background: 'transparent', color: '#CBD5E1', cursor: 'pointer', padding: 0, fontSize: '15px' }}>Leadership</button></li>
               <li><button onClick={() => scrollToSection('contact')} style={{ border: 'none', background: 'transparent', color: '#CBD5E1', cursor: 'pointer', padding: 0, fontSize: '15px' }}>Contact Hub</button></li>
             </ul>
           </div>

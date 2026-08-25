@@ -99,7 +99,7 @@ const Contact = () => {
         
         <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <h1 style={{ fontSize: 'clamp(40px, 8vw, 72px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.1, fontFamily: 'Outfit', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h1 style={{ fontSize: 'clamp(40px, 8vw, 72px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <TextReveal text="Let's Build the Future" elementType="div" style={{ display: 'inline-flex' }} justifyContent="center" />
             </h1>
             <p style={{ color: '#D1D5DB', fontSize: '22px', lineHeight: 1.6, fontWeight: 300 }}>
@@ -117,7 +117,7 @@ const Contact = () => {
             {/* Contact Information */}
             <div>
               <div style={{ marginBottom: '48px' }}>
-                <h2 style={{ fontSize: '36px', fontWeight: 800, color: '#FFFFFF', marginBottom: '16px', fontFamily: 'Outfit' }}>
+                <h2 style={{ fontSize: '36px', fontWeight: 800, color: '#FFFFFF', marginBottom: '16px' }}>
                   Get in Touch
                 </h2>
                 <p style={{ color: '#9CA3AF', fontSize: '18px', lineHeight: 1.6 }}>
@@ -330,7 +330,7 @@ const Contact = () => {
               <span style={{ color: 'var(--brand-orange)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', fontSize: '14px' }}>Global Reach</span>
             </div>
             
-            <h3 style={{ fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', fontFamily: 'Outfit' }}>
+            <h3 style={{ fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px' }}>
               Global Operations,{' '}<span style={{ 
                 background: 'linear-gradient(135deg, #FFF 0%, var(--brand-orange) 100%)', 
                 WebkitBackgroundClip: 'text', 

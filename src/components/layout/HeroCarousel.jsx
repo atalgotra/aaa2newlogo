@@ -91,7 +91,7 @@ const HeroCarousel = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              style={{ color: '#FFFFFF', textShadow: '0 4px 15px rgba(0,0,0,0.8)', fontSize: 'clamp(40px, 5vw, 64px)', fontWeight: 800, marginBottom: '20px', lineHeight: 1.1, fontFamily: 'Outfit', margin: 0 }}
+              style={{ color: '#FFFFFF', textShadow: '0 4px 15px rgba(0,0,0,0.8)', fontSize: 'clamp(40px, 5vw, 64px)', fontWeight: 800, marginBottom: '20px', lineHeight: 1.1, margin: 0 }}
             >
               {slides[currentSlide].titleMain}
               <span style={{ color: 'var(--brand-orange)' }}>{slides[currentSlide].titleOrange}</span>
@@ -105,7 +105,7 @@ const HeroCarousel = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              style={{ fontSize: 'clamp(18px, 2vw, 24px)', fontWeight: 300, marginBottom: '40px', color: '#E5E7EB', textShadow: '0 4px 15px rgba(0,0,0,0.8)', fontFamily: 'Outfit, sans-serif', textAlign: 'left', lineHeight: '1.6' }}
+              style={{ fontSize: 'clamp(18px, 2vw, 24px)', fontWeight: 300, marginBottom: '40px', color: '#E5E7EB', textShadow: '0 4px 15px rgba(0,0,0,0.8)', textAlign: 'left', lineHeight: '1.6' }}
             >
               {slides[currentSlide].subtitle}
             </motion.p>

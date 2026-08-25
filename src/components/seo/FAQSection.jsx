@@ -46,7 +46,7 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions" }) => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '24px', lineHeight: 1.2, fontFamily: 'Outfit, sans-serif' }}>
+              <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '24px', lineHeight: 1.2 }}>
                 Got Questions?<br />
                 <span style={{ color: 'var(--brand-orange)' }}>We've Got Answers.</span>
               </h2>

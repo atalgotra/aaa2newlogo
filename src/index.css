@@ -136,7 +136,7 @@ h4,
 h5,
 h6,
 .display-font {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   color: var(--text-primary);
   line-height: 1.2;
 }
@@ -160,7 +160,7 @@ button {
   cursor: pointer;
   border: none;
   background: none;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
 }
 
 /* Base Classes */
@@ -268,7 +268,7 @@ button {
   font-weight: 700;
   color: #6B7280;
   /* Darker, richer grey for excellent contrast */
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   letter-spacing: 2px;
   transition: color 0.3s ease, transform 0.3s ease;
   cursor: default;

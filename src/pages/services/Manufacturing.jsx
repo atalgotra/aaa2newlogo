@@ -65,7 +65,7 @@ const serviceFaqs = [
 
 const Manufacturing = () => {
 return (
-    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', fontFamily: 'Outfit, sans-serif', paddingTop: '90px' }}>
+    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '90px' }}>
       <Helmet>
         <title>Precision Custom Manufacturing in India | AAA 2 Innovate</title>
         <meta name="description" content="End-to-end precision manufacturing across 500+ specialized Indian factories. Benefit from real-time tracking, massive scalability, and zero-defect tolerance." />

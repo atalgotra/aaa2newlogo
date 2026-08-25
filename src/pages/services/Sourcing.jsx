@@ -34,7 +34,7 @@ const serviceFaqs = [
 
 const Sourcing = () => {
 return (
-    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', fontFamily: 'Outfit, sans-serif', paddingTop: '90px' }}>
+    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '90px' }}>
       <Helmet>
         <title>Global Sourcing & Procurement Services | AAA 2 Innovate</title>
         <meta name="description" content="Leverage our elite sourcing network in India. We procure high-quality materials and products directly from vetted factories, completely eliminating middleman markups." />

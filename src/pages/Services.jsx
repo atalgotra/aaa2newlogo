@@ -11,7 +11,7 @@ import CTASection from '../components/CTASection';
 const Services = () => {
   // Scroll to top on load
 return (
-    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', fontFamily: 'Outfit, sans-serif', paddingTop: '90px' }}>
+    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '90px' }}>
       <Helmet>
         <title>Our Services | Custom Manufacturing & IT Solutions | AAA 2 Innovate</title>
         <meta name="description" content="Explore AAA 2 Innovate's world-class B2B services: Ethical Sourcing, Custom Manufacturing, Quality Control, Digital Warehousing, Global Logistics, and Elite Software Engineering." />

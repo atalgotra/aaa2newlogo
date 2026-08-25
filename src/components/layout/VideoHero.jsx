@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react';
-import { ArrowRight, Zap, Globe, Cpu } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { gsap, ScrollTrigger, createGsapScope, prefersReducedMotion } from '../../utils/gsapUtils';
 
 /* ─────────────────────────────────────────────────────────────
@@ -47,10 +47,6 @@ const VideoHero = () => {
   const scrollChevronRef   = useRef(null);       // Scroll SVG chevron
   const transitionBeamRef  = useRef(null);       // Golden transition line to next section
 
-  /* Floating Metric Badges */
-  const badgeLeftRef       = useRef(null);       // ⚡ 50+ Global Hubs
-  const badgeRightRef      = useRef(null);       // 🌐 100% Ethical & Audited
-  const badgeBottomRef     = useRef(null);       // 🚀 AI Supply Chain Tech
 
   /* Mouse stardust & shockwave state inside Canvas */
   const particlesRef       = useRef([]);
@@ -291,14 +287,6 @@ const VideoHero = () => {
     const qContentX = gsap.quickTo(contentRef.current,    'x', { duration: 1.0, ease: 'power1.out' });
     const qContentY = gsap.quickTo(contentRef.current,    'y', { duration: 1.0, ease: 'power1.out' });
 
-    /* Floating Badges Parallax */
-    const qBadgeLX  = gsap.quickTo(badgeLeftRef.current,  'x', { duration: 1.5, ease: 'power1.out' });
-    const qBadgeLY  = gsap.quickTo(badgeLeftRef.current,  'y', { duration: 1.5, ease: 'power1.out' });
-    const qBadgeRX  = gsap.quickTo(badgeRightRef.current, 'x', { duration: 1.5, ease: 'power1.out' });
-    const qBadgeRY  = gsap.quickTo(badgeRightRef.current, 'y', { duration: 1.5, ease: 'power1.out' });
-    const qBadgeBX  = gsap.quickTo(badgeBottomRef.current,'x', { duration: 1.5, ease: 'power1.out' });
-    const qBadgeBY  = gsap.quickTo(badgeBottomRef.current,'y', { duration: 1.5, ease: 'power1.out' });
-
     const handleMouseMove = (e) => {
       const rect  = hero.getBoundingClientRect();
       const cx    = rect.left + rect.width  / 2;
@@ -310,10 +298,6 @@ const VideoHero = () => {
       qBgX(nx      * 4.0);  qBgY(ny      * 4.0);
       qCanvasX(nx  * 2.5);  qCanvasY(ny  * 2.5);
       qContentX(nx * 0.5);  qContentY(ny * 0.5);
-
-      if (badgeLeftRef.current)  { qBadgeLX(nx * -12); qBadgeLY(ny * -12); }
-      if (badgeRightRef.current) { qBadgeRX(nx * 14);  qBadgeRY(ny * 14); }
-      if (badgeBottomRef.current){ qBadgeBX(nx * 10);  qBadgeBY(ny * 10); }
     };
 
     hero.addEventListener('mousemove', handleMouseMove);
@@ -335,8 +319,7 @@ const VideoHero = () => {
       const contentElements = [
         brandRef.current, mottoRef.current, mottoLineRef.current,
         titleLine1Ref.current, titleLine2Ref.current, subtextRef.current,
-        ctaRef.current, scrollIndRef.current,
-        badgeLeftRef.current, badgeRightRef.current, badgeBottomRef.current
+        ctaRef.current, scrollIndRef.current
       ].filter(Boolean);
 
       if (reduced) {
@@ -374,17 +357,6 @@ const VideoHero = () => {
               yoyo: true,
               repeat: -1
             });
-
-            /* Continuous Floating Drift for Glass Badges */
-            if (badgeLeftRef.current) {
-              gsap.to(badgeLeftRef.current, { y: '-=8', duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-            }
-            if (badgeRightRef.current) {
-              gsap.to(badgeRightRef.current, { y: '+=10', duration: 3.8, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 0.4 });
-            }
-            if (badgeBottomRef.current) {
-              gsap.to(badgeBottomRef.current, { y: '-=7', duration: 3.5, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 0.8 });
-            }
           }
         });
 
@@ -430,28 +402,6 @@ const VideoHero = () => {
           1.05
         );
 
-        /* 1.60s: Reveal Floating Badges */
-        if (badgeLeftRef.current) {
-          masterTl.fromTo(badgeLeftRef.current,
-            { opacity: 0, x: -30, scale: 0.85 },
-            { opacity: 1, x: 0, scale: 1, duration: 0.8, ease: 'back.out(1.4)' },
-            1.60
-          );
-        }
-        if (badgeRightRef.current) {
-          masterTl.fromTo(badgeRightRef.current,
-            { opacity: 0, x: 30, scale: 0.85 },
-            { opacity: 1, x: 0, scale: 1, duration: 0.8, ease: 'back.out(1.4)' },
-            1.75
-          );
-        }
-        if (badgeBottomRef.current) {
-          masterTl.fromTo(badgeBottomRef.current,
-            { opacity: 0, y: 25, scale: 0.85 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'back.out(1.4)' },
-            1.90
-          );
-        }
 
         /* 1.95s: Reveal supporting copy */
         masterTl.fromTo(subtextRef.current,
@@ -514,10 +464,6 @@ const VideoHero = () => {
           if (subtextRef.current) gsap.set(subtextRef.current, { opacity: Math.max(0, 1 - p * 3.5), y: -p * 30 });
           if (ctaRef.current)     gsap.set(ctaRef.current,     { opacity: Math.max(0, 1 - p * 3.5), y: -p * 25 });
 
-          /* Badges fade out on scroll */
-          if (badgeLeftRef.current)   gsap.set(badgeLeftRef.current,   { opacity: Math.max(0, 1 - p * 4.0), x: -p * 40 });
-          if (badgeRightRef.current)  gsap.set(badgeRightRef.current,  { opacity: Math.max(0, 1 - p * 4.0), x: p * 40 });
-          if (badgeBottomRef.current) gsap.set(badgeBottomRef.current, { opacity: Math.max(0, 1 - p * 4.0), y: p * 30 });
 
           /* Scroll indicator fades */
           if (scrollIndRef.current) gsap.set(scrollIndRef.current, { opacity: Math.max(0, 1 - p * 8) });
@@ -589,7 +535,7 @@ const VideoHero = () => {
           autoPlay loop muted playsInline preload="auto"
           style={{ display: 'block', width: '100%', height: 'auto' }}
         >
-          <source src="/hero-video.mp4" type="video/mp4" />
+          <source src="/hero-video.mp4?v=cleaned" type="video/mp4" />
         </video>
       </div>
 
@@ -608,71 +554,6 @@ const VideoHero = () => {
         willChange: 'transform, opacity',
       }} />
 
-      {/* ── Holographic Glass Metric Badges (Desktop Flanking Cards) ── */}
-      <div className="desktop-only-badge" style={{ pointerEvents: 'auto' }}>
-        {/* Left Badge */}
-        <div
-          ref={badgeLeftRef}
-          className="hero-glass-badge"
-          style={{
-            position: 'absolute',
-            top: '38%',
-            left: '3%',
-            zIndex: 6,
-            opacity: 0,
-            visibility: 'hidden',
-            willChange: 'transform, opacity',
-          }}
-        >
-          <span className="badge-pulse-dot" style={{ backgroundColor: '#F59E0B', boxShadow: '0 0 10px #F59E0B' }} />
-          <Zap size={14} color="#FDE68A" />
-          <span>50+ Global Sourcing Hubs</span>
-        </div>
-
-        {/* Right Badge */}
-        <div
-          ref={badgeRightRef}
-          className="hero-glass-badge"
-          style={{
-            position: 'absolute',
-            top: '42%',
-            right: '3%',
-            zIndex: 6,
-            opacity: 0,
-            visibility: 'hidden',
-            willChange: 'transform, opacity',
-          }}
-        >
-          <span className="badge-pulse-dot" style={{ backgroundColor: '#00F0FF', boxShadow: '0 0 10px #00F0FF' }} />
-          <Globe size={14} color="#00F0FF" />
-          <span>100% Ethical &amp; ISO Audited</span>
-        </div>
-
-        {/* Bottom Right Badge */}
-        <div
-          ref={badgeBottomRef}
-          className="hero-glass-badge"
-          style={{
-            position: 'absolute',
-            bottom: '14%',
-            right: '6%',
-            zIndex: 6,
-            opacity: 0,
-            visibility: 'hidden',
-            willChange: 'transform, opacity',
-          }}
-        >
-          <span className="badge-pulse-dot" style={{ backgroundColor: '#A855F7', boxShadow: '0 0 10px #A855F7' }} />
-          <Cpu size={14} color="#C084FC" />
-          <span>AI Supply Chain Tech</span>
-        </div>
-      </div>
-
-      <style>{`
-        @media (max-width: 1024px) {
-          .desktop-only-badge { display: none !important; }
-        }
-      `}</style>
 
       {/* ── Plane 4: Foreground Content ── */}
       <div ref={contentRef} style={{

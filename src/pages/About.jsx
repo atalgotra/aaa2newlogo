@@ -11,7 +11,7 @@ const About = () => {
   const y = useTransform(scrollY, [0, 800], [0, 300]);
 
   return (
-    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', fontFamily: 'Outfit, sans-serif', paddingTop: '90px' }}>
+    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '90px' }}>
       <Helmet>
         <title>About Us | Global Sourcing & Supply Chain Experts | AAA 2 Innovate</title>
         <meta name="description" content="Learn about AAA 2 Innovate, a dynamic global enterprise led by 27-year industry veterans. We digitize and optimize traditional supply chains through advanced IT engineering and physical infrastructure." />
@@ -134,19 +134,19 @@ const About = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px', textAlign: 'center' }}>
             
             <div style={{ padding: '32px', backgroundColor: 'var(--bg-main)', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
-              <div style={{ fontSize: '48px', fontWeight: 800, color: 'var(--brand-orange)', marginBottom: '8px', fontFamily: 'Outfit, sans-serif' }}>15+</div>
+              <div style={{ fontSize: '48px', fontWeight: 800, color: 'var(--brand-orange)', marginBottom: '8px', fontFamily: 'var(--font-display)' }}>15+</div>
               <h4 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>Countries Served</h4>
               <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: 1.6, margin: 0 }}>Delivering end-to-end supply chain solutions globally.</p>
             </div>
 
             <div style={{ padding: '32px', backgroundColor: 'var(--bg-main)', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
-              <div style={{ fontSize: '48px', fontWeight: 800, color: 'var(--brand-orange)', marginBottom: '8px', fontFamily: 'Outfit, sans-serif' }}>50+</div>
+              <div style={{ fontSize: '48px', fontWeight: 800, color: 'var(--brand-orange)', marginBottom: '8px', fontFamily: 'var(--font-display)' }}>50+</div>
               <h4 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>Manufacturing Partners</h4>
               <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: 1.6, margin: 0 }}>A robust, fully vetted network of Indian manufacturers.</p>
             </div>
 
             <div style={{ padding: '32px', backgroundColor: 'var(--bg-main)', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
-              <div style={{ fontSize: '48px', fontWeight: 800, color: 'var(--brand-orange)', marginBottom: '8px', fontFamily: 'Outfit, sans-serif' }}>100%</div>
+              <div style={{ fontSize: '48px', fontWeight: 800, color: 'var(--brand-orange)', marginBottom: '8px', fontFamily: 'var(--font-display)' }}>100%</div>
               <h4 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>Ethical Compliance</h4>
               <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: 1.6, margin: 0 }}>Strict adherence to SA8000 and ISO 14001 standards.</p>
             </div>

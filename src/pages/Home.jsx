@@ -261,11 +261,11 @@ const Home = () => {
               {/* Stats Counters */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px', paddingBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                 <div>
-                  <div ref={counterRef1} style={{ fontSize: '36px', fontWeight: 800, color: '#2563EB', fontFamily: "'Outfit', sans-serif" }}>100+</div>
+                  <div ref={counterRef1} style={{ fontSize: '36px', fontWeight: 800, color: '#2563EB', fontFamily: "var(--font-display)" }}>100+</div>
                   <div style={{ fontSize: '13px', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '1px' }}>Global Manufacturing Partners</div>
                 </div>
                 <div>
-                  <div ref={counterRef2} style={{ fontSize: '36px', fontWeight: 800, color: '#2563EB', fontFamily: "'Outfit', sans-serif" }}>100%</div>
+                  <div ref={counterRef2} style={{ fontSize: '36px', fontWeight: 800, color: '#2563EB', fontFamily: "var(--font-display)" }}>100%</div>
                   <div style={{ fontSize: '13px', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '1px' }}>Statutory Audit Compliance</div>
                 </div>
               </div>
@@ -377,7 +377,7 @@ const Home = () => {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 18px', borderRadius: '50px', backgroundColor: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.2)', color: '#E2E8F0', fontSize: '13px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '16px' }}>
               Product Categories
             </div>
-            <h2 style={{ fontSize: 'clamp(32px, 6vw, 52px)', fontWeight: 800, color: '#FFFFFF', margin: 0, fontFamily: 'Outfit' }}>
+            <h2 style={{ fontSize: 'clamp(32px, 6vw, 52px)', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
               B2B Product Showcase
             </h2>
             <p style={{ color: '#E2E8F0', fontSize: '18px', maxWidth: '750px', margin: '16px auto 0 auto', lineHeight: 1.6 }}>
@@ -414,7 +414,7 @@ const Home = () => {
                 <Leaf size={16} color="#34D399" /> Ethical Sourcing
               </div>
 
-              <h2 style={{ fontSize: 'clamp(28px, 5vw, 44px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', fontFamily: 'Outfit', lineHeight: 1.2 }}>
+              <h2 style={{ fontSize: 'clamp(28px, 5vw, 44px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.2 }}>
                 Pioneering Sustainable &amp; Compliant Manufacturing
               </h2>
               <p style={{ color: '#E2E8F0', fontSize: '17px', lineHeight: 1.8, marginBottom: '24px', textAlign: 'justify' }}>
@@ -447,61 +447,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 6. Leadership / Team Section */}
-      <section id="team" className="section-padding gsap-section" style={{ backgroundColor: '#220150', color: '#FFFFFF', paddingTop: '80px', paddingBottom: '80px' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 18px', borderRadius: '50px', backgroundColor: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.2)', color: '#E2E8F0', fontSize: '13px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '16px' }}>
-              Leadership
-            </div>
-            <h2 style={{ fontSize: 'clamp(32px, 6vw, 52px)', fontWeight: 800, color: '#FFFFFF', margin: 0, fontFamily: 'Outfit' }}>
-              Meet The Visionaries
-            </h2>
-            <p style={{ color: '#E2E8F0', fontSize: '18px', maxWidth: '750px', margin: '16px auto 0 auto', lineHeight: 1.6 }}>
-              A dynamic fusion of seasoned expertise across corporate finance, global logistics, and enterprise scale.
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '40px' }}>
-            {teamMembers.map((member) => (
-              <TiltCard 
-                key={member.id}
-                style={{ 
-                  backgroundColor: 'rgba(255,255,255,0.04)',
-                  borderRadius: '24px',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  padding: '32px',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-                  overflow: 'hidden'
-                }}
-              >
-                <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '24px' }}>
-                  <div style={{ width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden', border: '2px solid #2563EB', flexShrink: 0 }}>
-                    <img loading="lazy" src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>{member.name}</h3>
-                    <h4 style={{ color: '#E2E8F0', fontSize: '14px', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', margin: '4px 0 0 0' }}>{member.role} • {member.expertise}</h4>
-                  </div>
-                </div>
-
-                <p style={{ fontSize: '15px', color: '#CBD5E1', lineHeight: 1.7, textAlign: 'justify', marginBottom: '24px' }}>
-                  {member.bio}
-                </p>
-
-                <div style={{ display: 'flex', gap: '16px' }}>
-                  <a aria-label="LinkedIn" href={member.linkedin} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.15)' }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                  </a>
-                  <a aria-label="Email" href={member.email} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.15)' }}>
-                    <Mail size={18} />
-                  </a>
-                </div>
-              </TiltCard>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* 7. Interactive Contact Section */}
       <section id="contact" className="gsap-section" style={{ padding: '80px 0 100px 0', backgroundColor: '#140038', color: '#FFFFFF' }}>
@@ -510,7 +455,7 @@ const Home = () => {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 18px', borderRadius: '50px', backgroundColor: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.2)', color: '#E2E8F0', fontSize: '13px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '16px' }}>
               Contact Hub
             </div>
-            <h2 style={{ fontSize: 'clamp(32px, 6vw, 52px)', fontWeight: 800, color: '#FFFFFF', margin: 0, fontFamily: 'Outfit' }}>
+            <h2 style={{ fontSize: 'clamp(32px, 6vw, 52px)', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
               Start Your Journey With Us
             </h2>
             <p style={{ color: '#E2E8F0', fontSize: '18px', maxWidth: '750px', margin: '16px auto 0 auto', lineHeight: 1.6 }}>

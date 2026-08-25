@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 const TermsOfService = () => {
 return (
-    <div style={{paddingTop: '90px',  backgroundColor: 'var(--bg-main)', minHeight: '100vh', paddingBottom: '80px', fontFamily: 'Outfit, sans-serif' }}>
+    <div style={{paddingTop: '90px',  backgroundColor: 'var(--bg-main)', minHeight: '100vh', paddingBottom: '80px' }}>
       <Helmet>
         <title>Terms of Service | AAA 2 Innovate</title>
               <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />

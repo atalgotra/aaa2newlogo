@@ -34,7 +34,7 @@ const serviceFaqs = [
 
 const Design = () => {
 return (
-    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', fontFamily: 'Outfit, sans-serif', paddingTop: '90px' }}>
+    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '90px' }}>
       <Helmet>
         <title>Product Design & Development | Custom Manufacturing | AAA 2 Innovate</title>
         <meta name="description" content="Transform concepts into market-ready merchandise. Our specialized design team engineers physical products tailored to global consumer trends and your brand's unique identity." />

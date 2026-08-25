@@ -18,7 +18,7 @@ const HoverCert = ({ text }) => {
 
 const EthicalSourcing = () => {
   return (
-    <div style={{ width: '100%', backgroundColor: '#02040A', fontFamily: 'Outfit, sans-serif', paddingTop: '90px', minHeight: '100vh', paddingBottom: '0' }}>
+    <div style={{ width: '100%', backgroundColor: '#02040A', paddingTop: '90px', minHeight: '100vh', paddingBottom: '0' }}>
       <Helmet>
         <title>Ethical Sourcing & Sustainability | AAA 2 Innovate</title>
         <meta name="description" content="We enforce strict compliance, fair labor practices, and sustainable procurement across our entire Indian manufacturing network. Source globally with absolute integrity." />
@@ -75,7 +75,7 @@ const EthicalSourcing = () => {
         <div className="container">
           <div className="responsive-grid-2" style={{ alignItems: 'center' }}>
             <div>
-              <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '32px', fontFamily: 'Outfit', lineHeight: 1.2 }}>
+              <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '32px', lineHeight: 1.2 }}>
                 Pioneering the Future of Sustainable Manufacturing
               </h2>
               <p style={{ color: '#9CA3AF', fontSize: '18px', lineHeight: 1.8, marginBottom: '24px', textAlign: 'justify' }}>
@@ -149,7 +149,7 @@ const EthicalSourcing = () => {
                 <Heart color="var(--brand-orange)" size={28} />
                 <span style={{ color: 'var(--brand-orange)', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', fontSize: '14px' }}>Social Impact</span>
               </div>
-              <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '32px', fontFamily: 'Outfit', lineHeight: 1.2 }}>
+              <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '32px', lineHeight: 1.2 }}>
                 Empowering the Future of India
               </h2>
               <p style={{ color: '#9CA3AF', fontSize: '18px', lineHeight: 1.8, marginBottom: '24px', textAlign: 'justify' }}>

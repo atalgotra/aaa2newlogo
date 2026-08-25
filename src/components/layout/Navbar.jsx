@@ -18,7 +18,7 @@ const Navbar = () => {
       setHeroProgress(rawProgress);
       setPastHero(window.scrollY + 90 >= heroBottom);
 
-      const sections = ['hero', 'about', 'services', 'products', 'ethical-sourcing', 'team', 'contact'];
+      const sections = ['hero', 'about', 'services', 'products', 'ethical-sourcing', 'contact'];
       const scrollPosition = window.scrollY + 140;
 
       for (const sectionId of sections) {
@@ -62,7 +62,6 @@ const Navbar = () => {
     { name: 'Capabilities', sectionId: 'services' },
     { name: 'Products', sectionId: 'products' },
     { name: 'Ethical Sourcing', sectionId: 'ethical-sourcing' },
-    { name: 'Team', sectionId: 'team' },
     { name: 'Contact', sectionId: 'contact' },
   ];
 

@@ -68,7 +68,7 @@ const Preloader = () => {
                  initial={{ y: 50, opacity: 0 }}
                  animate={{ y: 0, opacity: 1 }}
                  transition={{ duration: 0.5, delay: 0.4 }}
-                 style={{ fontSize: '64px', fontWeight: 800, fontFamily: 'Outfit', display: 'flex', alignItems: 'baseline' }}
+                 style={{ fontSize: '64px', fontWeight: 800, fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'baseline' }}
                >
                  {progress}<span style={{ fontSize: '24px', color: '#9CA3AF', marginLeft: '4px' }}>%</span>
                </motion.div>

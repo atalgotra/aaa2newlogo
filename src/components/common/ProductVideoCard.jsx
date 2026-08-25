@@ -157,7 +157,6 @@ const ProductVideoCard = ({
             fontWeight: 800,
             color: '#FFFFFF',
             margin: 0,
-            fontFamily: "'Outfit', sans-serif",
             textShadow: '0 2px 10px rgba(0,0,0,0.5)'
           }}
         >
