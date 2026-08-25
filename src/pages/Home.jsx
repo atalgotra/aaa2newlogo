@@ -9,9 +9,9 @@ import TestimonialSlider from '../components/TestimonialSlider';
 import SchemaInjector from '../components/seo/SchemaInjector';
 import FAQSection from '../components/seo/FAQSection';
 import TiltCard from '../components/animations/TiltCard';
-import { 
-  ShieldCheck, Target, Users, Lightbulb, Leaf, Award, Cloud, LayoutGrid, Server, BadgeCheck, Globe, Sun, 
-  MapPin, Phone, Mail, Clock, Send, Loader2, TrendingUp, ShoppingBag, Sparkles, Droplet, Zap, Droplets, Heart 
+import {
+  ShieldCheck, Target, Users, Lightbulb, Leaf, Award, Cloud, LayoutGrid, Server, BadgeCheck, Globe, Sun,
+  MapPin, Phone, Mail, Clock, Send, Loader2, TrendingUp, ShoppingBag, Sparkles, Droplet, Zap, Droplets, Heart
 } from 'lucide-react';
 import { gsap, createGsapScope, animateNumberCounter } from '../utils/gsapUtils';
 
@@ -107,7 +107,7 @@ const Home = () => {
     e.preventDefault();
     setLoading(true);
     setSubmitStatus(null);
-    
+
     try {
       const response = await fetch('https://finance.devapi.zipaworld.com/api/contactUs/contactMailAaa2', {
         method: 'POST',
@@ -216,7 +216,7 @@ const Home = () => {
           <div className="about-grid" style={{ alignItems: 'stretch' }}>
 
             {/* Left: Bio Text */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}>
               <h2 className="text-h1" style={{ fontWeight: 300, color: 'var(--text-primary)', marginBottom: '8px' }}>Why India?</h2>
               <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--brand-blue)', marginBottom: '24px', letterSpacing: '2px', textTransform: 'uppercase' }}>The Dual Powerhouse</h3>
 
@@ -230,7 +230,7 @@ const Home = () => {
               </div>
 
               <div style={{ marginTop: '32px' }}>
-                <button 
+                <button
                   onClick={() => scrollToSection('services')}
                   className="btn-primary"
                   style={{ padding: '16px 40px', fontSize: '15px' }}
@@ -242,10 +242,10 @@ const Home = () => {
 
             {/* Right: Why Brands Trust Us with Counter */}
             <div
-              style={{ 
-                backgroundColor: 'var(--bg-secondary)', 
-                borderRadius: '24px', 
-                border: '1px solid var(--border-light)', 
+              style={{
+                backgroundColor: 'var(--bg-secondary)',
+                borderRadius: '24px',
+                border: '1px solid var(--border-light)',
                 padding: '40px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -257,7 +257,7 @@ const Home = () => {
               <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginBottom: '28px', lineHeight: '1.6' }}>
                 From global multi-channel household names to fast-growing digital brands, we are the chosen partner in India.
               </p>
-              
+
               {/* Stats Counters */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px', paddingBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                 <div>
@@ -420,7 +420,7 @@ const Home = () => {
               <p style={{ color: '#E2E8F0', fontSize: '17px', lineHeight: 1.8, marginBottom: '24px', textAlign: 'justify' }}>
                 At AAA 2 Innovate, our passion for high-end production is matched only by our relentless commitment to sustainability. We empower our manufacturing partners to embrace renewable energy—including solar, wind, and biomass—to power their facilities.
               </p>
-              
+
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '32px' }}>
                 <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
                   <Zap color="#38BDF8" size={28} style={{ marginBottom: '8px' }} />
@@ -464,7 +464,7 @@ const Home = () => {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '48px', alignItems: 'start' }}>
-            
+
             {/* Contact Details */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               <div style={{ display: 'flex', gap: '20px' }}>
@@ -526,7 +526,7 @@ const Home = () => {
       {/* 8. Testimonials & FAQ Section */}
       <TestimonialSlider />
 
-      <FAQSection 
+      <FAQSection
         title="Frequently Asked Questions"
         faqs={[
           {

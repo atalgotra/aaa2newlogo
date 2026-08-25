@@ -34,7 +34,6 @@ const VideoHero = () => {
   const canvasRef          = useRef(null);
   const bgLayerRef         = useRef(null);       // Plane 2: atmospheric overlay
   const contentRef         = useRef(null);       // Foreground text container (anchored)
-  const brandRef           = useRef(null);       // AAA 2 INNOVATE
   const mottoRef           = useRef(null);       // Innovation is our Addiction
   const mottoLineRef       = useRef(null);       // Signature line
   const titleLine1Ref      = useRef(null);       // Architecting the Future of
@@ -317,7 +316,7 @@ const VideoHero = () => {
     const gsapCleanup = createGsapScope(heroRef, () => {
 
       const contentElements = [
-        brandRef.current, mottoRef.current, mottoLineRef.current,
+        mottoRef.current, mottoLineRef.current,
         titleLine1Ref.current, titleLine2Ref.current, subtextRef.current,
         ctaRef.current, scrollIndRef.current
       ].filter(Boolean);
@@ -367,25 +366,18 @@ const VideoHero = () => {
           0.0
         );
 
-        /* 0.15s: Reveal AAA 2 INNOVATE */
-        masterTl.fromTo(brandRef.current,
-          { opacity: 0, y: 15, letterSpacing: '0.44em' },
-          { opacity: 1, y: 0,  letterSpacing: '0.28em', duration: 0.7 },
-          0.15
-        );
-
-        /* 0.55s: Reveal Motto */
+        /* 0.20s: Reveal Motto */
         masterTl.fromTo(mottoRef.current,
           { opacity: 0, y: 10 },
           { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-          0.55
+          0.20
         );
 
-        /* 0.75s: Motto line */
+        /* 0.45s: Motto line */
         masterTl.fromTo(mottoLineRef.current,
           { scaleX: 0 },
           { scaleX: 1, duration: 0.7, ease: 'power2.inOut', transformOrigin: 'center center' },
-          0.75
+          0.45
         );
 
         /* 0.90s: Main Headline Line 1 wipe */
@@ -453,8 +445,7 @@ const VideoHero = () => {
             });
           }
 
-          /* Brand & Motto fade earlier */
-          if (brandRef.current) gsap.set(brandRef.current, { opacity: Math.max(0, 1 - p * 3.5) });
+          /* Motto fades earlier */
           if (mottoRef.current) gsap.set(mottoRef.current, { opacity: Math.max(0, 1 - p * 3.5) });
           if (mottoLineRef.current) gsap.set(mottoLineRef.current, { opacity: Math.max(0, 1 - p * 3.5) });
 
@@ -563,26 +554,6 @@ const VideoHero = () => {
         willChange: 'transform',
       }}>
         <div style={{ textAlign: 'center', padding: '0 24px', width: '100%', maxWidth: '920px', margin: '0 auto' }}>
-
-          {/* ── AAA 2 INNOVATE ── */}
-          <div
-            ref={brandRef}
-            style={{
-              fontSize: 'clamp(14px, 2.2vw, 24px)',
-              fontWeight: 800,
-              color: '#FFFFFF',
-              letterSpacing: '0.28em',
-              textTransform: 'uppercase',
-              fontFamily: "'Orbitron', sans-serif",
-              marginBottom: '14px',
-              opacity: 0,
-              visibility: 'hidden',
-              willChange: 'transform, opacity',
-              textShadow: '0 0 20px rgba(255,255,255,0.4)',
-            }}
-          >
-            AAA 2 Innovate
-          </div>
 
           {/* ── Motto Signature Block ── */}
           <div style={{ display: 'inline-block', textAlign: 'center', marginBottom: '32px' }}>

@@ -93,8 +93,8 @@ const Navbar = () => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '68px' }}>
 
         {/* AAA2 Logo */}
-        <div 
-          onClick={() => scrollToSection('hero')} 
+        <div
+          onClick={() => scrollToSection('hero')}
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         >
           <AAA2Logo mode="dark" size={50} />
@@ -150,9 +150,9 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <div className="mobile-menu-toggle" style={{ display: 'none' }}>
-            <button 
-              aria-label="Toggle Mobile Menu" 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+            <button
+              aria-label="Toggle Mobile Menu"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               style={{ color: '#FFFFFF', border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '4px' }}
             >
               {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
@@ -160,6 +160,54 @@ const Navbar = () => {
           </div>
         </div>
 
+      </div>
+
+      {/* Floating AAA 2 INNOVATE below Navbar Logo */}
+      <div
+        onClick={() => scrollToSection('hero')}
+        style={{
+          position: 'absolute',
+          top: '76px',
+          left: '24px',
+          display: mobileMenuOpen ? 'none' : 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '6px 16px',
+          backgroundColor: pastHero
+            ? 'rgba(34, 1, 80, 0.95)'
+            : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`,
+          backdropFilter: (heroProgress > 0.1 || pastHero)
+            ? `blur(${Math.round(heroProgress * 10 + (pastHero ? 10 : 0))}px)`
+            : 'none',
+          borderRadius: '30px',
+          border: pastHero
+            ? '1px solid rgba(255, 255, 255, 0.15)'
+            : `1px solid rgba(255, 255, 255, ${(0.08 + heroProgress * 0.18).toFixed(2)})`,
+          boxShadow: pastHero ? '0 15px 40px rgba(0, 0, 0, 0.6)' : 'none',
+          cursor: 'pointer',
+          fontFamily: "'Orbitron', sans-serif",
+          fontSize: '11px',
+          fontWeight: 800,
+          letterSpacing: '0.24em',
+          textTransform: 'uppercase',
+          color: '#FFFFFF',
+          whiteSpace: 'nowrap',
+          textShadow: '0 0 12px rgba(255, 255, 255, 0.4)',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          userSelect: 'none'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'translateY(2px) scale(1.03)';
+          e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.7)';
+          e.currentTarget.style.boxShadow = '0 10px 28px rgba(245, 158, 11, 0.35)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'translateY(0) scale(1)';
+          e.currentTarget.style.borderColor = '';
+          e.currentTarget.style.boxShadow = '';
+        }}
+      >
+        AAA 2 INNOVATE
       </div>
 
       <style>{`
@@ -171,18 +219,18 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown Card */}
       {mobileMenuOpen && (
-        <div 
-          style={{ 
-            position: 'absolute', 
-            top: '76px', 
-            left: 0, 
-            width: '100%', 
-            backgroundColor: 'rgba(34, 1, 80, 0.95)', 
+        <div
+          style={{
+            position: 'absolute',
+            top: '76px',
+            left: 0,
+            width: '100%',
+            backgroundColor: 'rgba(34, 1, 80, 0.95)',
             backdropFilter: 'blur(20px)',
             borderRadius: '24px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.5)', 
-            padding: '24px', 
-            border: '1px solid rgba(255, 255, 255, 0.15)' 
+            boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+            padding: '24px',
+            border: '1px solid rgba(255, 255, 255, 0.15)'
           }}
         >
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -190,16 +238,16 @@ const Navbar = () => {
               <button
                 key={index}
                 onClick={() => scrollToSection(link.sectionId)}
-                style={{ 
-                  fontSize: '15px', 
-                  fontWeight: 600, 
-                  textAlign: 'left', 
-                  padding: '12px 16px', 
+                style={{
+                  fontSize: '15px',
+                  fontWeight: 600,
+                  textAlign: 'left',
+                  padding: '12px 16px',
                   borderRadius: '12px',
-                  border: 'none', 
-                  backgroundColor: activeSection === link.sectionId ? '#2563EB' : 'transparent', 
-                  color: '#FFFFFF', 
-                  cursor: 'pointer' 
+                  border: 'none',
+                  backgroundColor: activeSection === link.sectionId ? '#2563EB' : 'transparent',
+                  color: '#FFFFFF',
+                  cursor: 'pointer'
                 }}
               >
                 {link.name}
