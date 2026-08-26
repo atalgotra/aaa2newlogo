@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import AAA2Logo from '../common/AAA2Logo';
 
@@ -7,6 +7,9 @@ const Navbar = () => {
   const [heroProgress, setHeroProgress] = useState(0); // 0 = top of hero, 1 = past hero
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+
+  const isManualScrollRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +20,9 @@ const Navbar = () => {
       const rawProgress = Math.min(1, Math.max(0, (window.scrollY - heroHeight * 0.5) / (heroHeight * 0.5)));
       setHeroProgress(rawProgress);
       setPastHero(window.scrollY + 90 >= heroBottom);
+
+      // Skip updating activeSection if user initiated a click-to-scroll
+      if (isManualScrollRef.current) return;
 
       const sections = ['hero', 'about', 'services', 'products', 'ethical-sourcing', 'contact'];
       const scrollPosition = window.scrollY + 140;
@@ -35,12 +41,22 @@ const Navbar = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
   }, []);
 
   const scrollToSection = (id) => {
     setMobileMenuOpen(false);
     setActiveSection(id);
+    isManualScrollRef.current = true;
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      isManualScrollRef.current = false;
+    }, 900);
+
     const element = document.getElementById(id);
     if (element) {
       const offset = 90;
@@ -118,9 +134,8 @@ const Navbar = () => {
                   color: isActive ? '#FFFFFF' : '#CBD5E1',
                   fontFamily: "'Chakra Petch', sans-serif",
                   backgroundColor: isActive ? '#220150' : 'transparent',
-                  border: 'none',
+                  border: isActive ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease'
                 }}
               >
                 {link.name}
@@ -134,16 +149,6 @@ const Navbar = () => {
           <button
             onClick={() => scrollToSection('contact')}
             className="btn-primary"
-            style={{
-              padding: '10px 22px',
-              fontSize: '13px',
-              fontWeight: 600,
-              borderRadius: '30px',
-              backgroundColor: '#2563EB',
-              color: '#FFFFFF',
-              boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.2)'
-            }}
           >
             Get In Touch
           </button>
@@ -168,7 +173,7 @@ const Navbar = () => {
         style={{
           position: 'absolute',
           top: '76px',
-          left: '24px',
+          left: '2px',
           display: mobileMenuOpen ? 'none' : 'inline-flex',
           alignItems: 'center',
           gap: '8px',
@@ -180,10 +185,6 @@ const Navbar = () => {
             ? `blur(${Math.round(heroProgress * 10 + (pastHero ? 10 : 0))}px)`
             : 'none',
           borderRadius: '30px',
-          border: pastHero
-            ? '1px solid rgba(255, 255, 255, 0.15)'
-            : `1px solid rgba(255, 255, 255, ${(0.08 + heroProgress * 0.18).toFixed(2)})`,
-          boxShadow: pastHero ? '0 15px 40px rgba(0, 0, 0, 0.6)' : 'none',
           cursor: 'pointer',
           fontFamily: "'Orbitron', sans-serif",
           fontSize: '11px',
@@ -192,7 +193,6 @@ const Navbar = () => {
           textTransform: 'uppercase',
           color: '#FFFFFF',
           whiteSpace: 'nowrap',
-          textShadow: '0 0 12px rgba(255, 255, 255, 0.4)',
           transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
           userSelect: 'none'
         }}

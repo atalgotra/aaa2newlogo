@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Toaster } from 'sonner';
 import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -72,6 +73,21 @@ const AnimatedRoutes = () => {
 function App() {
   return (
     <SmoothScroll>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: '#220150',
+            color: '#FFFFFF',
+            border: '1px solid rgba(99, 102, 241, 0.5)',
+            boxShadow: '0 12px 35px rgba(0, 0, 0, 0.6)',
+            fontSize: '14px',
+            fontWeight: 600,
+            borderRadius: '14px',
+            padding: '14px 20px'
+          }
+        }}
+      />
       <Router>
         <ScrollToTop />
         <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>

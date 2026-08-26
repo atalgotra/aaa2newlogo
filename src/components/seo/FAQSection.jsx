@@ -28,135 +28,147 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions" }) => {
   };
 
   return (
-    <section style={{ padding: 'clamp(40px, 8vw, 60px) 0', backgroundColor: 'var(--bg-secondary)', position: 'relative', overflow: 'hidden' }}>
+    <section style={{ padding: 'clamp(32px, 5vw, 48px) 0', backgroundColor: 'var(--bg-secondary, #F8FAFC)', position: 'relative', overflow: 'hidden' }}>
       <SchemaInjector schema={faqSchema} />
-      
-      {/* Decorative background elements */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(255, 90, 0, 0.2), transparent)' }}></div>
-      <div style={{ position: 'absolute', top: '-100px', left: '-100px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(255, 90, 0, 0.03) 0%, transparent 70%)', borderRadius: '50%' }}></div>
-      
+
+      {/* Decorative subtle background accents */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(34, 1, 80, 0.15), transparent)' }} />
+      <div style={{ position: 'absolute', top: '-80px', left: '-80px', width: '260px', height: '260px', background: 'radial-gradient(circle, rgba(34, 1, 80, 0.04) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
+
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '60px', alignItems: 'flex-start' }}>
-          
-          {/* Left Column: Title & CTA */}
-          <div className="faq-sticky-col">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '24px', lineHeight: 1.2 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '36px', alignItems: 'start' }}>
+
+          {/* Left Column: Title & Compact CTA (Completely Static & Fixed to Top) */}
+          <div
+            style={{
+              alignSelf: 'start',
+              height: 'fit-content'
+            }}
+          >
+            <div>
+              <h2 style={{ fontSize: 'clamp(24px, 4.5vw, 36px)', fontWeight: 800, color: 'var(--text-primary, #0F172A)', marginBottom: '10px', lineHeight: 1.25 }}>
                 Got Questions?<br />
-                <span style={{ color: 'var(--brand-orange)' }}>We've Got Answers.</span>
+                <span style={{ color: '#220150' }}>We've Got Answers.</span>
               </h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '18px', lineHeight: 1.6, marginBottom: '40px', maxWidth: '400px' }}>
-                Everything you need to know about our processes, quality standards, and how we scale your business globally.
+              <p style={{ color: '#64748B', fontSize: '14px', lineHeight: 1.5, marginBottom: '30px', marginTop: '25px', maxWidth: '380px' }}>
+                Everything you need to know about our global sourcing, custom manufacturing, and engineering processes.
               </p>
-              
-              <div style={{ backgroundColor: '#FFFFFF', padding: '32px', borderRadius: '24px', border: '1px solid var(--border-light)', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
-                <div style={{ width: '48px', height: '48px', backgroundColor: 'rgba(255, 90, 0, 0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
-                  <MessageCircle color="var(--brand-orange)" size={24} />
+
+              <div style={{ backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '16px', border: '1px solid rgba(34, 1, 80, 0.08)', boxShadow: '0 6px 20px -6px rgba(34, 1, 80, 0.05)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+                  <div style={{ width: '36px', height: '48px', backgroundColor: 'rgba(34, 1, 80, 0.08)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <MessageCircle color="#220150" size={18} />
+                  </div>
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary, #0F172A)', margin: 0 }}>
+                    Still have questions?
+                  </h3>
                 </div>
-                <h3 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '12px' }}>Still have questions?</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginBottom: '24px' }}>
-                  Can't find the answer you're looking for? Please chat to our friendly team.
+                <p style={{ color: '#64748B', fontSize: '13px', lineHeight: 1.4, margin: '0 0 16px 0' }}>
+                  Can't find what you're looking for? Reach out directly to our advisory team.
                 </p>
-                <Link 
+                <Link
                   to="/contact"
-                  style={{ display: 'inline-block', padding: '12px 24px', backgroundColor: 'var(--text-primary)', color: '#FFF', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '15px', transition: 'all 0.3s' }}
-                  onMouseOver={(e) => e.target.style.backgroundColor = 'var(--brand-orange)'}
-                  onMouseOut={(e) => e.target.style.backgroundColor = 'var(--text-primary)'}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '10px 20px',
+                    backgroundColor: '#220150',
+                    color: '#FFF',
+                    borderRadius: '10px',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                    fontSize: '13px',
+                    transition: 'all 0.25s ease'
+                  }}
+                  onMouseOver={(e) => e.target.style.backgroundColor = '#3730A3'}
+                  onMouseOut={(e) => e.target.style.backgroundColor = '#220150'}
                 >
-                  Get in touch
+                  Contact Sourcing Team
                 </Link>
               </div>
-            </motion.div>
+            </div>
           </div>
-          
-          {/* Right Column: FAQs Accordion */}
-          <div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+          {/* Right Column: Compact FAQs Accordion */}
+          <div style={{ alignSelf: 'start' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {faqs.map((faq, index) => {
                 const isOpen = openIndex === index;
                 return (
-                  <motion.div 
-                    key={index} 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    style={{ 
-                      backgroundColor: '#FFFFFF', 
-                      border: isOpen ? '1px solid rgba(255, 90, 0, 0.3)' : '1px solid var(--border-light)', 
-                      borderRadius: '16px',
+                  <div
+                    key={index}
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      border: isOpen ? '1px solid rgba(79, 70, 229, 0.4)' : '1px solid rgba(0, 0, 0, 0.06)',
+                      borderRadius: '12px',
                       overflow: 'hidden',
-                      boxShadow: isOpen ? '0 20px 40px rgba(255, 90, 0, 0.05)' : '0 4px 10px rgba(0,0,0,0.02)',
-                      transition: 'all 0.3s ease'
+                      boxShadow: isOpen ? '0 8px 24px -4px rgba(34, 1, 80, 0.08)' : '0 2px 6px rgba(0, 0, 0, 0.02)',
+                      transition: 'all 0.25s ease'
                     }}
                   >
-                    <button 
+                    <button
                       onClick={() => toggleFaq(index)}
-                      style={{ 
-                        width: '100%', 
-                        padding: '24px 32px', 
-                        display: 'flex', 
-                        justifyContent: 'space-between', 
+                      style={{
+                        width: '100%',
+                        padding: '16px 20px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
                         alignItems: 'center',
                         background: 'none',
                         border: 'none',
-                        color: isOpen ? 'var(--brand-orange)' : 'var(--text-primary)',
-                        fontSize: '18px',
-                        fontWeight: 600,
+                        color: isOpen ? '#220150' : '#0F172A',
+                        fontSize: '15px',
+                        fontWeight: 700,
                         textAlign: 'left',
                         cursor: 'pointer',
-                        transition: 'color 0.3s ease'
+                        transition: 'color 0.25s ease'
                       }}
                       aria-expanded={isOpen}
                     >
-                      <span style={{ paddingRight: '20px', lineHeight: 1.4 }}>{faq.question}</span>
-                      <div 
-                        style={{ 
-                          width: '32px', 
-                          height: '32px', 
-                          borderRadius: '50%', 
-                          backgroundColor: isOpen ? 'var(--brand-orange)' : 'rgba(0,0,0,0.04)', 
-                          display: 'flex', 
-                          alignItems: 'center', 
+                      <span style={{ paddingRight: '16px', lineHeight: 1.4 }}>{faq.question}</span>
+                      <div
+                        style={{
+                          width: '26px',
+                          height: '26px',
+                          borderRadius: '50%',
+                          backgroundColor: isOpen ? '#220150' : 'rgba(0, 0, 0, 0.05)',
+                          display: 'flex',
+                          alignItems: 'center',
                           justifyContent: 'center',
                           flexShrink: 0,
-                          transition: 'all 0.3s ease'
+                          transition: 'all 0.25s ease'
                         }}
                       >
-                        {isOpen ? 
-                          <Minus size={16} color="#FFF" /> : 
-                          <Plus size={16} color="var(--text-primary)" />
+                        {isOpen ?
+                          <Minus size={13} color="#FFF" /> :
+                          <Plus size={13} color="#475569" />
                         }
                       </div>
                     </button>
-                    
+
                     <AnimatePresence>
                       {isOpen && (
-                        <motion.div 
+                        <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
                         >
-                          <div style={{ padding: '0 32px 32px 32px' }}>
-                            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, margin: 0, fontSize: '16px' }}>
+                          <div style={{ padding: '0 20px 16px 20px' }}>
+                            <p style={{ color: '#475569', lineHeight: 1.6, margin: 0, fontSize: '13.5px' }}>
                               {faq.answer}
                             </p>
                           </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
           </div>
-          
+
         </div>
       </div>
     </section>
@@ -164,5 +176,3 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions" }) => {
 };
 
 export default FAQSection;
-
-

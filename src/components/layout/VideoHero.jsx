@@ -29,38 +29,38 @@ const NetworkCanvas = ({ canvasRef }) => (
 ───────────────────────────────────────────────────────────── */
 const VideoHero = () => {
   /* DOM element references */
-  const heroRef            = useRef(null);
-  const videoWrapRef       = useRef(null);
-  const canvasRef          = useRef(null);
-  const bgLayerRef         = useRef(null);       // Plane 2: atmospheric overlay
-  const contentRef         = useRef(null);       // Foreground text container (anchored)
-  const mottoRef           = useRef(null);       // Innovation is our Addiction
-  const mottoLineRef       = useRef(null);       // Signature line
-  const titleLine1Ref      = useRef(null);       // Architecting the Future of
-  const titleLine2Ref      = useRef(null);       // Global Commerce & Innovation
-  const subtextRef         = useRef(null);       // Product sourcing...
-  const ctaRef             = useRef(null);       // Action buttons
-  const primaryBtnRef      = useRef(null);       // Explore Our Capabilities
-  const scrollIndRef       = useRef(null);       // Scroll indicator container
-  const scrollLineRef      = useRef(null);       // Vertical scroll line
-  const scrollChevronRef   = useRef(null);       // Scroll SVG chevron
-  const transitionBeamRef  = useRef(null);       // Golden transition line to next section
+  const heroRef = useRef(null);
+  const videoWrapRef = useRef(null);
+  const canvasRef = useRef(null);
+  const bgLayerRef = useRef(null);       // Plane 2: atmospheric overlay
+  const contentRef = useRef(null);       // Foreground text container (anchored)
+  const mottoRef = useRef(null);       // Innovation is our Addiction
+  const mottoLineRef = useRef(null);       // Signature line
+  const titleLine1Ref = useRef(null);       // Architecting the Future of
+  const titleLine2Ref = useRef(null);       // Global Commerce & Innovation
+  const subtextRef = useRef(null);       // Product sourcing...
+  const ctaRef = useRef(null);       // Action buttons
+  const primaryBtnRef = useRef(null);       // Explore Our Capabilities
+  const scrollIndRef = useRef(null);       // Scroll indicator container
+  const scrollLineRef = useRef(null);       // Vertical scroll line
+  const scrollChevronRef = useRef(null);       // Scroll SVG chevron
+  const transitionBeamRef = useRef(null);       // Golden transition line to next section
 
 
   /* Mouse stardust & shockwave state inside Canvas */
-  const particlesRef       = useRef([]);
-  const shockwavesRef      = useRef([]);
+  const particlesRef = useRef([]);
+  const shockwavesRef = useRef([]);
 
   /* ── Living Network & Interactive Stardust Canvas Initialization ── */
   const initCanvas = useCallback(() => {
     const canvas = canvasRef.current;
-    const hero   = heroRef.current;
+    const hero = heroRef.current;
     if (!canvas || !hero) return;
 
-    const ctx    = canvas.getContext('2d');
-    const W      = hero.offsetWidth;
-    const H      = hero.offsetHeight;
-    canvas.width  = W;
+    const ctx = canvas.getContext('2d');
+    const W = hero.offsetWidth;
+    const H = hero.offsetHeight;
+    canvas.width = W;
     canvas.height = H;
 
     const NODES = 32;
@@ -118,16 +118,16 @@ const VideoHero = () => {
         n.pulse += 0.015;
       });
 
-      /* Faint golden network connections */
+      /* Subtle brand-indigo network connections */
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
-          const dx   = nodes[j].x - nodes[i].x;
-          const dy   = nodes[j].y - nodes[i].y;
+          const dx = nodes[j].x - nodes[i].x;
+          const dy = nodes[j].y - nodes[i].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < LINK_DIST) {
-            const alpha = (1 - dist / LINK_DIST) * 0.07;
+            const alpha = (1 - dist / LINK_DIST) * 0.08;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(245, 158, 11, ${alpha})`;
+            ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
             ctx.lineWidth = 0.6;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -138,10 +138,10 @@ const VideoHero = () => {
 
       /* Subtle breathing nodes */
       nodes.forEach(n => {
-        const alpha = 0.15 + Math.sin(n.pulse) * 0.08;
+        const alpha = 0.18 + Math.sin(n.pulse) * 0.08;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(253, 230, 138, ${alpha})`;
+        ctx.fillStyle = `rgba(224, 231, 255, ${alpha})`;
         ctx.fill();
       });
 
@@ -158,10 +158,10 @@ const VideoHero = () => {
         if (nA && nB) {
           const px = nA.x + (nB.x - nA.x) * p.progress;
           const py = nA.y + (nB.y - nA.y) * p.progress;
-          
+
           const grad = ctx.createRadialGradient(px, py, 0, px, py, 5);
-          grad.addColorStop(0, 'rgba(255, 235, 160, 0.7)');
-          grad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+          grad.addColorStop(0, 'rgba(255, 255, 255, 0.85)');
+          grad.addColorStop(1, 'rgba(99, 102, 241, 0)');
           ctx.beginPath();
           ctx.arc(px, py, 5, 0, Math.PI * 2);
           ctx.fillStyle = grad;
@@ -198,7 +198,7 @@ const VideoHero = () => {
         }
         ctx.beginPath();
         ctx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(245, 158, 11, ${sw.alpha * 0.5})`;
+        ctx.strokeStyle = `rgba(99, 102, 241, ${sw.alpha * 0.6})`;
         ctx.lineWidth = 2;
         ctx.stroke();
       }
@@ -231,8 +231,8 @@ const VideoHero = () => {
           vx: (Math.random() - 0.5) * 0.8,
           vy: (Math.random() - 0.5) * 0.8 - 0.3,
           size: Math.random() * 2 + 0.8,
-          alpha: 0.7,
-          color: Math.random() > 0.3 ? '245, 158, 11' : '0, 240, 255',
+          alpha: 0.75,
+          color: Math.random() > 0.4 ? '255, 255, 255' : '129, 140, 248',
         });
       }
     };
@@ -247,7 +247,7 @@ const VideoHero = () => {
         x, y, r: 10, maxR: 280, alpha: 0.9
       });
 
-      /* Spawn burst of golden star particles */
+      /* Spawn burst of white & electric indigo star particles */
       for (let i = 0; i < 18; i++) {
         const angle = (Math.PI * 2 * i) / 18;
         const speed = Math.random() * 3 + 1.5;
@@ -257,7 +257,7 @@ const VideoHero = () => {
           vy: Math.sin(angle) * speed,
           size: Math.random() * 2.5 + 1,
           alpha: 0.9,
-          color: '253, 230, 138',
+          color: Math.random() > 0.5 ? '255, 255, 255' : '165, 180, 252',
         });
       }
     };
@@ -277,26 +277,26 @@ const VideoHero = () => {
     if (prefersReducedMotion()) return;
 
     /* Plane parallax quickTo setters */
-    const qVideoX   = gsap.quickTo(videoWrapRef.current,  'x', { duration: 1.4, ease: 'power1.out' });
-    const qVideoY   = gsap.quickTo(videoWrapRef.current,  'y', { duration: 1.4, ease: 'power1.out' });
-    const qBgX      = gsap.quickTo(bgLayerRef.current,    'x', { duration: 1.8, ease: 'power1.out' });
-    const qBgY      = gsap.quickTo(bgLayerRef.current,    'y', { duration: 1.8, ease: 'power1.out' });
-    const qCanvasX  = gsap.quickTo(canvasRef.current,     'x', { duration: 1.6, ease: 'power1.out' });
-    const qCanvasY  = gsap.quickTo(canvasRef.current,     'y', { duration: 1.6, ease: 'power1.out' });
-    const qContentX = gsap.quickTo(contentRef.current,    'x', { duration: 1.0, ease: 'power1.out' });
-    const qContentY = gsap.quickTo(contentRef.current,    'y', { duration: 1.0, ease: 'power1.out' });
+    const qVideoX = gsap.quickTo(videoWrapRef.current, 'x', { duration: 1.4, ease: 'power1.out' });
+    const qVideoY = gsap.quickTo(videoWrapRef.current, 'y', { duration: 1.4, ease: 'power1.out' });
+    const qBgX = gsap.quickTo(bgLayerRef.current, 'x', { duration: 1.8, ease: 'power1.out' });
+    const qBgY = gsap.quickTo(bgLayerRef.current, 'y', { duration: 1.8, ease: 'power1.out' });
+    const qCanvasX = gsap.quickTo(canvasRef.current, 'x', { duration: 1.6, ease: 'power1.out' });
+    const qCanvasY = gsap.quickTo(canvasRef.current, 'y', { duration: 1.6, ease: 'power1.out' });
+    const qContentX = gsap.quickTo(contentRef.current, 'x', { duration: 1.0, ease: 'power1.out' });
+    const qContentY = gsap.quickTo(contentRef.current, 'y', { duration: 1.0, ease: 'power1.out' });
 
     const handleMouseMove = (e) => {
-      const rect  = hero.getBoundingClientRect();
-      const cx    = rect.left + rect.width  / 2;
-      const cy    = rect.top  + rect.height / 2;
-      const nx    = (e.clientX - cx) / (rect.width  / 2); // -1 → +1
-      const ny    = (e.clientY - cy) / (rect.height / 2);
+      const rect = hero.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const nx = (e.clientX - cx) / (rect.width / 2); // -1 → +1
+      const ny = (e.clientY - cy) / (rect.height / 2);
 
-      qVideoX(nx   * 2.0);  qVideoY(ny   * 2.0);
-      qBgX(nx      * 4.0);  qBgY(ny      * 4.0);
-      qCanvasX(nx  * 2.5);  qCanvasY(ny  * 2.5);
-      qContentX(nx * 0.5);  qContentY(ny * 0.5);
+      qVideoX(nx * 2.0); qVideoY(ny * 2.0);
+      qBgX(nx * 4.0); qBgY(ny * 4.0);
+      qCanvasX(nx * 2.5); qCanvasY(ny * 2.5);
+      qContentX(nx * 0.5); qContentY(ny * 0.5);
     };
 
     hero.addEventListener('mousemove', handleMouseMove);
@@ -383,14 +383,14 @@ const VideoHero = () => {
         /* 0.90s: Main Headline Line 1 wipe */
         masterTl.fromTo(titleLine1Ref.current,
           { opacity: 0, y: 20, clipPath: 'inset(0% 0% 100% 0%)' },
-          { opacity: 1, y: 0,  clipPath: 'inset(0% 0% 0% 0%)', duration: 1.0, ease: 'power3.out' },
+          { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.0, ease: 'power3.out' },
           0.90
         );
 
         /* 1.05s: Main Headline Line 2 wipe */
         masterTl.fromTo(titleLine2Ref.current,
           { opacity: 0, y: 20, clipPath: 'inset(0% 0% 100% 0%)' },
-          { opacity: 1, y: 0,  clipPath: 'inset(0% 0% 0% 0%)', duration: 1.0, ease: 'power3.out' },
+          { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.0, ease: 'power3.out' },
           1.05
         );
 
@@ -405,7 +405,7 @@ const VideoHero = () => {
         /* 2.20s: Reveal Action Buttons */
         masterTl.fromTo(ctaRef.current,
           { opacity: 0, y: 12, scale: 0.98 },
-          { opacity: 1, y: 0,  scale: 1, duration: 0.6, ease: 'power2.out' },
+          { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out' },
           2.20
         );
 
@@ -453,7 +453,7 @@ const VideoHero = () => {
           if (titleLine1Ref.current) gsap.set(titleLine1Ref.current, { y: -p * 40, opacity: Math.max(0, 1 - p * 2.0) });
           if (titleLine2Ref.current) gsap.set(titleLine2Ref.current, { y: -p * 35, opacity: Math.max(0, 1 - p * 2.0) });
           if (subtextRef.current) gsap.set(subtextRef.current, { opacity: Math.max(0, 1 - p * 3.5), y: -p * 30 });
-          if (ctaRef.current)     gsap.set(ctaRef.current,     { opacity: Math.max(0, 1 - p * 3.5), y: -p * 25 });
+          if (ctaRef.current) gsap.set(ctaRef.current, { opacity: Math.max(0, 1 - p * 3.5), y: -p * 25 });
 
 
           /* Scroll indicator fades */
@@ -473,8 +473,8 @@ const VideoHero = () => {
     });
 
     return () => {
-      if (canvasCleanup)  canvasCleanup();
-      if (mouseCleanup)   mouseCleanup();
+      if (canvasCleanup) canvasCleanup();
+      if (mouseCleanup) mouseCleanup();
       gsapCleanup();
     };
   }, [initCanvas, initMouseParallax]);
@@ -496,14 +496,14 @@ const VideoHero = () => {
     const bx = e.clientX - (rect.left + rect.width / 2);
     const by = e.clientY - (rect.top + rect.height / 2);
     btn.style.transform = `translate(${bx * 0.25}px, ${by * 0.25}px) scale(1.04)`;
-    btn.style.boxShadow = '0 16px 40px rgba(245, 158, 11, 0.45), 0 0 20px rgba(34, 1, 80, 0.8)';
+    btn.style.boxShadow = '0 10px 30px rgba(34, 1, 80, 0.7), 0 0 20px rgba(99, 102, 241, 0.4)';
   };
 
   const handleCtaLeave = () => {
     if (!primaryBtnRef.current) return;
     const btn = primaryBtnRef.current;
     btn.style.transform = 'translate(0px, 0px) scale(1)';
-    btn.style.boxShadow = '0 6px 22px rgba(34,1,80,0.35)';
+    btn.style.boxShadow = '';
   };
 
   /* ─────────────────────────── RENDER ─────────────────────────── */
@@ -562,7 +562,7 @@ const VideoHero = () => {
               style={{
                 fontSize: 'clamp(11px, 1.2vw, 13px)',
                 fontWeight: 400,
-                color: 'rgba(255,255,255,0.55)',
+                color: 'rgba(255,255,255,0.7)',
                 letterSpacing: '0.12em',
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontStyle: 'italic',
@@ -580,8 +580,8 @@ const VideoHero = () => {
               style={{
                 height: '1px',
                 width: '100%',
-                backgroundColor: 'rgba(245, 158, 11, 0.45)',
-                boxShadow: '0 0 8px rgba(245, 158, 11, 0.6)',
+                background: 'linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.8), rgba(59, 130, 246, 0.8), transparent)',
+                boxShadow: '0 0 10px rgba(99, 102, 241, 0.7), 0 0 4px rgba(34, 1, 80, 0.9)',
                 transform: 'scaleX(0)',
                 transformOrigin: 'center center',
                 visibility: 'hidden',
@@ -666,32 +666,19 @@ const VideoHero = () => {
               willChange: 'transform, opacity',
             }}
           >
-            {/* Primary CTA — Deep #220150 Brand Purple with Amber Glow */}
+            {/* Primary CTA — Brand Indigo */}
             <button
               ref={primaryBtnRef}
               onClick={() => scrollToSection('services')}
               onMouseMove={handleCtaMove}
               onMouseLeave={handleCtaLeave}
+              className="btn-primary"
               style={{
                 position: 'relative',
                 overflow: 'hidden',
-                backgroundColor: '#220150',
-                border: '1px solid rgba(245, 158, 11, 0.45)',
-                backdropFilter: 'blur(12px)',
                 padding: '16px 36px',
                 fontSize: '12px',
-                fontWeight: 700,
-                color: '#FFFFFF',
-                borderRadius: '50px',
-                cursor: 'pointer',
-                textTransform: 'uppercase',
-                letterSpacing: '1.8px',
-                display: 'flex',
-                alignItems: 'center',
                 gap: '10px',
-                transition: 'all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)',
-                boxShadow: '0 6px 22px rgba(34,1,80,0.5), 0 0 15px rgba(245,158,11,0.2)',
-                fontFamily: "'Chakra Petch', sans-serif",
               }}
             >
               <span className="hero-btn-sweep" />
@@ -702,19 +689,19 @@ const VideoHero = () => {
             <button
               onClick={() => scrollToSection('contact')}
               style={{
-                backgroundColor: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.18)',
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(255, 255, 255, 0.45)',
                 padding: '16px 28px',
                 fontSize: '11px', fontWeight: 600,
-                color: 'rgba(255,255,255,0.65)',
+                color: '#FFFFFF',
                 borderRadius: '50px', cursor: 'pointer',
                 textTransform: 'uppercase', letterSpacing: '1.6px',
                 transition: 'all 0.3s ease',
                 fontFamily: "'Chakra Petch', sans-serif",
                 backdropFilter: 'blur(8px)',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color='#FFFFFF'; e.currentTarget.style.borderColor='rgba(255,255,255,0.45)'; e.currentTarget.style.backgroundColor='rgba(255,255,255,0.08)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color='rgba(255,255,255,0.65)'; e.currentTarget.style.borderColor='rgba(255,255,255,0.18)'; e.currentTarget.style.backgroundColor='rgba(255,255,255,0.03)'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#FFFFFF'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.7)'; e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.16)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#FFFFFF'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.45)'; e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'; }}
             >
               Contact Us
             </button>
@@ -739,22 +726,22 @@ const VideoHero = () => {
           ref={scrollLineRef}
           style={{
             width: '1px', height: '32px',
-            backgroundColor: 'rgba(245, 158, 11, 0.40)',
-            boxShadow: '0 0 8px rgba(245, 158, 11, 0.6)',
+            backgroundColor: 'rgba(99, 102, 241, 0.60)',
+            boxShadow: '0 0 8px rgba(99, 102, 241, 0.8)',
             transformOrigin: 'top center',
           }}
         />
         <div
           ref={scrollChevronRef}
-          style={{ color: 'rgba(245, 158, 11, 0.70)', display: 'flex' }}
+          style={{ color: 'rgba(165, 180, 252, 0.85)', display: 'flex' }}
         >
           <svg width="14" height="9" viewBox="0 0 14 9" fill="none">
-            <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
       </div>
 
-      {/* ── Golden Transition Conduit to Next Section ── */}
+      {/* ── Brand Indigo Transition Conduit to Next Section ── */}
       <div
         ref={transitionBeamRef}
         style={{
@@ -764,7 +751,7 @@ const VideoHero = () => {
           transform: 'translateX(-50%)',
           width: '1px',
           height: '60px',
-          background: 'linear-gradient(to bottom, rgba(245, 158, 11, 0.6), rgba(245, 158, 11, 0))',
+          background: 'linear-gradient(to bottom, rgba(99, 102, 241, 0.8), rgba(99, 102, 241, 0))',
           transformOrigin: 'top center',
           opacity: 0,
           zIndex: 4,
