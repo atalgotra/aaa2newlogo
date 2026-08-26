@@ -17,6 +17,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 
 import CookieConsent from './components/CookieConsent';
+import HomeSkeleton from './components/common/HomeSkeletons';
 
 const Services = lazy(() => import('./pages/Services'));
 const Sourcing = lazy(() => import('./pages/services/Sourcing'));
@@ -27,10 +28,10 @@ const Logistics = lazy(() => import('./pages/services/Logistics'));
 const Warehousing = lazy(() => import('./pages/services/Warehousing'));
 const Tech = lazy(() => import('./pages/services/Tech'));
 
-// Simple Loading Component
+// Simple Loading Component for secondary routes
 const PageLoader = () => (
-  <div style={{ minHeight: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'var(--bg-main)' }}>
-    <div style={{ width: '40px', height: '40px', border: '3px solid rgba(255, 87, 34, 0.2)', borderTopColor: 'var(--brand-orange)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+  <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0015' }}>
+    <div style={{ width: '36px', height: '36px', border: '2.5px solid rgba(99, 102, 241, 0.15)', borderTopColor: '#6366F1', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
     <style>{`@keyframes spin { 100% { transform: rotate(360deg); } }`}</style>
   </div>
 );
@@ -48,7 +49,7 @@ const AnimatedRoutes = () => {
         style={{ display: 'flex', flexDirection: 'column', flex: 1 }}
       >
         <Routes location={location}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Suspense fallback={<HomeSkeleton />}><Home /></Suspense>} />
           <Route path="/about" element={<About />} />
           <Route path="/team" element={<Team />} />
           <Route path="/products" element={<Products />} />

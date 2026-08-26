@@ -1,16 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import VideoHero from '../components/layout/VideoHero';
-import CapabilitiesBentoGrid from '../components/home/CapabilitiesBentoGrid';
-import ProductShowcaseSection from '../components/home/ProductShowcaseSection';
-import EthicalSourcingSection from '../components/home/EthicalSourcingSection';
 import ProductSpecModal from '../components/common/ProductSpecModal';
-import InteractiveContactSection from '../components/home/InteractiveContactSection';
-import TestimonialSlider from '../components/TestimonialSlider';
 import SchemaInjector from '../components/seo/SchemaInjector';
-import FAQSection from '../components/seo/FAQSection';
 import TiltCard from '../components/animations/TiltCard';
+import {
+  HeroSkeleton,
+  AboutSkeleton,
+  CapabilitiesSkeleton,
+  ProductShowcaseSkeleton,
+  EthicalSourcingSkeleton,
+  ContactSectionSkeleton,
+  TestimonialsSkeleton,
+  FAQSkeleton,
+  MarqueeSkeleton
+} from '../components/common/HomeSkeletons';
+
+import VideoHero from '../components/layout/VideoHero';
+
+// Lazy-loaded secondary sections with section-specific skeleton boundaries
+const CapabilitiesBentoGrid = lazy(() => import('../components/home/CapabilitiesBentoGrid'));
+const ProductShowcaseSection = lazy(() => import('../components/home/ProductShowcaseSection'));
+const EthicalSourcingSection = lazy(() => import('../components/home/EthicalSourcingSection'));
+const InteractiveContactSection = lazy(() => import('../components/home/InteractiveContactSection'));
+const TestimonialSlider = lazy(() => import('../components/TestimonialSlider'));
+const FAQSection = lazy(() => import('../components/seo/FAQSection'));
 import {
   ShieldCheck, Target, Users, Lightbulb, Leaf, Award, Cloud, LayoutGrid, Server, BadgeCheck, Globe, Sun,
   MapPin, Phone, Mail, Clock, Send, Loader2, TrendingUp, ShoppingBag, Sparkles, Droplet, Zap, Droplets, Heart
@@ -254,21 +268,29 @@ const Home = () => {
       </section>
 
       {/* 3. Capabilities Bento Grid Section */}
-      <CapabilitiesBentoGrid />
+      <Suspense fallback={<CapabilitiesSkeleton />}>
+        <CapabilitiesBentoGrid />
+      </Suspense>
 
       {/* 4. Products Showcase Section */}
-      <ProductShowcaseSection
-        onProductSelect={(prod) => {
-          setSelectedProductForModal(prod);
-          setSpecModalOpen(true);
-        }}
-      />
+      <Suspense fallback={<ProductShowcaseSkeleton />}>
+        <ProductShowcaseSection
+          onProductSelect={(prod) => {
+            setSelectedProductForModal(prod);
+            setSpecModalOpen(true);
+          }}
+        />
+      </Suspense>
 
       {/* 5. Ethical Sourcing & Sustainability Section */}
-      <EthicalSourcingSection />
+      <Suspense fallback={<EthicalSourcingSkeleton />}>
+        <EthicalSourcingSection />
+      </Suspense>
 
       {/* 7. Interactive Contact Section */}
-      <InteractiveContactSection selectedCategoryForConfigurator={selectedCategoryForConfigurator} />
+      <Suspense fallback={<ContactSectionSkeleton />}>
+        <InteractiveContactSection selectedCategoryForConfigurator={selectedCategoryForConfigurator} />
+      </Suspense>
 
       {/* Product Spec Modal */}
       <ProductSpecModal
@@ -279,29 +301,33 @@ const Home = () => {
       />
 
       {/* 8. Testimonials & FAQ Section */}
-      <TestimonialSlider />
+      <Suspense fallback={<TestimonialsSkeleton />}>
+        <TestimonialSlider />
+      </Suspense>
 
-      <FAQSection
-        title="Frequently Asked Questions"
-        faqs={[
-          {
-            question: "What services does AAA 2 Innovate provide?",
-            answer: "We provide end-to-end global supply chain management. This includes high-quality product sourcing, custom manufacturing, rigorous quality control, logistics, and Gen-Z software engineering."
-          },
-          {
-            question: "Where are your manufacturing hubs located?",
-            answer: "While we operate globally, our core manufacturing and sourcing hubs are located in India, giving brands direct access to top-tier factories and craftspeople."
-          },
-          {
-            question: "How do you enforce ethical compliance?",
-            answer: "Every facility undergoes strict audits for international certifications including SA8000, ISO 14001, GOTS, OCS, Sedex, and BSCI."
-          },
-          {
-            question: "What is your Minimum Order Quantity (MOQ) and sample lead time?",
-            answer: "We accommodate flexible MOQ tiers starting from pilot runs (100–500 pcs) up to full container enterprise scale. Rapid sample development and tech packs are typically dispatched within 7–10 days."
-          }
-        ]}
-      />
+      <Suspense fallback={<FAQSkeleton />}>
+        <FAQSection
+          title="Frequently Asked Questions"
+          faqs={[
+            {
+              question: "What services does AAA 2 Innovate provide?",
+              answer: "We provide end-to-end global supply chain management. This includes high-quality product sourcing, custom manufacturing, rigorous quality control, logistics, and Gen-Z software engineering."
+            },
+            {
+              question: "Where are your manufacturing hubs located?",
+              answer: "While we operate globally, our core manufacturing and sourcing hubs are located in India, giving brands direct access to top-tier factories and craftspeople."
+            },
+            {
+              question: "How do you enforce ethical compliance?",
+              answer: "Every facility undergoes strict audits for international certifications including SA8000, ISO 14001, GOTS, OCS, Sedex, and BSCI."
+            },
+            {
+              question: "What is your Minimum Order Quantity (MOQ) and sample lead time?",
+              answer: "We accommodate flexible MOQ tiers starting from pilot runs (100–500 pcs) up to full container enterprise scale. Rapid sample development and tech packs are typically dispatched within 7–10 days."
+            }
+          ]}
+        />
+      </Suspense>
 
       {/* Infinite Accreditations Marquee */}
       <div className="marquee-container" style={{ backgroundColor: 'var(--bg-main)' }}>

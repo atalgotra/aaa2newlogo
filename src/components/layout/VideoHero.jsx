@@ -514,6 +514,7 @@ const VideoHero = () => {
       style={{
         position: 'relative',
         width: '100%',
+        minHeight: '100vh',
         backgroundColor: '#0a0015',
         display: 'block',
         overflow: 'hidden',
@@ -521,10 +522,20 @@ const VideoHero = () => {
     >
 
       {/* ── Plane 1: Background Video ── */}
-      <div ref={videoWrapRef} style={{ display: 'block', width: '100%', opacity: 1, willChange: 'transform' }}>
+      {/* aspect-ratio reserves height before MP4 loads, preventing CLS */}
+      <div
+        ref={videoWrapRef}
+        style={{
+          display: 'block',
+          width: '100%',
+          aspectRatio: '16 / 9',
+          opacity: 1,
+          willChange: 'transform'
+        }}
+      >
         <video
           autoPlay loop muted playsInline preload="auto"
-          style={{ display: 'block', width: '100%', height: 'auto' }}
+          style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
         >
           <source src="/hero-video.mp4?v=cleaned" type="video/mp4" />
         </video>
