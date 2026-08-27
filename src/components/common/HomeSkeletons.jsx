@@ -142,11 +142,10 @@ export const ProductShowcaseSkeleton = () => (
 
 /* ── 5. Ethical Sourcing Skeleton ── */
 export const EthicalSourcingSkeleton = () => (
-  <section style={{ padding: 'clamp(40px, 6vw, 60px) 0', backgroundColor: '#140038' }}>
+  <section style={{ padding: 'clamp(40px, 6vw, 60px) 0', backgroundColor: '#220150' }}>
     <div className="container">
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '36px', alignItems: 'center' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          <div className="skeleton-dark" style={{ width: '180px', height: '24px', borderRadius: '20px' }} />
           <div className="skeleton-dark" style={{ width: '85%', height: '34px', borderRadius: '10px' }} />
           <div className="skeleton-dark" style={{ width: '100%', height: '14px', borderRadius: '4px' }} />
           <div className="skeleton-dark" style={{ width: '70%', height: '14px', borderRadius: '4px' }} />

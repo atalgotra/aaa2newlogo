@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Michroma&family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   /* Colors - AAA2 Deep Midnight Blue (#220150) & Electric Sapphire Palette */
   --bg-main: #FFFFFF;
@@ -54,6 +58,24 @@
   --section-gutter: var(--page-gutter);
 }
 
+/* ── Disable native iOS Safari / WebKit media control overlays on background videos ── */
+video::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls-panel {
+  display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -98,6 +120,14 @@ input,
 select,
 textarea {
   font-family: var(--font-heading);
+}
+
+/* Prevent iOS Safari auto-zooming when tapping or focusing inputs */
+input,
+select,
+textarea {
+  font-size: 16px;
+  touch-action: manipulation;
 }
 
 /* ── Hero 2.0 CTA light-sweep effect ── */
@@ -242,6 +272,113 @@ button {
 
 .section-padding {
   padding: clamp(60px, 10vw, 100px) 0;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --page-gutter: 16px;
+  }
+
+  .section-padding {
+    padding: clamp(40px, 8vw, 60px) 0;
+  }
+
+  /* Sourcing Configurator mobile overrides */
+  .configurator-container {
+    height: 560px !important;
+    min-height: 560px !important;
+    overflow: hidden !important;
+  }
+
+  .configurator-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .configurator-volume-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .configurator-summary-strip {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .configurator-content-body {
+    overflow: auto !important;
+  }
+
+  .configurator-volume-card {
+    min-height: 52px !important;
+    padding: 8px 12px !important;
+    border-radius: 10px !important;
+  }
+
+  .configurator-volume-card-title {
+    font-size: 13px !important;
+  }
+
+  .configurator-volume-card-desc {
+    font-size: 10px !important;
+  }
+
+  /* Form & scrollbar visual cleanup for mobile */
+  .configurator-content-body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .configurator-content-body::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .configurator-form-grid {
+    gap: 8px !important;
+  }
+
+  .configurator-input, .configurator-select, .configurator-textarea {
+    padding: 8px 10px !important;
+    font-size: 16px !important; /* Prevents iOS auto-zoom on input focus */
+    border-radius: 8px !important;
+    touch-action: manipulation;
+  }
+
+  .configurator-label {
+    font-size: 12px !important;
+    margin-bottom: 2px !important;
+  }
+
+  /* Contact info cards mobile adjustments */
+  .contact-cards-container {
+    height: auto !important;
+    min-height: unset !important;
+    gap: 10px !important;
+  }
+
+  .contact-card {
+    padding: 12px 16px !important;
+    border-radius: 12px !important;
+    flex: unset !important; /* let height match content */
+  }
+
+  .contact-card-icon-wrapper {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+    padding: 0 !important; /* clear default inline padding */
+  }
+
+  .contact-card-icon-wrapper svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .contact-card-title {
+    font-size: 14px !important;
+  }
+
+  .contact-card-value {
+    font-size: 12.5px !important;
+  }
 }
 
 .text-center {
@@ -909,8 +1046,8 @@ button {
   position: fixed;
   inset: 0;
   background: rgba(5, 0, 15, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -953,6 +1090,106 @@ button {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
+}
+
+@media (max-width: 768px) {
+  .spec-modal-backdrop {
+    padding: 0;
+    align-items: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .spec-modal-container {
+    max-width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    padding: 20px 14px;
+    padding-top: 52px;
+    border: none;
+    box-shadow: none;
+    animation: none;
+    overflow: visible;
+    font-size: 13px;
+  }
+
+  .spec-modal-close-btn {
+    position: fixed !important;
+    top: 10px !important;
+    right: 10px !important;
+    width: 32px !important;
+    height: 32px !important;
+    z-index: 10001 !important;
+  }
+
+  .spec-modal-container h3 {
+    font-size: 20px !important;
+  }
+
+  .spec-modal-container p {
+    font-size: 12.5px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .spec-modal-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .spec-modal-grid > div {
+    padding: 10px 14px !important;
+    border-radius: 10px !important;
+  }
+
+  .spec-modal-container .btn-primary {
+    padding: 12px !important;
+    font-size: 12.5px !important;
+    border-radius: 10px !important;
+  }
+
+  .spec-modal-header {
+    margin-top: 32px !important;
+  }
+}
+
+/* Hide scroll-to-top button and lock body scroll when modal is active */
+body.modal-open {
+  overflow: hidden !important;
+}
+
+body.modal-open .scroll-to-top-btn {
+  display: none !important;
+}
+
+/* Spec Modal Interactive Button */
+.spec-modal-btn {
+  background-color: #FFFFFF !important;
+  color: var(--brand-indigo, #220150) !important;
+  border: 1px solid #FFFFFF !important;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.spec-modal-btn:hover {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 255, 255, 0.2) !important;
+}
+
+.spec-modal-btn:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15) !important;
+}
+
+.spec-modal-btn.requested {
+  background-color: #10B981 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  cursor: default !important;
+  transform: none !important;
 }
 
 /* Shimmer Skeleton Loading System */

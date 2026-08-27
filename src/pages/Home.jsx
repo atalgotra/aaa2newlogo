@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import ProductSpecModal from '../components/common/ProductSpecModal';
@@ -27,7 +28,7 @@ const TestimonialSlider = lazy(() => import('../components/TestimonialSlider'));
 const FAQSection = lazy(() => import('../components/seo/FAQSection'));
 import {
   ShieldCheck, Target, Users, Lightbulb, Leaf, Award, Cloud, LayoutGrid, Server, BadgeCheck, Globe, Sun,
-  MapPin, Phone, Mail, Clock, Send, Loader2, TrendingUp, ShoppingBag, Sparkles, Droplet, Zap, Droplets, Heart
+  TrendingUp
 } from 'lucide-react';
 import { gsap, createGsapScope, animateNumberCounter } from '../utils/gsapUtils';
 
@@ -58,6 +59,7 @@ const teamMembers = [
 ];
 
 const Home = () => {
+  const location = useLocation();
   const containerRef = useRef(null);
   const counterRef1 = useRef(null);
   const counterRef2 = useRef(null);
@@ -66,51 +68,23 @@ const Home = () => {
   const [selectedProductForModal, setSelectedProductForModal] = useState(null);
   const [selectedCategoryForConfigurator, setSelectedCategoryForConfigurator] = useState(null);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    company: '',
-    email: '',
-    subject: 'Sourcing',
-    message: ''
-  });
-  const [loading, setLoading] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setSubmitStatus(null);
-
-    try {
-      const response = await fetch('https://finance.devapi.zipaworld.com/api/contactUs/contactMailAaa2', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          company: formData.company || ""
-        })
-      });
-
-      const data = await response.json();
-      if (!data.success) {
-        throw new Error(data.message || 'Failed to send message');
-      }
-
-      setSubmitStatus({ type: 'success', message: 'Thank you! Your message has been sent successfully.' });
-      setFormData({ name: '', company: '', email: '', subject: 'Sourcing', message: '' });
-    } catch (error) {
-      setSubmitStatus({ type: 'error', message: 'Oops! Something went wrong. Please try again later.' });
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const targetId = location.state.scrollTo;
+      const timer = setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) {
+          const offset = 80;
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = el.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          const offsetPosition = elementPosition - offset;
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [location.state]);
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -276,8 +250,17 @@ const Home = () => {
       <Suspense fallback={<ProductShowcaseSkeleton />}>
         <ProductShowcaseSection
           onProductSelect={(prod) => {
-            setSelectedProductForModal(prod);
-            setSpecModalOpen(true);
+            setSelectedCategoryForConfigurator(prod.title);
+            const contactEl = document.getElementById('contact');
+            if (contactEl) {
+              const offset = 80;
+              const elementPosition = contactEl.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.scrollY - offset;
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+            }
           }}
         />
       </Suspense>
@@ -308,6 +291,7 @@ const Home = () => {
       <Suspense fallback={<FAQSkeleton />}>
         <FAQSection
           title="Frequently Asked Questions"
+          onContactClick={() => scrollToSection('contact')}
           faqs={[
             {
               question: "What services does AAA 2 Innovate provide?",

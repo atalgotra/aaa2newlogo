@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, CheckCircle2, ShieldCheck, Clock, Layers, Send, Package } from 'lucide-react';
 
 const defaultSpecs = {
@@ -29,32 +29,48 @@ const defaultSpecs = {
 };
 
 const ProductSpecModal = ({ isOpen, onClose, productData, onSelectCategory }) => {
-  const [requested, setRequested] = useState(false);
+
+  useEffect(() => {
+    if (isOpen && productData) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [isOpen, productData]);
 
   if (!isOpen || !productData) return null;
 
   const specs = defaultSpecs[productData.id] || defaultSpecs.apparel;
 
   const handleSampleRequest = () => {
-    setRequested(true);
+    onClose();
+    if (onSelectCategory) {
+      onSelectCategory(productData.title);
+    }
     setTimeout(() => {
-      onClose();
-      if (onSelectCategory) {
-        onSelectCategory(productData.title);
-      }
       const contactEl = document.getElementById('contact');
       if (contactEl) {
-        contactEl.scrollIntoView({ behavior: 'smooth' });
+        const offset = 80;
+        const elementPosition = contactEl.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
-    }, 1200);
+    }, 100);
   };
 
   return (
     <div className="spec-modal-backdrop" onClick={onClose}>
       <div className="spec-modal-container" onClick={(e) => e.stopPropagation()}>
-        
+
         {/* Modal Close Button */}
         <button
+          className="spec-modal-close-btn"
           onClick={onClose}
           style={{
             position: 'absolute',
@@ -80,30 +96,30 @@ const ProductSpecModal = ({ isOpen, onClose, productData, onSelectCategory }) =>
         </button>
 
         {/* Header Header Info */}
-        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '24px' }}>
+        <div className="spec-modal-header" style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '24px' }}>
           {productData.posterSrc && (
             <div style={{ width: '80px', height: '80px', borderRadius: '16px', overflow: 'hidden', flexShrink: 0, border: '1px solid rgba(255,255,255,0.2)' }}>
               <img src={productData.posterSrc} alt={productData.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           )}
           <div>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#38BDF8', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '4px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 700, color: '#FFFFFF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '8px' }}>
               {productData.category || 'B2B Specimen'}
             </div>
-            <h3 style={{ fontSize: '26px', fontWeight: 800, margin: 0 }}>
+            <h3 style={{ fontSize: '26px', color: '#FFFFFF', fontWeight: 800, margin: 0 }}>
               {productData.title}
             </h3>
           </div>
         </div>
 
         {/* Description */}
-        <p style={{ color: '#CBD5E1', fontSize: '14px', lineHeight: 1.6, marginBottom: '24px' }}>
+        <p style={{ color: '#FFFFFF', fontSize: '14px', lineHeight: 1.6, marginBottom: '24px' }}>
           {productData.description}
         </p>
 
         {/* Spec Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '28px' }}>
-          
+        <div className="spec-modal-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '28px' }}>
+
           <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '14px', padding: '14px 18px', border: '1px solid rgba(255,255,255,0.1)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94A3B8', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>
               <Package size={14} color="#F59E0B" /> Minimum Order Quantity (MOQ)
@@ -138,24 +154,21 @@ const ProductSpecModal = ({ isOpen, onClose, productData, onSelectCategory }) =>
         <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
           <button
             onClick={handleSampleRequest}
-            className="btn-primary"
+            className="btn-primary spec-modal-btn"
             style={{
               flex: 1,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '10px',
-              padding: '16px',
-              borderRadius: '12px',
-              backgroundColor: requested ? '#10B981' : '#2563EB',
-              fontSize: '14px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
+              gap: '8px',
+              padding: '12px 20px',
+              borderRadius: '10px',
+              fontSize: '13px',
+              fontWeight: 700
             }}
           >
-            {requested ? <CheckCircle2 size={18} /> : <Send size={18} />}
-            {requested ? 'Sample Request Initialized!' : `Request B2B Sample & Quote (${productData.title})`}
+            <Send size={16} />
+            Request B2B Sample & Quote
           </button>
         </div>
 

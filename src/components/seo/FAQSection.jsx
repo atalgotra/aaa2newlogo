@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, MessageCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import SchemaInjector from './SchemaInjector';
 
-const FAQSection = ({ faqs, title = "Frequently Asked Questions" }) => {
+const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick }) => {
   const [openIndex, setOpenIndex] = useState(0);
 
   if (!faqs || faqs.length === 0) return null;
@@ -66,8 +65,8 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions" }) => {
                 <p style={{ color: '#64748B', fontSize: '13px', lineHeight: 1.4, margin: '0 0 16px 0' }}>
                   Can't find what you're looking for? Reach out directly to our advisory team.
                 </p>
-                <Link
-                  to="/contact"
+                <button
+                  onClick={onContactClick}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -76,16 +75,17 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions" }) => {
                     backgroundColor: '#220150',
                     color: '#FFF',
                     borderRadius: '10px',
-                    textDecoration: 'none',
+                    border: 'none',
                     fontWeight: 700,
                     fontSize: '13px',
+                    cursor: 'pointer',
                     transition: 'all 0.25s ease'
                   }}
-                  onMouseOver={(e) => e.target.style.backgroundColor = '#3730A3'}
-                  onMouseOut={(e) => e.target.style.backgroundColor = '#220150'}
+                  onMouseOver={(e) => e.currentTarget.style.scale = '1.05'}
+                  onMouseOut={(e) => e.currentTarget.style.scale = '1'}
                 >
                   Contact Sourcing Team
-                </Link>
+                </button>
               </div>
             </div>
           </div>

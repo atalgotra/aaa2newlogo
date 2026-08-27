@@ -1,44 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Shield, Settings, Check, X, ChevronRight } from 'lucide-react';
+import { Settings, Check, X, ChevronRight } from 'lucide-react';
 
 const GA_TRACKING_ID = 'G-LDP4XDVPSG';
 const CLARITY_PROJECT_ID = 'x7xw2gsgac';
 
-// Premium animated Toggle Switch component
+// Compact premium animated Toggle Switch component in Brand Indigo
 const ToggleSwitch = ({ checked, onChange, disabled }) => (
-  <div 
-    onClick={() => !disabled && onChange()}
+  <div
+    onClick={(e) => {
+      e.stopPropagation();
+      if (!disabled && onChange) onChange();
+    }}
     style={{
-      width: '44px',
-      height: '24px',
-      background: disabled ? 'rgba(59, 130, 246, 0.5)' : checked ? 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)' : 'rgba(255, 255, 255, 0.1)',
-      borderRadius: '24px',
+      width: '36px',
+      height: '20px',
+      background: disabled
+        ? 'rgba(34, 1, 80, 0.5)'
+        : checked
+          ? '#220150'
+          : 'rgba(255, 255, 255, 0.12)',
+      borderRadius: '20px',
       position: 'relative',
       cursor: disabled ? 'not-allowed' : 'pointer',
-      transition: 'background 0.3s ease',
-      boxShadow: checked ? '0 0 15px rgba(139, 92, 246, 0.4)' : 'inset 0 2px 4px rgba(0,0,0,0.2)'
+      transition: 'all 0.3s ease',
+      boxShadow: checked ? '0 0 10px rgba(34, 1, 80, 0.6)' : 'inset 0 2px 4px rgba(0,0,0,0.25)',
+      border: checked ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(255, 255, 255, 0.08)',
+      flexShrink: 0
     }}
   >
     <motion.div
       layout
       transition={{ type: "spring", stiffness: 700, damping: 30 }}
       style={{
-        width: '20px',
-        height: '20px',
+        width: '16px',
+        height: '16px',
         background: '#ffffff',
         borderRadius: '50%',
         position: 'absolute',
-        top: '2px',
-        left: checked ? '22px' : '2px',
-        boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+        top: '1px',
+        left: checked ? '17px' : '1px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
       }}
     >
-      {checked && <Check size={12} color="#8b5cf6" strokeWidth={3} />}
+      {checked && <Check size={10} color="#220150" strokeWidth={3} />}
     </motion.div>
   </div>
 );
@@ -119,202 +128,185 @@ export default function CookieConsent() {
 
   return (
     <AnimatePresence>
-      <div style={{ position: 'fixed', bottom: '30px', left: '0', right: '0', display: 'flex', justifyContent: 'center', zIndex: 999999, padding: '0 20px', pointerEvents: 'none' }}>
+      <div style={{ position: 'fixed', bottom: '20px', left: '0', right: '0', display: 'flex', justifyContent: 'center', zIndex: 999999, padding: '0 16px', pointerEvents: 'none' }}>
         <motion.div
           initial={{ y: 120, opacity: 0, scale: 0.95 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
           exit={{ y: 120, opacity: 0, scale: 0.95 }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           style={{
-            background: 'rgba(15, 23, 42, 0.75)',
+            background: 'linear-gradient(135deg, rgba(20, 0, 56, 0.95) 0%, rgba(34, 1, 80, 0.92) 100%)',
             backdropFilter: 'blur(24px) saturate(180%)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            padding: '20px 24px',
-            borderRadius: '16px',
-            maxWidth: showPreferences ? '600px' : '750px',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            padding: showPreferences ? '16px 18px' : '14px 18px',
+            borderRadius: '14px',
+            maxWidth: showPreferences ? '490px' : '520px',
             width: '100%',
-            boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(139, 92, 246, 0.15)',
+            boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(34, 1, 80, 0.4)',
             pointerEvents: 'auto',
             color: 'white',
             overflow: 'hidden',
             position: 'relative'
           }}
         >
-          {/* Subtle glowing orb in background */}
-          <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
+          {/* Subtle glowing Brand Indigo orb in background */}
+          <div/>
 
           {!showPreferences ? (
-            // Layer 1: Minimalist Premium Banner
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative', zIndex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-                <div style={{ 
-                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%)', 
-                  padding: '12px', 
-                  borderRadius: '12px',
-                  border: '1px solid rgba(255,255,255,0.05)',
-                  boxShadow: 'inset 0 0 20px rgba(139, 92, 246, 0.1)'
-                }}>
-                  <Shield size={24} color="#a78bfa" />
-                </div>
-                <div style={{ flex: 1 }}>
-                  <h3 style={{ margin: '0 0 6px 0', fontSize: '1.15rem', fontWeight: '800', background: 'linear-gradient(to right, #fff, #cbd5e1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                    Your Privacy matters
-                  </h3>
-                  <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.5', fontWeight: '400' }}>
-                    We use cookies to elevate your browsing experience, deliver tailored content, and analyze our traffic to continuously improve. 
-                    Explore our <Link to="/privacy-policy" style={{ color: '#a78bfa', textDecoration: 'none', fontWeight: '600', borderBottom: '1px solid rgba(167, 139, 250, 0.3)', paddingBottom: '2px', transition: 'all 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.borderBottomColor = '#a78bfa'} onMouseLeave={(e) => e.currentTarget.style.borderBottomColor = 'rgba(167, 139, 250, 0.3)'}>Privacy Policy</Link> for details.
-                  </p>
-                </div>
+            // Layer 1: Minimalist Premium Compact Banner in Brand Indigo
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', position: 'relative', zIndex: 1 }}>
+              <div>
+                <h3 style={{ margin: '0 0 3px 0', fontSize: '0.92rem', fontWeight: '700', color: '#FFFFFF', letterSpacing: '-0.01em' }}>
+                  Cookie Preferences
+                </h3>
+                <p style={{ margin: 0, color: '#CBD5E1', fontSize: '0.8rem', lineHeight: '1.45', fontWeight: '400' }}>
+                  We use cookies to optimize site experience and analyze the traffic. View our <Link to="/privacy-policy" style={{ color: '#93C5FD', textDecoration: 'none', fontWeight: '600', borderBottom: '1px solid rgba(147, 197, 253, 0.4)', paddingBottom: '1px', transition: 'all 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'} onMouseLeave={(e) => e.currentTarget.style.color = '#93C5FD'}>Privacy Policy</Link>.
+                </p>
               </div>
-              
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'flex-end', paddingTop: '4px' }}>
-                <button 
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'flex-end', alignItems: 'center', paddingTop: '2px' }}>
+                <button
                   onClick={() => setShowPreferences(true)}
-                  style={{ background: 'transparent', color: '#cbd5e1', border: 'none', padding: '10px 16px', borderRadius: '10px', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = '#cbd5e1'; e.currentTarget.style.background = 'transparent' }}
+                  style={{ background: 'transparent', color: '#CBD5E1', border: 'none', padding: '6px 10px', borderRadius: '8px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '4px', transition: 'all 0.2s' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = '#CBD5E1'; e.currentTarget.style.background = 'transparent' }}
                 >
-                  <Settings size={16} /> Customize
+                  <Settings size={13} /> Customize
                 </button>
-                <button 
+                <button
                   onClick={handleRejectAll}
-                  style={{ background: 'rgba(255, 255, 255, 0.03)', color: '#cbd5e1', border: '1px solid rgba(255, 255, 255, 0.1)', padding: '10px 20px', borderRadius: '10px', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '600', transition: 'all 0.3s' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)'; e.currentTarget.style.color = '#fca5a5'; e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.3)' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)'; e.currentTarget.style.color = '#cbd5e1'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)' }}
+                  style={{ background: 'rgba(255, 255, 255, 0.05)', color: '#CBD5E1', border: '1px solid rgba(255, 255, 255, 0.12)', padding: '6px 12px', borderRadius: '8px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600', transition: 'all 0.2s' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(34, 1, 80, 0.7), inset 0 1px 2px rgba(255,255,255,0.3)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)' }}
                 >
                   Reject Non-Essential
                 </button>
-                <button 
+                <button
                   onClick={handleAcceptAll}
-                  style={{ 
-                    background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)', 
-                    color: 'white', 
-                    border: 'none', 
-                    padding: '10px 24px', 
-                    borderRadius: '10px', 
-                    cursor: 'pointer', 
-                    fontSize: '0.9rem', 
-                    fontWeight: '700', 
-                    boxShadow: '0 10px 25px -5px rgba(139, 92, 246, 0.5), inset 0 2px 4px rgba(255,255,255,0.2)', 
-                    transition: 'all 0.3s',
-                    position: 'relative',
-                    overflow: 'hidden'
+                  style={{
+                    background: 'linear-gradient(135deg, #220150 0%, #220150 100%)',
+                    color: '#FFFFFF',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    padding: '6px 16px',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    fontSize: '0.8rem',
+                    fontWeight: '700',
+                    boxShadow: '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)',
+                    transition: 'all 0.2s'
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 15px 35px -5px rgba(139, 92, 246, 0.6), inset 0 2px 4px rgba(255,255,255,0.2)' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(139, 92, 246, 0.5), inset 0 2px 4px rgba(255,255,255,0.2)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(34, 1, 80, 0.7), inset 0 1px 2px rgba(255,255,255,0.3)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)' }}
                 >
                   Accept All
                 </button>
               </div>
             </div>
           ) : (
-            // Layer 2: Granular Preferences with WOW Factor
-            <motion.div 
-              initial={{ opacity: 0, x: 20 }}
+            // Layer 2: Compact Granular Preferences in Brand Indigo
+            <motion.div
+              initial={{ opacity: 0, x: 15 }}
               animate={{ opacity: 1, x: 0 }}
-              style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative', zIndex: 1 }}
+              style={{ display: 'flex', flexDirection: 'column', gap: '10px', position: 'relative', zIndex: 1 }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '16px' }}>
-                <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(to right, #fff, #cbd5e1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  <Settings size={20} color="#a78bfa" /> Preferences
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '8px' }}>
+                <h3 style={{ margin: 0, fontSize: '0.92rem', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '6px', color: '#FFFFFF' }}>
+                  <Settings size={15} color="#93C5FD" /> Preferences
                 </h3>
-                <button 
-                  onClick={() => setShowPreferences(false)} 
-                  style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: '#cbd5e1', cursor: 'pointer', padding: '8px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                <button
+                  onClick={() => setShowPreferences(false)}
+                  style={{ background: 'rgba(255,255,255,0.06)', border: 'none', color: '#CBD5E1', cursor: 'pointer', padding: '5px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
                 >
-                  <X size={20} />
+                  <X size={15} />
                 </button>
               </div>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '60vh', overflowY: 'auto' }}>
                 {/* Compulsory */}
-                <div style={{ background: 'rgba(255,255,255,0.02)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <div style={{ marginTop: '2px' }}>
-                    <ToggleSwitch checked={true} disabled={true} />
-                  </div>
-                  <div>
-                    <h4 style={{ margin: '0 0 4px 0', fontSize: '0.95rem', color: '#fff', fontWeight: '600' }}>Essential Cookies</h4>
-                    <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.85rem', lineHeight: '1.5' }}>
-                      Strictly necessary for the website to function securely and properly. These cannot be disabled.
+                <div style={{ background: 'rgba(255,255,255,0.04)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+                      <h4 style={{ margin: 0, fontSize: '0.85rem', color: '#FFFFFF', fontWeight: '600' }}>Essential Cookies</h4>
+                      <span style={{ fontSize: '0.68rem', color: '#94A3B8', background: 'rgba(255,255,255,0.08)', padding: '1px 5px', borderRadius: '4px' }}>Required</span>
+                    </div>
+                    <p style={{ margin: 0, color: '#94A3B8', fontSize: '0.76rem', lineHeight: '1.35' }}>
+                      Strictly necessary for site security and functionality.
                     </p>
                   </div>
+                  <ToggleSwitch checked={true} disabled={true} />
                 </div>
 
                 {/* Analytical */}
-                <div 
+                <div
                   onClick={() => togglePreference('analytical')}
-                  style={{ 
-                    background: preferences.analytical ? 'rgba(139, 92, 246, 0.05)' : 'rgba(255,255,255,0.02)', 
-                    padding: '16px', 
-                    borderRadius: '12px', 
-                    border: `1px solid ${preferences.analytical ? 'rgba(139, 92, 246, 0.3)' : 'rgba(255,255,255,0.05)'}`, 
-                    display: 'flex', gap: '16px', alignItems: 'flex-start', cursor: 'pointer', transition: 'all 0.3s',
-                    boxShadow: preferences.analytical ? 'inset 0 0 20px rgba(139, 92, 246, 0.05)' : 'none'
+                  style={{
+                    background: preferences.analytical ? 'rgba(34, 1, 80, 0.45)' : 'rgba(255,255,255,0.04)',
+                    padding: '10px 12px',
+                    borderRadius: '10px',
+                    border: `0.5px solid ${preferences.analytical ? '#FFFFFF' : 'rgba(255,255,255,0.08)'}`,
+                    display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer', transition: 'all 0.25s',
+                    boxShadow: preferences.analytical ? 'inset 0 0 15px rgba(34, 1, 80, 0.4)' : 'none'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.borderColor = preferences.analytical ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255,255,255,0.1)'}
-                  onMouseLeave={(e) => e.currentTarget.style.borderColor = preferences.analytical ? 'rgba(139, 92, 246, 0.3)' : 'rgba(255,255,255,0.05)'}
+                  onMouseEnter={(e) => e.currentTarget.style.borderColor = preferences.analytical ? '#FFFFFF' : 'rgba(255,255,255,0.25)'}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = preferences.analytical ? '#FFFFFF' : 'rgba(255,255,255,0.08)'}
                 >
-                  <div style={{ marginTop: '2px' }}>
-                    <ToggleSwitch checked={preferences.analytical} onChange={() => togglePreference('analytical')} />
-                  </div>
-                  <div>
-                    <h4 style={{ margin: '0 0 4px 0', fontSize: '0.95rem', color: '#fff', fontWeight: '600' }}>Analytics & Performance</h4>
-                    <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.85rem', lineHeight: '1.5' }}>
-                      Empowers us to improve the website by securely analyzing visitor interactions via Google Analytics and Microsoft Clarity.
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <h4 style={{ margin: '0 0 2px 0', fontSize: '0.85rem', color: '#FFFFFF', fontWeight: '600' }}>Analytics & Performance</h4>
+                    <p style={{ margin: 0, color: '#94A3B8', fontSize: '0.76rem', lineHeight: '1.35' }}>
+                      Helps us analyze visitor usage securely via Google Analytics and Clarity.
                     </p>
                   </div>
+                  <ToggleSwitch checked={preferences.analytical} onChange={() => togglePreference('analytical')} />
                 </div>
 
                 {/* Marketing */}
-                <div 
+                <div
                   onClick={() => togglePreference('marketing')}
-                  style={{ 
-                    background: preferences.marketing ? 'rgba(139, 92, 246, 0.05)' : 'rgba(255,255,255,0.02)', 
-                    padding: '16px', 
-                    borderRadius: '12px', 
-                    border: `1px solid ${preferences.marketing ? 'rgba(139, 92, 246, 0.3)' : 'rgba(255,255,255,0.05)'}`, 
-                    display: 'flex', gap: '16px', alignItems: 'flex-start', cursor: 'pointer', transition: 'all 0.3s',
-                    boxShadow: preferences.marketing ? 'inset 0 0 20px rgba(139, 92, 246, 0.05)' : 'none'
+                  style={{
+                    background: preferences.marketing ? 'rgba(34, 1, 80, 0.45)' : 'rgba(255,255,255,0.04)',
+                    padding: '10px 12px',
+                    borderRadius: '10px',
+                    border: `0.5px solid ${preferences.marketing ? '#FFFFFF' : 'rgba(255,255,255,0.08)'}`,
+                    display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer', transition: 'all 0.25s',
+                    boxShadow: preferences.marketing ? 'inset 0 0 15px rgba(34, 1, 80, 0.4)' : 'none'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.borderColor = preferences.marketing ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255,255,255,0.1)'}
-                  onMouseLeave={(e) => e.currentTarget.style.borderColor = preferences.marketing ? 'rgba(139, 92, 246, 0.3)' : 'rgba(255,255,255,0.05)'}
+                  onMouseEnter={(e) => e.currentTarget.style.borderColor = preferences.marketing ? '#FFFFFF' : 'rgba(255,255,255,0.25)'}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = preferences.marketing ? '#FFFFFF' : 'rgba(255,255,255,0.08)'}
                 >
-                  <div style={{ marginTop: '2px' }}>
-                    <ToggleSwitch checked={preferences.marketing} onChange={() => togglePreference('marketing')} />
-                  </div>
-                  <div>
-                    <h4 style={{ margin: '0 0 4px 0', fontSize: '0.95rem', color: '#fff', fontWeight: '600' }}>Marketing & Advertising</h4>
-                    <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.85rem', lineHeight: '1.5' }}>
-                      Allows us to deliver personalized advertisements and track campaign performance across platforms.
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <h4 style={{ margin: '0 0 2px 0', fontSize: '0.85rem', color: '#FFFFFF', fontWeight: '600' }}>Marketing & Advertising</h4>
+                    <p style={{ margin: 0, color: '#94A3B8', fontSize: '0.76rem', lineHeight: '1.35' }}>
+                      Delivers relevant campaigns and tracks promotional performance.
                     </p>
                   </div>
+                  <ToggleSwitch checked={preferences.marketing} onChange={() => togglePreference('marketing')} />
                 </div>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '10px' }}>
-                <button 
+              <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '4px' }}>
+                <button
                   onClick={handleSavePreferences}
-                  style={{ 
-                    background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)', 
-                    color: 'white', 
-                    border: 'none', 
-                    padding: '12px 28px', 
-                    borderRadius: '10px', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem', 
-                    fontWeight: '700', 
-                    boxShadow: '0 10px 25px -5px rgba(139, 92, 246, 0.5), inset 0 2px 4px rgba(255,255,255,0.2)', 
-                    transition: 'all 0.3s',
+                  style={{
+                    background: 'linear-gradient(135deg, #220150 100%)',
+                    color: '#FFFFFF',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    padding: '7px 20px',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    fontSize: '0.82rem',
+                    fontWeight: '700',
+                    boxShadow: '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)',
+                    transition: 'all 0.2s',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px'
+                    gap: '6px'
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 15px 35px -5px rgba(139, 92, 246, 0.6), inset 0 2px 4px rgba(255,255,255,0.2)' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(139, 92, 246, 0.5), inset 0 2px 4px rgba(255,255,255,0.2)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(34, 1, 80, 0.7), inset 0 1px 2px rgba(255,255,255,0.3)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)' }}
                 >
-                  Save My Choices <ChevronRight size={18} strokeWidth={3} />
+                  Save Choices
                 </button>
               </div>
             </motion.div>

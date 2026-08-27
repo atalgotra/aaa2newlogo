@@ -36,14 +36,14 @@ export const preloadImage = (url) => {
 };
 
 /**
- * Preload a single video into browser cache
+ * Preload video metadata into browser cache
  */
 export const preloadVideo = (url) => {
   return new Promise((resolve) => {
     const video = document.createElement('video');
     video.src = url;
-    video.preload = 'auto';
-    video.onloadeddata = resolve;
+    video.preload = 'metadata';
+    video.onloadedmetadata = resolve;
     video.onerror = resolve;
   });
 };

@@ -8,7 +8,6 @@ export const productsData = [
     category: 'Sourcing & Production',
     description: 'From fast fashion collections to bespoke luxury evening wear, ethically produced in top Indian facilities.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4',
-    posterSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_bags.png',
     ctaText: 'Source Apparel'
   },
   {
@@ -17,7 +16,6 @@ export const productsData = [
     category: 'Accessories & Leather',
     description: 'Statement hardware, luxury synthetic and genuine leather clutches, structured tote bags, and accessories.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4',
-    posterSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_bags.png',
     ctaText: 'Source Accessories'
   },
   {
@@ -26,7 +24,6 @@ export const productsData = [
     category: 'Precision Craftsmanship',
     description: 'Imitation jewelry with maximum sparkle, intricate craftsmanship, and premium anti-tarnish plating.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/fine_jewellery_hero.mp4',
-    posterSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_jewellery.png',
     ctaText: 'Discover Jewellery'
   }
 ];

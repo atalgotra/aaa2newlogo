@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
+import SafeAutoplayVideo from '../common/SafeAutoplayVideo';
 
 const ProductShowcaseCard = ({
   title,
@@ -12,36 +13,8 @@ const ProductShowcaseCard = ({
   className = '',
   style = {}
 }) => {
-  const videoRef = useRef(null);
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    if (!videoRef.current || hasError) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!videoRef.current) return;
-          if (entry.isIntersecting) {
-            videoRef.current.play().catch(() => {
-              // Silently handle browser autoplay policy restriction
-            });
-          } else {
-            videoRef.current.pause();
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasError]);
 
   return (
     <div
@@ -53,7 +26,7 @@ const ProductShowcaseCard = ({
         position: 'relative',
         borderRadius: '24px',
         overflow: 'hidden',
-        backgroundColor: '#000000',
+        background: 'linear-gradient(180deg, #180042 0%, #0c0022 100%)',
         border: '1px solid rgba(255, 255, 255, 0.12)',
         boxShadow: isHovered
           ? '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(99, 102, 241, 0.3)'
@@ -68,38 +41,22 @@ const ProductShowcaseCard = ({
         ...style
       }}
     >
-      {/* Fallback Image (Rendered ONLY if no video or on video error) */}
-      {(!videoSrc || hasError) && posterSrc && (
-        <img
-          loading="lazy"
-          src={posterSrc}
-          alt={title}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'top center',
-            zIndex: 1,
-            opacity: 1,
-            transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-            transform: isHovered ? 'scale(1.05)' : 'scale(1.001)'
-          }}
-        />
-      )}
-
-      {/* HTML5 Background Video (Magnified from top, trimmed at bottom) */}
-      {videoSrc && !hasError && (
-        <video
-          ref={videoRef}
+      {/* Background Skeleton Shimmer Layer */}
+      <div
+        className="skeleton-dark"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          borderRadius: '24px'
+        }}
+      />
+      {videoSrc ? (
+        <SafeAutoplayVideo
           src={videoSrc}
           poster={posterSrc}
-          muted
-          loop
-          playsInline
+          useIntersectionObserver={true}
           preload="metadata"
-          onError={() => setHasError(true)}
           style={{
             position: 'absolute',
             inset: 0,
@@ -113,6 +70,26 @@ const ProductShowcaseCard = ({
             transform: isHovered ? 'scale(1.05)' : 'scale(1.001)'
           }}
         />
+      ) : (
+        posterSrc && (
+          <img
+            loading="lazy"
+            src={posterSrc}
+            alt={title}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'top center',
+              zIndex: 1,
+              opacity: 1,
+              transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+              transform: isHovered ? 'scale(1.05)' : 'scale(1.001)'
+            }}
+          />
+        )
       )}
 
       {/* Bottom Text Shadow Gradient (Top is 100% Clear & Untinted) */}

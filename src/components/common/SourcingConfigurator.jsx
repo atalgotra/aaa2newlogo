@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import {
   CheckCircle2, ArrowRight, ArrowLeft, Send, Loader2, ShieldCheck, Sparkles,
@@ -6,11 +6,11 @@ import {
 } from 'lucide-react';
 
 const categories = [
-  { id: 'apparel', title: 'Apparel & Fashion', Icon: Shirt, iconColor: '#60A5FA', badge: '100+ Textile Mills' },
-  { id: 'bags', title: 'Designer Bags & Leather', Icon: Briefcase, iconColor: '#F59E0B', badge: 'ISO Leather Hubs' },
-  { id: 'jewellery', title: 'Fashion Jewellery', Icon: Gem, iconColor: '#EC4899', badge: 'Anti-Tarnish Plating' },
-  { id: 'manufacturing', title: 'Custom Manufacturing', Icon: Factory, iconColor: '#34D399', badge: 'Zero Defect AQL' },
-  { id: 'tech', title: 'Digital Ops & AI Tech', Icon: Laptop, iconColor: '#818CF8', badge: 'Gen-Z IT Squad' }
+  { id: 'apparel', title: 'Apparel & Fashion', Icon: Shirt, iconColor: '#4F46E5', badge: '100+ Textile Mills' },
+  { id: 'bags', title: 'Designer Bags & Leather', Icon: Briefcase, iconColor: '#4F46E5', badge: 'ISO Leather Hubs' },
+  { id: 'jewellery', title: 'Fashion Jewellery', Icon: Gem, iconColor: '#4F46E5', badge: 'Anti-Tarnish Plating' },
+  { id: 'manufacturing', title: 'Custom Manufacturing', Icon: Factory, iconColor: '#4F46E5', badge: 'Zero Defect AQL' },
+  { id: 'tech', title: 'Digital Ops & AI Tech', Icon: Laptop, iconColor: '#4F46E5', badge: 'Gen-Z IT Squad' }
 ];
 
 const volumes = [
@@ -32,6 +32,22 @@ const SourcingConfigurator = ({ selectedCategoryFromModal }) => {
     message: ''
   });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (selectedCategoryFromModal) {
+      const query = selectedCategoryFromModal.toLowerCase();
+      const match = categories.find(cat => 
+        cat.title.toLowerCase().includes(query) || 
+        query.includes(cat.title.toLowerCase()) ||
+        cat.id === selectedCategoryFromModal ||
+        cat.title.toLowerCase().split(' ')[0] === query.split(' ')[0]
+      );
+      if (match) {
+        setSelectedCat(match);
+        setStep(1);
+      }
+    }
+  }, [selectedCategoryFromModal]);
 
   const handleCatSelect = (cat) => {
     setSelectedCat(cat);
@@ -90,12 +106,13 @@ Notes: ${formData.message || 'None'}`;
 
   return (
     <div
+      className="configurator-container"
       style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.04)',
-        borderRadius: '24px',
-        border: '1px solid rgba(255, 255, 255, 0.12)',
-        padding: '28px',
-        boxShadow: '0 20px 45px rgba(0, 0, 0, 0.4)',
+        backgroundColor: 'var(--bg-secondary)',
+        borderRadius: '20px',
+        border: '1px solid var(--border-light)',
+        padding: 'clamp(20px, 2.5vw, 28px)',
+        boxShadow: '0 10px 30px rgba(34, 1, 80, 0.04)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -108,10 +125,10 @@ Notes: ${formData.message || 'None'}`;
       {/* 1. Fixed Header with Stepper Tabs */}
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#818CF8', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--brand-indigo)', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>
             <Sparkles size={13} /> Sourcing Configurator
           </div>
-          <span style={{ fontSize: '12px', color: '#94A3B8', fontWeight: 600 }}>Step {step} of 3</span>
+          <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 600 }}>Step {step} of 3</span>
         </div>
 
         {/* Stepper Progress Bar */}
@@ -135,7 +152,7 @@ Notes: ${formData.message || 'None'}`;
                 style={{
                   height: '3px',
                   borderRadius: '3px',
-                  backgroundColor: step >= s.num ? '#2563EB' : 'rgba(255, 255, 255, 0.1)',
+                  backgroundColor: step >= s.num ? 'var(--brand-indigo)' : 'rgba(34, 1, 80, 0.1)',
                   transition: 'background-color 0.4s ease'
                 }}
               />
@@ -143,7 +160,7 @@ Notes: ${formData.message || 'None'}`;
                 style={{
                   fontSize: '11px',
                   fontWeight: 600,
-                  color: step === s.num ? '#FFFFFF' : step > s.num ? '#93C5FD' : '#64748B',
+                  color: step === s.num ? 'var(--brand-indigo)' : step > s.num ? 'var(--brand-indigo)' : '#94A3B8',
                   transition: 'color 0.3s ease'
                 }}
               >
@@ -155,13 +172,13 @@ Notes: ${formData.message || 'None'}`;
       </div>
 
       {/* 2. Fixed-Height Step Content Body (No Scrollbars) */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', overflow: 'hidden' }}>
+      <div className="configurator-content-body" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', overflow: 'hidden' }}>
 
         {/* STEP 1: CATEGORY SELECTION (COMPACT LIST - NO SCROLLBAR) */}
         {step === 1 && (
           <div>
             <div style={{ marginBottom: '10px' }}>
-              <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
+              <h3 style={{ fontSize: 'clamp(14px, 1.2vw, 16px)', fontWeight: 800, color: 'var(--brand-indigo)', marginBottom: '20px' }}>
                 Select Your Sourcing Category
               </h3>
             </div>
@@ -175,8 +192,8 @@ Notes: ${formData.message || 'None'}`;
                     key={cat.id}
                     onClick={() => handleCatSelect(cat)}
                     style={{
-                      backgroundColor: isSelected ? 'rgba(37, 99, 235, 0.22)' : 'rgba(255, 255, 255, 0.03)',
-                      border: isSelected ? '1px solid #3B82F6' : '1px solid rgba(255, 255, 255, 0.1)',
+                      backgroundColor: isSelected ? 'rgba(34, 1, 80, 0.06)' : 'transparent',
+                      border: isSelected ? '1px solid rgba(34, 1, 80, 0.2)' : '1px solid var(--border-light)',
                       borderRadius: '10px',
                       padding: '8px 12px',
                       cursor: 'pointer',
@@ -184,29 +201,29 @@ Notes: ${formData.message || 'None'}`;
                       alignItems: 'center',
                       gap: '10px',
                       transition: 'all 0.2s ease',
-                      boxShadow: isSelected ? '0 4px 12px rgba(37, 99, 235, 0.2)' : 'none'
+                      boxShadow: isSelected ? '0 4px 12px rgba(34, 1, 80, 0.06)' : 'none'
                     }}
                   >
                     <div
                       style={{
                         width: '28px',
                         height: '28px',
-                        borderRadius: '7px',
-                        backgroundColor: isSelected ? 'rgba(37, 99, 235, 0.35)' : 'rgba(255, 255, 255, 0.05)',
+                        borderRadius: '50%',
+                        backgroundColor: 'rgba(34, 1, 80, 0.08)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexShrink: 0
                       }}
                     >
-                      <IconComponent size={15} color={isSelected ? '#93C5FD' : cat.iconColor} />
+                      <IconComponent size={15} color="var(--brand-indigo)" />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>
+                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary, #0F172A)', margin: 0 }}>
                         {cat.title}
                       </h4>
                     </div>
-                    {isSelected && <Check size={15} color="#60A5FA" />}
+                    {isSelected && <Check size={15} color="var(--brand-indigo)" />}
                   </div>
                 );
               })}
@@ -217,25 +234,23 @@ Notes: ${formData.message || 'None'}`;
         {/* STEP 2: VOLUME SELECTION */}
         {step === 2 && (
           <div>
-            <div style={{ marginBottom: '14px' }}>
-              <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#FFFFFF', margin: '0 0 2px 0' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <h3 style={{ fontSize: 'clamp(15px, 1.3vw, 17px)', fontWeight: 800, color: 'var(--brand-indigo)', margin: '0 0 0' }}>
                 Select Estimated Order Scale
               </h3>
-              <p style={{ color: '#94A3B8', fontSize: '12.5px', margin: 0 }}>
-                Tier for <span style={{ color: '#93C5FD', fontWeight: 600 }}>{selectedCat.title}</span>
-              </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+            <div className="configurator-volume-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
               {volumes.map((vol) => {
                 const isSelected = selectedVol.id === vol.id;
                 return (
                   <div
                     key={vol.id}
                     onClick={() => handleVolSelect(vol)}
+                    className="configurator-volume-card"
                     style={{
-                      backgroundColor: isSelected ? 'rgba(37, 99, 235, 0.22)' : 'rgba(255, 255, 255, 0.03)',
-                      border: isSelected ? '1px solid #3B82F6' : '1px solid rgba(255, 255, 255, 0.1)',
+                      backgroundColor: isSelected ? 'rgba(34, 1, 80, 0.06)' : 'transparent',
+                      border: isSelected ? '1px solid rgba(34, 1, 80, 0.2)' : '1px solid var(--border-light)',
                       borderRadius: '14px',
                       padding: '16px',
                       cursor: 'pointer',
@@ -244,14 +259,15 @@ Notes: ${formData.message || 'None'}`;
                       flexDirection: 'column',
                       justifyContent: 'center',
                       minHeight: '80px',
-                      boxShadow: isSelected ? '0 6px 18px rgba(37, 99, 235, 0.25)' : 'none'
+                      boxShadow: isSelected ? '0 6px 18px rgba(34, 1, 80, 0.06)' : 'none'
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                      <div style={{ fontSize: '14.5px', fontWeight: 800, color: '#FFFFFF' }}>{vol.label}</div>
-                      {isSelected && <Check size={16} color="#60A5FA" />}
+                      <div className="configurator-volume-card-title" style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--brand-indigo)' }}>{vol.label}</div>
+                      {isSelected && <Check size={16} color="var(--brand-indigo)" />}
                     </div>
-                    <div style={{ fontSize: '11px', color: isSelected ? '#93C5FD' : '#94A3B8' }}>{vol.desc}</div>
+
+                    <div className="configurator-volume-card-desc" style={{ fontSize: '11px', color: isSelected ? 'var(--brand-indigo)' : 'var(--text-secondary)' }}>{vol.desc}</div>
                   </div>
                 );
               })}
@@ -264,31 +280,28 @@ Notes: ${formData.message || 'None'}`;
           <form id="sourcing-config-form" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {/* Quick summary strip */}
             <div
+              className="configurator-summary-strip"
               style={{
-                backgroundColor: 'rgba(37, 99, 235, 0.12)',
+                backgroundColor: 'rgba(34, 1, 80, 0.05)',
                 borderRadius: '10px',
-                border: '1px solid rgba(37, 99, 235, 0.25)',
+                border: '1px solid rgba(34, 1, 80, 0.1)',
                 padding: '8px 12px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 fontSize: '11.5px',
-                color: '#CBD5E1'
+                color: 'var(--text-secondary)'
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <CheckCircle2 size={13} color="#4ADE80" />
-                <span style={{ color: '#FFFFFF', fontWeight: 700 }}>{selectedCat.title}</span>
+                <span style={{ color: 'var(--brand-indigo)', fontWeight: 700 }}>{selectedCat.title}</span>
               </div>
-              <div style={{ color: '#FDE68A', fontWeight: 600 }}>{selectedVol.label}</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#7DD3FC' }}>
-                <ShieldCheck size={13} /> Audited Match
-              </div>
+              <div style={{ color: 'var(--brand-indigo)', fontWeight: 600 }}>{selectedVol.label}</div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div className="configurator-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
               <div>
-                <label style={{ display: 'block', color: '#FFFFFF', fontSize: '11.5px', fontWeight: 600, marginBottom: '3px' }}>Full Name *</label>
+                <label className="configurator-label" style={{ display: 'block', color: 'var(--text-primary, #0F172A)', fontWeight: 600, marginBottom: '3px' }}>Full Name *</label>
                 <input
                   type="text"
                   name="name"
@@ -296,12 +309,15 @@ Notes: ${formData.message || 'None'}`;
                   onChange={handleChange}
                   required
                   placeholder="Your Name"
-                  style={{ width: '100%', backgroundColor: '#140038', border: '1px solid rgba(255,255,255,0.18)', color: '#FFF', padding: '8px 10px', borderRadius: '8px', fontSize: '12.5px', outline: 'none' }}
+                  className="configurator-input"
+                  style={{ width: '100%', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', color: 'var(--text-primary, #0F172A)', padding: '8px 10px', borderRadius: '8px', outline: 'none', transition: 'border-color 0.3s' }}
+                  onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                  onBlur={(e) => e.target.style.borderColor = ''}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', color: '#FFFFFF', fontSize: '11.5px', fontWeight: 600, marginBottom: '3px' }}>Corporate Email *</label>
+                <label className="configurator-label" style={{ display: 'block', color: 'var(--text-primary, #0F172A)', fontWeight: 600, marginBottom: '3px' }}>Corporate Email *</label>
                 <input
                   type="email"
                   name="email"
@@ -309,31 +325,56 @@ Notes: ${formData.message || 'None'}`;
                   onChange={handleChange}
                   required
                   placeholder="name@company.com"
-                  style={{ width: '100%', backgroundColor: '#140038', border: '1px solid rgba(255,255,255,0.18)', color: '#FFF', padding: '8px 10px', borderRadius: '8px', fontSize: '12.5px', outline: 'none' }}
+                  className="configurator-input"
+                  style={{ width: '100%', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', color: 'var(--text-primary, #0F172A)', padding: '8px 10px', borderRadius: '8px', outline: 'none', transition: 'border-color 0.3s' }}
+                  onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                  onBlur={(e) => e.target.style.borderColor = ''}
                 />
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div className="configurator-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
               <div>
-                <label style={{ display: 'block', color: '#FFFFFF', fontSize: '11.5px', fontWeight: 600, marginBottom: '3px' }}>Company Name</label>
+                <label className="configurator-label" style={{ display: 'block', color: 'var(--text-primary, #0F172A)', fontWeight: 600, marginBottom: '3px' }}>Company Name</label>
                 <input
                   type="text"
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="Company / Brand"
-                  style={{ width: '100%', backgroundColor: '#140038', border: '1px solid rgba(255,255,255,0.18)', color: '#FFF', padding: '8px 10px', borderRadius: '8px', fontSize: '12.5px', outline: 'none' }}
+                  className="configurator-input"
+                  style={{ width: '100%', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', color: 'var(--text-primary, #0F172A)', padding: '8px 10px', borderRadius: '8px', outline: 'none', transition: 'border-color 0.3s' }}
+                  onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                  onBlur={(e) => e.target.style.borderColor = ''}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', color: '#FFFFFF', fontSize: '11.5px', fontWeight: 600, marginBottom: '3px' }}>Target Timeline</label>
+                <label className="configurator-label" style={{ display: 'block', color: 'var(--text-primary, #0F172A)', fontWeight: 600, marginBottom: '3px' }}>Target Timeline</label>
                 <select
                   name="timeline"
                   value={formData.timeline}
                   onChange={handleChange}
-                  style={{ width: '100%', backgroundColor: '#140038', border: '1px solid rgba(255,255,255,0.18)', color: '#FFF', padding: '8px 10px', borderRadius: '8px', fontSize: '12.5px', outline: 'none' }}
+                  className="configurator-select"
+                  style={{
+                    width: '100%',
+                    backgroundColor: 'var(--bg-main)',
+                    border: '1px solid var(--border-light)',
+                    color: 'var(--text-primary, #0F172A)',
+                    padding: '8px 36px 8px 10px',
+                    borderRadius: '8px',
+                    outline: 'none',
+                    transition: 'border-color 0.3s',
+                    appearance: 'none',
+                    WebkitAppearance: 'none',
+                    MozAppearance: 'none',
+                    backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23220150' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 14px center',
+                    backgroundSize: '14px'
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                  onBlur={(e) => e.target.style.borderColor = ''}
                 >
                   <option value="Urgent (2-3 Weeks)">Urgent (2-3 Weeks)</option>
                   <option value="Standard (3-4 Weeks)">Standard (3-4 Weeks)</option>
@@ -343,14 +384,17 @@ Notes: ${formData.message || 'None'}`;
             </div>
 
             <div>
-              <label style={{ display: 'block', color: '#FFFFFF', fontSize: '11.5px', fontWeight: 600, marginBottom: '3px' }}>Custom Specs / Notes</label>
+              <label className="configurator-label" style={{ display: 'block', color: 'var(--text-primary, #0F172A)', fontWeight: 600, marginBottom: '3px' }}>Custom Specs / Notes</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                rows={2}
-                placeholder="Fabric specs, GSM, AQL requirements, or tech stack..."
-                style={{ width: '100%', backgroundColor: '#140038', border: '1px solid rgba(255,255,255,0.18)', color: '#FFF', padding: '8px 10px', borderRadius: '8px', fontSize: '12.5px', outline: 'none', resize: 'none' }}
+                rows={3}
+                placeholder="Fabric specs, material requirements, tech stack or any additional details..."
+                className="configurator-textarea"
+                style={{ width: '100%', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', color: 'var(--text-primary, #0F172A)', padding: '6px 10px', borderRadius: '8px', outline: 'none', resize: 'none', transition: 'border-color 0.3s' }}
+                onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                onBlur={(e) => e.target.style.borderColor = ''}
               />
             </div>
           </form>
@@ -358,13 +402,13 @@ Notes: ${formData.message || 'None'}`;
       </div>
 
       {/* 3. Fixed Pinned Footer Navigation */}
-      <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(34, 1, 80, 0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {step > 1 ? (
           <button
             type="button"
             onClick={() => setStep(step - 1)}
             style={{
-              color: '#94A3B8',
+              color: 'var(--text-secondary)',
               border: 'none',
               background: 'transparent',
               display: 'flex',

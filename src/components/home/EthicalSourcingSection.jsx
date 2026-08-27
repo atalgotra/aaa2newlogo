@@ -1,8 +1,7 @@
 import React from 'react';
-import { Leaf, Zap, Droplets } from 'lucide-react';
+import { Zap, Droplets } from 'lucide-react';
 
 const EthicalSourcingSection = ({
-  badge = "Ethical Sourcing",
   title = "Sustainable & Compliant Sourcing",
   description = "Audited manufacturing powered by renewable clean energy, zero-liquid-discharge water recycling, and certified global statutory compliance.",
   imageSrc = "https://aaawebisteimages.s3.ap-south-1.amazonaws.com/ethical_sustainability.png",
@@ -13,34 +12,18 @@ const EthicalSourcingSection = ({
     <section
       id="ethical-sourcing"
       className="section-padding gsap-section"
-      style={{ backgroundColor: '#140038', color: '#FFFFFF' }}
+      style={{ backgroundColor: '#220150', color: '#FFFFFF' }}
     >
       <div className="container">
         <div className="responsive-grid-2" style={{ alignItems: 'center', gap: '36px' }}>
           {/* Left Content */}
           <div>
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                color: '#34D399',
-                fontSize: '12px',
-                fontWeight: 700,
-                letterSpacing: '1.5px',
-                textTransform: 'uppercase',
-                marginBottom: '10px'
-              }}
-            >
-              <Leaf size={15} color="#34D399" /> {badge}
-            </div>
-
             <h2
               style={{
                 fontSize: 'clamp(26px, 4vw, 36px)',
                 fontWeight: 800,
                 color: '#FFFFFF',
-                marginBottom: '12px',
+                margin: '0 0 12px 0',
                 lineHeight: 1.25
               }}
             >
@@ -69,7 +52,7 @@ const EthicalSourcingSection = ({
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                  <Zap color="#38BDF8" size={22} />
+                  <Zap color="#FFFFFF" size={22} />
                   <h4 style={{ color: '#FFF', fontWeight: 700, fontSize: '15.5px', margin: 0 }}>
                     Clean Energy
                   </h4>
@@ -87,7 +70,7 @@ const EthicalSourcingSection = ({
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                  <Droplets color="#3B82F6" size={22} />
+                  <Droplets color="#FFFFFF" size={22} />
                   <h4 style={{ color: '#FFF', fontWeight: 700, fontSize: '15.5px', margin: 0 }}>
                     Zero Waste Water
                   </h4>

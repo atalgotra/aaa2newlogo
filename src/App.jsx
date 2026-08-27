@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 import ScrollToTop from './components/ScrollToTop';
@@ -12,7 +12,6 @@ const About = lazy(() => import('./pages/About'));
 const Team = lazy(() => import('./pages/Team'));
 const Products = lazy(() => import('./pages/Products'));
 const EthicalSourcing = lazy(() => import('./pages/EthicalSourcing'));
-const Contact = lazy(() => import('./pages/Contact'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 
@@ -54,7 +53,7 @@ const AnimatedRoutes = () => {
           <Route path="/team" element={<Team />} />
           <Route path="/products" element={<Products />} />
           <Route path="/ethical-sourcing" element={<EthicalSourcing />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact" element={<Navigate to="/" state={{ scrollTo: 'contact' }} replace />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/sourcing" element={<Sourcing />} />
           <Route path="/services/design" element={<Design />} />

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { gsap, ScrollTrigger, createGsapScope, prefersReducedMotion } from '../../utils/gsapUtils';
+import SafeAutoplayVideo from '../common/SafeAutoplayVideo';
 
 /* ─────────────────────────────────────────────────────────────
    WORLD-CLASS LIVING GLOBAL NETWORK & STARDUST CANVAS
@@ -41,10 +42,6 @@ const VideoHero = () => {
   const subtextRef = useRef(null);       // Product sourcing...
   const ctaRef = useRef(null);       // Action buttons
   const primaryBtnRef = useRef(null);       // Explore Our Capabilities
-  const scrollIndRef = useRef(null);       // Scroll indicator container
-  const scrollLineRef = useRef(null);       // Vertical scroll line
-  const scrollChevronRef = useRef(null);       // Scroll SVG chevron
-  const transitionBeamRef = useRef(null);       // Golden transition line to next section
 
 
   /* Mouse stardust & shockwave state inside Canvas */
@@ -303,6 +300,8 @@ const VideoHero = () => {
     return () => hero.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+
+
   /* ── GSAP Intro Master Timeline + Ambient Breathing + Floating Badges + Scroll Exit ── */
   useEffect(() => {
     const reduced = prefersReducedMotion();
@@ -318,7 +317,7 @@ const VideoHero = () => {
       const contentElements = [
         mottoRef.current, mottoLineRef.current,
         titleLine1Ref.current, titleLine2Ref.current, subtextRef.current,
-        ctaRef.current, scrollIndRef.current
+        ctaRef.current
       ].filter(Boolean);
 
       if (reduced) {
@@ -406,21 +405,7 @@ const VideoHero = () => {
         masterTl.fromTo(ctaRef.current,
           { opacity: 0, y: 12, scale: 0.98 },
           { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out' },
-          2.20
-        );
-
-        /* 2.45s: Reveal Scroll Indicator */
-        masterTl.fromTo(scrollIndRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.5 },
-          2.45
-        );
-        masterTl.fromTo(scrollLineRef.current,
-          { scaleY: 0 },
-          { scaleY: 1, duration: 0.5, ease: 'power2.inOut', transformOrigin: 'top center' },
-          2.45
-        );
-      }
+    )}
 
       /* ────── CAMERA PUSH SCROLL EXIT ────── */
       ScrollTrigger.create({
@@ -442,29 +427,6 @@ const VideoHero = () => {
           if (bgLayerRef.current) {
             gsap.set(bgLayerRef.current, {
               opacity: 0.58 + p * 0.42,
-            });
-          }
-
-          /* Motto fades earlier */
-          if (mottoRef.current) gsap.set(mottoRef.current, { opacity: Math.max(0, 1 - p * 3.5) });
-          if (mottoLineRef.current) gsap.set(mottoLineRef.current, { opacity: Math.max(0, 1 - p * 3.5) });
-
-          /* Headlines & Copy fade */
-          if (titleLine1Ref.current) gsap.set(titleLine1Ref.current, { y: -p * 40, opacity: Math.max(0, 1 - p * 2.0) });
-          if (titleLine2Ref.current) gsap.set(titleLine2Ref.current, { y: -p * 35, opacity: Math.max(0, 1 - p * 2.0) });
-          if (subtextRef.current) gsap.set(subtextRef.current, { opacity: Math.max(0, 1 - p * 3.5), y: -p * 30 });
-          if (ctaRef.current) gsap.set(ctaRef.current, { opacity: Math.max(0, 1 - p * 3.5), y: -p * 25 });
-
-
-          /* Scroll indicator fades */
-          if (scrollIndRef.current) gsap.set(scrollIndRef.current, { opacity: Math.max(0, 1 - p * 8) });
-
-          /* Golden conduit beam */
-          if (transitionBeamRef.current) {
-            const beamProgress = Math.max(0, (p - 0.3) / 0.7);
-            gsap.set(transitionBeamRef.current, {
-              scaleY: beamProgress,
-              opacity: Math.min(0.75, beamProgress * 1.2),
             });
           }
         }
@@ -522,23 +484,23 @@ const VideoHero = () => {
     >
 
       {/* ── Plane 1: Background Video ── */}
-      {/* aspect-ratio reserves height before MP4 loads, preventing CLS */}
       <div
         ref={videoWrapRef}
         style={{
-          display: 'block',
+          position: 'absolute',
+          inset: 0,
           width: '100%',
-          aspectRatio: '16 / 9',
+          height: '100%',
+          overflow: 'hidden',
           opacity: 1,
           willChange: 'transform'
         }}
       >
-        <video
-          autoPlay loop muted playsInline preload="auto"
-          style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
-        >
-          <source src="/hero-video.mp4?v=cleaned" type="video/mp4" />
-        </video>
+        <SafeAutoplayVideo
+          src="/hero-video.mp4"
+          useIntersectionObserver={false}
+          style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+        />
       </div>
 
       {/* ── Plane 2: Living Global Network & Stardust Canvas ── */}
@@ -547,12 +509,12 @@ const VideoHero = () => {
       {/* ── Plane 2 & 3: Atmospheric Layer & Vignette ── */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 3,
-        background: 'linear-gradient(to bottom, rgba(10,0,21,0.10) 0%, transparent 22%, transparent 50%, rgba(10,0,21,0.35) 76%, rgba(10,0,21,0.88) 100%)',
+        background: 'linear-gradient(to bottom, rgba(10,0,21,0.25) 0%, transparent 22%, transparent 55%, rgba(10,0,21,0.65) 80%, #0a0015 100%)',
       }} />
 
       <div ref={bgLayerRef} style={{
         position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 3,
-        background: 'radial-gradient(ellipse 70% 60% at 50% 38%, rgba(5,0,18,0.58) 0%, transparent 100%)',
+        background: 'radial-gradient(ellipse 85% 75% at 50% 40%, rgba(5,0,18,0.40) 0%, rgba(10,0,21,0.82) 100%)',
         willChange: 'transform, opacity',
       }} />
 
@@ -720,57 +682,6 @@ const VideoHero = () => {
 
         </div>
       </div>
-
-      {/* ── Scroll Indicator ── */}
-      <div
-        ref={scrollIndRef}
-        onClick={() => scrollToSection('about')}
-        style={{
-          position: 'absolute', bottom: '24px', left: '50%',
-          transform: 'translateX(-50%)',
-          cursor: 'pointer', zIndex: 10, opacity: 0,
-          visibility: 'hidden',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
-        }}
-      >
-        <div
-          ref={scrollLineRef}
-          style={{
-            width: '1px', height: '32px',
-            backgroundColor: 'rgba(99, 102, 241, 0.60)',
-            boxShadow: '0 0 8px rgba(99, 102, 241, 0.8)',
-            transformOrigin: 'top center',
-          }}
-        />
-        <div
-          ref={scrollChevronRef}
-          style={{ color: 'rgba(165, 180, 252, 0.85)', display: 'flex' }}
-        >
-          <svg width="14" height="9" viewBox="0 0 14 9" fill="none">
-            <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-      </div>
-
-      {/* ── Brand Indigo Transition Conduit to Next Section ── */}
-      <div
-        ref={transitionBeamRef}
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '1px',
-          height: '60px',
-          background: 'linear-gradient(to bottom, rgba(99, 102, 241, 0.8), rgba(99, 102, 241, 0))',
-          transformOrigin: 'top center',
-          opacity: 0,
-          zIndex: 4,
-          pointerEvents: 'none',
-          willChange: 'transform, opacity',
-        }}
-      />
-
     </section>
   );
 };

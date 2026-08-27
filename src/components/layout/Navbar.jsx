@@ -1,12 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import AAA2Logo from '../common/AAA2Logo';
 
 const Navbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [pastHero, setPastHero] = useState(false);
   const [heroProgress, setHeroProgress] = useState(0); // 0 = top of hero, 1 = past hero
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+
+  const isSubpage = location.pathname === '/privacy-policy' || location.pathname === '/terms-of-service';
+  const isSolid = pastHero || isSubpage;
 
   const isManualScrollRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
@@ -47,9 +54,36 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [mobileMenuOpen]);
+
   const scrollToSection = (id) => {
     setMobileMenuOpen(false);
     setActiveSection(id);
+
+    if (location.pathname !== '/') {
+      if (id === 'hero') {
+        navigate('/');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        navigate('/', { state: { scrollTo: id } });
+      }
+      return;
+    }
+
+    if (id === 'hero') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     isManualScrollRef.current = true;
     if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
 
@@ -59,11 +93,9 @@ const Navbar = () => {
 
     const element = document.getElementById(id);
     if (element) {
-      const offset = 90;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - offset;
 
       window.scrollTo({
         top: offsetPosition,
@@ -74,7 +106,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', sectionId: 'hero' },
-    { name: 'About Us', sectionId: 'about' },
+    { name: 'About', sectionId: 'about' },
     { name: 'Capabilities', sectionId: 'services' },
     { name: 'Products', sectionId: 'products' },
     { name: 'Ethical Sourcing', sectionId: 'ethical-sourcing' },
@@ -82,181 +114,233 @@ const Navbar = () => {
   ];
 
   return (
-    <header
-      style={{
-        position: 'fixed',
-        top: pastHero ? '12px' : '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: 'calc(100% - 32px)',
-        maxWidth: '1280px',
-        backgroundColor: pastHero
-          ? 'rgba(34, 1, 80, 0.95)'
-          : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`,
-        backdropFilter: (heroProgress > 0.1 || pastHero)
-          ? `blur(${Math.round(heroProgress * 10 + (pastHero ? 10 : 0))}px)`
-          : 'none',
-        borderRadius: '50px',
-        border: pastHero
-          ? '1px solid rgba(255, 255, 255, 0.15)'
-          : `1px solid rgba(255, 255, 255, ${(0.08 + heroProgress * 0.18).toFixed(2)})`,
-        boxShadow: pastHero ? '0 15px 40px rgba(0, 0, 0, 0.6)' : 'none',
-        zIndex: 1000,
-        transition: 'top 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease',
-        padding: '0 24px'
-      }}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '68px' }}>
-
-        {/* AAA2 Logo */}
-        <div
-          onClick={() => scrollToSection('hero')}
-          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-        >
-          <AAA2Logo mode="dark" size={50} />
-        </div>
-
-        {/* Desktop Floating Navigation Items */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '4px', height: '100%' }} className="desktop-nav">
-          {navLinks.map((link, index) => {
-            const isActive = activeSection === link.sectionId;
-            return (
-              <button
-                key={index}
-                onClick={() => scrollToSection(link.sectionId)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '8px 16px',
-                  borderRadius: '30px',
-                  fontSize: '14px',
-                  fontWeight: isActive ? 700 : 500,
-                  color: isActive ? '#FFFFFF' : '#CBD5E1',
-                  fontFamily: "'Chakra Petch', sans-serif",
-                  backgroundColor: isActive ? '#220150' : 'transparent',
-                  border: isActive ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
-                  cursor: 'pointer',
-                }}
-              >
-                {link.name}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Action Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <button
-            onClick={() => scrollToSection('contact')}
-            className="btn-primary"
-          >
-            Get In Touch
-          </button>
-
-          {/* Mobile Menu Toggle */}
-          <div className="mobile-menu-toggle" style={{ display: 'none' }}>
-            <button
-              aria-label="Toggle Mobile Menu"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{ color: '#FFFFFF', border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '4px' }}
-            >
-              {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-      {/* Floating AAA 2 INNOVATE below Navbar Logo */}
-      <div
-        onClick={() => scrollToSection('hero')}
+    <>
+      <header
         style={{
-          position: 'absolute',
-          top: '76px',
-          left: '2px',
-          display: mobileMenuOpen ? 'none' : 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '6px 16px',
-          backgroundColor: pastHero
+          position: 'fixed',
+          top: isSolid ? '10px' : '16px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 'calc(100% - 32px)',
+          maxWidth: '1280px',
+          backgroundColor: isSolid
             ? 'rgba(34, 1, 80, 0.95)'
             : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`,
-          backdropFilter: (heroProgress > 0.1 || pastHero)
-            ? `blur(${Math.round(heroProgress * 10 + (pastHero ? 10 : 0))}px)`
+          backdropFilter: (heroProgress > 0.1 || isSolid)
+            ? `blur(${Math.round(heroProgress * 10 + (isSolid ? 10 : 0))}px)`
             : 'none',
-          borderRadius: '30px',
-          cursor: 'pointer',
-          fontFamily: "'Orbitron', sans-serif",
-          fontSize: '11px',
-          fontWeight: 800,
-          letterSpacing: '0.24em',
-          textTransform: 'uppercase',
-          color: '#FFFFFF',
-          whiteSpace: 'nowrap',
-          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-          userSelect: 'none'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(2px) scale(1.03)';
-          e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.7)';
-          e.currentTarget.style.boxShadow = '0 10px 28px rgba(245, 158, 11, 0.35)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0) scale(1)';
-          e.currentTarget.style.borderColor = '';
-          e.currentTarget.style.boxShadow = '';
+          borderRadius: '50px',
+          border: isSolid
+            ? '1px solid rgba(255, 255, 255, 0.15)'
+            : `1px solid rgba(255, 255, 255, ${(0.08 + heroProgress * 0.18).toFixed(2)})`,
+          boxShadow: isSolid ? '0 15px 40px rgba(0, 0, 0, 0.6)' : 'none',
+          zIndex: 1000,
+          transition: 'top 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease',
+          padding: '0 20px'
         }}
       >
-        AAA 2 INNOVATE
-      </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '52px' }}>
 
-      <style>{`
-        @media (max-width: 992px) {
-          .desktop-nav { display: none !important; }
-          .mobile-menu-toggle { display: block !important; }
-        }
-      `}</style>
+          {/* AAA2 Logo */}
+          <div
+            onClick={() => scrollToSection('hero')}
+            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+          >
+            <AAA2Logo mode="dark" size={36} />
+          </div>
 
-      {/* Mobile Menu Dropdown Card */}
-      {mobileMenuOpen && (
+          {/* Desktop Floating Navigation Items */}
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '4px', height: '100%' }} className="desktop-nav">
+            {navLinks.map((link, index) => {
+              const isActive = activeSection === link.sectionId;
+              return (
+                <button
+                  key={index}
+                  onClick={() => scrollToSection(link.sectionId)}
+                  style={{
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    color: isActive ? '#FFFFFF' : '#CBD5E1',
+                    backgroundColor: isActive ? 'rgba(255,255,255,0.08)' : 'transparent',
+                    border: 'none',
+                    borderRadius: '25px',
+                    padding: '6px 14px',
+                    cursor: 'pointer',
+                    transition: 'all 0.25s ease',
+                    fontFamily: "'Chakra Petch', sans-serif"
+                  }}
+                  onMouseOver={(e) => {
+                    if (!isActive) e.target.style.color = '#FFFFFF';
+                  }}
+                  onMouseOut={(e) => {
+                    if (!isActive) e.target.style.color = '#CBD5E1';
+                  }}
+                >
+                  {link.name}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Action Button */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="btn-primary desktop-action-btn"
+              style={{ padding: '8px 18px', fontSize: '13px' }}
+            >
+              Get In Touch
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <div className="mobile-menu-toggle" style={{ display: 'none' }}>
+              <button
+                aria-label="Toggle Mobile Menu"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                style={{ color: '#FFFFFF', border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '4px' }}
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Floating AAA 2 INNOVATE below Navbar Logo */}
         <div
+          onClick={() => scrollToSection('hero')}
+          className="desktop-floating-badge"
           style={{
             position: 'absolute',
-            top: '76px',
-            left: 0,
-            width: '100%',
-            backgroundColor: 'rgba(34, 1, 80, 0.95)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: '24px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
-            padding: '24px',
-            border: '1px solid rgba(255, 255, 255, 0.15)'
+            top: '58px',
+            left: '2px',
+            display: mobileMenuOpen ? 'none' : 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '5px 14px',
+            backgroundColor: isSolid
+              ? 'rgba(34, 1, 80, 0.95)'
+              : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`,
+            backdropFilter: (heroProgress > 0.1 || isSolid)
+              ? `blur(${Math.round(heroProgress * 10 + (isSolid ? 10 : 0))}px)`
+              : 'none',
+            borderRadius: '30px',
+            fontFamily: "'Orbitron', sans-serif",
+            fontSize: '10px',
+            fontWeight: 800,
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: '#FFFFFF',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            userSelect: 'none'
           }}
         >
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {navLinks.map((link, index) => (
-              <button
-                key={index}
-                onClick={() => scrollToSection(link.sectionId)}
-                style={{
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  textAlign: 'left',
-                  padding: '12px 16px',
-                  borderRadius: '12px',
-                  border: 'none',
-                  backgroundColor: activeSection === link.sectionId ? '#2563EB' : 'transparent',
-                  color: '#FFFFFF',
-                  cursor: 'pointer'
-                }}
-              >
-                {link.name}
-              </button>
-            ))}
-          </nav>
+          AAA 2 INNOVATE
         </div>
+
+        <style>{`
+          @media (max-width: 992px) {
+            .desktop-nav { display: none !important; }
+            .desktop-action-btn { display: none !important; }
+            .desktop-floating-badge { display: none !important; }
+            .mobile-menu-toggle { display: block !important; }
+          }
+        `}</style>
+      </header>
+
+      {/* Mobile Menu Backdrop */}
+      {mobileMenuOpen && (
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(5, 0, 15, 0.6)',
+            backdropFilter: 'blur(6px)',
+            zIndex: 10001,
+            transition: 'opacity 0.3s ease'
+          }}
+        />
       )}
-    </header>
+
+      {/* Mobile Menu Sliding Drawer */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          width: '250px',
+          maxWidth: '85vw',
+          height: '100vh',
+          backgroundColor: '#220150',
+          borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.5)',
+          borderTopLeftRadius:"20px",
+          borderBottomLeftRadius:"20px",
+          zIndex: 10002,
+          padding: '16px',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+          transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+          visibility: mobileMenuOpen ? 'visible' : 'hidden'
+        }}
+      >
+        {/* Drawer Header with Logo & Close Button */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+          <AAA2Logo mode="dark" size={32} />
+          <button
+            aria-label="Close Mobile Menu"
+            onClick={() => setMobileMenuOpen(false)}
+            style={{
+              color: '#FFFFFF',
+              border: 'none',
+              background: 'rgba(255, 255, 255, 0.08)',
+              borderRadius: '50%',
+              width: '36px',
+              height: '36px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer'
+            }}
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Navigation Links inside Drawer */}
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {navLinks.map((link, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                scrollToSection(link.sectionId);
+                setMobileMenuOpen(false);
+              }}
+              style={{
+                fontSize: '15px',
+                fontWeight: 600,
+                textAlign: 'left',
+                padding: '12px 16px',
+                borderRadius: '12px',
+                border: 'none',
+                width: '170px',
+                backgroundColor: activeSection === link.sectionId ? 'rgba(99, 102, 241, 0.25)' : 'transparent',
+                color: activeSection === link.sectionId ? '#FFFFFF' : '#CBD5E1',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                fontFamily: "'Chakra Petch', sans-serif"
+              }}
+            >
+              {link.name}
+            </button>
+          ))}
+        </nav>
+      </div>
+    </>
   );
 };
 
