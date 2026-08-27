@@ -147,41 +147,23 @@ const SafeAutoplayVideo = ({
   }
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-      {/* Loading Skeleton Shimmer while video buffers */}
-      {!isReady && (
-        <div
-          className="skeleton-dark"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            zIndex: 0,
-            borderRadius: 'inherit'
-          }}
-        />
-      )}
-      <video
-        ref={videoRef}
-        src={src}
-        poster={poster}
-        loop={loop}
-        muted={muted}
-        autoPlay={autoPlay}
-        playsInline={playsInline}
-        preload={preload}
-        disablePictureInPicture
-        disableRemotePlayback
-        tabIndex={-1}
-        onError={handleVideoError}
-        className={className}
-        style={{
-          ...style,
-          opacity: isReady ? 1 : 0,
-          transition: 'opacity 0.4s ease-in-out'
-        }}
-        {...props}
-      />
-    </div>
+    <video
+      ref={videoRef}
+      src={src}
+      poster={poster}
+      loop={loop}
+      muted={muted}
+      autoPlay={autoPlay}
+      playsInline={playsInline}
+      preload={preload}
+      disablePictureInPicture
+      disableRemotePlayback
+      tabIndex={-1}
+      onError={handleVideoError}
+      className={className}
+      style={style}
+      {...props}
+    />
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import SafeAutoplayVideo from '../common/SafeAutoplayVideo';
 
@@ -26,7 +26,6 @@ const ProductShowcaseCard = ({
         position: 'relative',
         borderRadius: '24px',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg, #180042 0%, #0c0022 100%)',
         border: '1px solid rgba(255, 255, 255, 0.12)',
         boxShadow: isHovered
           ? '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(99, 102, 241, 0.3)'
@@ -41,16 +40,7 @@ const ProductShowcaseCard = ({
         ...style
       }}
     >
-      {/* Background Skeleton Shimmer Layer */}
-      <div
-        className="skeleton-dark"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 0,
-          borderRadius: '24px'
-        }}
-      />
+      {/* Background Video / Poster */}
       {videoSrc ? (
         <SafeAutoplayVideo
           src={videoSrc}
@@ -65,9 +55,8 @@ const ProductShowcaseCard = ({
             objectFit: 'cover',
             objectPosition: 'top center',
             zIndex: 1,
-            opacity: 1,
             transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-            transform: isHovered ? 'scale(1.05)' : 'scale(1.001)'
+            transform: isHovered ? 'scale(1.05)' : 'scale(1)'
           }}
         />
       ) : (
@@ -84,22 +73,24 @@ const ProductShowcaseCard = ({
               objectFit: 'cover',
               objectPosition: 'top center',
               zIndex: 1,
-              opacity: 1,
               transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-              transform: isHovered ? 'scale(1.05)' : 'scale(1.001)'
+              transform: isHovered ? 'scale(1.05)' : 'scale(1)'
             }}
           />
         )
       )}
 
-      {/* Bottom Text Shadow Gradient (Top is 100% Clear & Untinted) */}
+      {/* Bottom Text Shadow Gradient (Clean & transparent, darkens on hover for expanded content) */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.45) 30%, transparent 60%)',
+          background: isHovered
+            ? 'linear-gradient(to top, rgba(10, 0, 25, 0.95) 0%, rgba(10, 0, 25, 0.65) 45%, transparent 80%)'
+            : 'linear-gradient(to top, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.30) 35%, transparent 65%)',
           zIndex: 2,
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          transition: 'background 0.5s ease'
         }}
       />
 
@@ -113,7 +104,7 @@ const ProductShowcaseCard = ({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-end',
-          gap: '8px'
+          gap: '6px'
         }}
       >
         <span
@@ -123,7 +114,7 @@ const ProductShowcaseCard = ({
             color: '#CBD5E1',
             letterSpacing: '1.5px',
             textTransform: 'uppercase',
-            opacity: 0.85
+            opacity: 0.9
           }}
         >
           {category}
@@ -135,8 +126,7 @@ const ProductShowcaseCard = ({
             fontWeight: 800,
             color: '#FFFFFF',
             margin: 0,
-            textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-            transition: 'transform 0.75s cubic-bezier(0.16, 1, 0.3, 1)'
+            textShadow: '0 2px 10px rgba(0,0,0,0.6)'
           }}
         >
           {title}
@@ -145,11 +135,11 @@ const ProductShowcaseCard = ({
         {/* Expandable Description & CTA Reveal on Hover */}
         <div
           style={{
-            maxHeight: isHovered ? '180px' : '0px',
+            maxHeight: isHovered ? '200px' : '0px',
             opacity: isHovered ? 1 : 0,
             overflow: 'hidden',
-            transform: isHovered ? 'translateY(0)' : 'translateY(14px)',
-            transition: 'max-height 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1)',
+            transform: isHovered ? 'translateY(0)' : 'translateY(12px)',
+            transition: 'max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
             willChange: 'max-height, opacity, transform',
             pointerEvents: isHovered ? 'auto' : 'none'
           }}
@@ -157,10 +147,10 @@ const ProductShowcaseCard = ({
           <p
             style={{
               color: '#E2E8F0',
-              fontSize: '14.5px',
-              lineHeight: 1.6,
-              margin: '4px 0 16px 0',
-              maxWidth: '92%'
+              fontSize: '14px',
+              lineHeight: 1.55,
+              margin: '6px 0 16px 0',
+              maxWidth: '94%'
             }}
           >
             {description}
@@ -175,7 +165,8 @@ const ProductShowcaseCard = ({
               gap: '8px',
               padding: '10px 22px',
               fontSize: '13px',
-              marginBottom: '2px'
+              marginBottom: '2px',
+              cursor: 'pointer'
             }}
           >
             {ctaText} <ArrowRight size={16} />
