@@ -1,6 +1,26 @@
 User-agent: *
 Allow: /
 
+# Block crawlers from legacy redirected paths (not needed for indexing)
+Disallow: /services/
+
+# Allow all known canonical routes
+Allow: /capabilities/
+Allow: /capabilities/sourcing
+Allow: /capabilities/design
+Allow: /capabilities/manufacturing
+Allow: /capabilities/quality-control-compliance
+Allow: /capabilities/logistics
+Allow: /capabilities/warehousing
+Allow: /capabilities/tech
+Allow: /about
+Allow: /team
+Allow: /products
+Allow: /ethical-sourcing
+Allow: /contact
+Allow: /privacy-policy
+Allow: /terms-of-service
+
 User-agent: Googlebot
 Allow: /
 

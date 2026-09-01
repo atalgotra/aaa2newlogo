@@ -25,10 +25,11 @@ const ProductShowcaseSection = lazy(() => import('../components/home/ProductShow
 const EthicalSourcingSection = lazy(() => import('../components/home/EthicalSourcingSection'));
 const InteractiveContactSection = lazy(() => import('../components/home/InteractiveContactSection'));
 const TestimonialSlider = lazy(() => import('../components/TestimonialSlider'));
-const FAQSection = lazy(() => import('../components/seo/FAQSection'));
+const FAQSection = lazy(() => import('../components/common/FAQSection'));
+import AccreditationsMarquee from '../components/common/AccreditationsMarquee';
 import {
-  ShieldCheck, Target, Users, Lightbulb, Leaf, Award, Cloud, LayoutGrid, Server, BadgeCheck, Globe, Sun,
-  TrendingUp
+  ShieldCheck, Target, Users, Lightbulb, Cloud,
+  TrendingUp, BadgeCheck
 } from 'lucide-react';
 import { gsap, createGsapScope, animateNumberCounter } from '../utils/gsapUtils';
 
@@ -178,12 +179,12 @@ const Home = () => {
                 India is the world’s rising manufacturing and AI innovation capital. <strong>AAA 2 Innovate</strong> connects on-ground production mastery with elite Gen-Z software engineering to build, scale, and modernize your global supply chain.
               </p>
 
-              <div>
+              <div className="home-bio-cta">
                 <button
                   onClick={() => scrollToSection('services')}
                   className="btn-primary"
                 >
-                  Explore Capabilities
+                  Capabilities
                 </button>
               </div>
             </div>
@@ -291,7 +292,6 @@ const Home = () => {
       <Suspense fallback={<FAQSkeleton />}>
         <FAQSection
           title="Frequently Asked Questions"
-          onContactClick={() => scrollToSection('contact')}
           faqs={[
             {
               question: "What services does AAA 2 Innovate provide?",
@@ -314,33 +314,7 @@ const Home = () => {
       </Suspense>
 
       {/* Infinite Accreditations Marquee */}
-      <div className="marquee-container" style={{ backgroundColor: 'var(--bg-main)' }}>
-        <div className="marquee-track">
-          {[
-            { name: 'OEKO-TEX STANDARD 100', Icon: Sun },
-            { name: 'SEDEX', Icon: Globe },
-            { name: 'BSCI', Icon: Users },
-            { name: 'C-TPAT', Icon: ShieldCheck },
-            { name: 'GOTS', Icon: Leaf },
-            { name: 'ISO 9001', Icon: Award },
-            { name: 'AWS ADVANCED PARTNER', Icon: Cloud },
-            { name: 'MICROSOFT GOLD', Icon: LayoutGrid },
-            { name: 'CONTROL UNION', Icon: BadgeCheck },
-            { name: 'GOOGLE CLOUD', Icon: Server },
-            { name: 'OEKO-TEX STANDARD 100', Icon: Sun },
-            { name: 'SEDEX', Icon: Globe },
-            { name: 'BSCI', Icon: Users },
-            { name: 'C-TPAT', Icon: ShieldCheck },
-            { name: 'GOTS', Icon: Leaf },
-            { name: 'ISO 9001', Icon: Award }
-          ].map((partner, index) => (
-            <div key={index} className="marquee-item">
-              <partner.Icon size={16} style={{ marginRight: '8px', color: '#220150' }} />
-              <span>{partner.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <AccreditationsMarquee style={{ borderTop: 'none' }} />
 
     </div>
   );

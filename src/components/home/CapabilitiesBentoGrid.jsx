@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import CapabilitiesBentoCard from './CapabilitiesBentoCard';
 
 export const capabilitiesData = [
@@ -18,14 +19,15 @@ export const capabilitiesData = [
   },
   {
     id: 'manufacturing',
-    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/manufacturing.png',
+    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/manufacturing_hero_bg.png',
     title: 'Manufacturing',
     description: 'We are production management specialists, overseeing quality and process across every manufacturing stage.',
-    isWide: false
+    isWide: false,
+    imageStyle: { scale: 2 }
   },
   {
     id: 'compliance',
-    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/quality_inspection.png',
+    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_hero_bg.png',
     title: 'Inspection & Compliance',
     description: 'We enforce world-class quality controls standards and statutory compliance audits across the entire supply chain.',
     isWide: false,
@@ -41,14 +43,14 @@ export const capabilitiesData = [
   },
   {
     id: 'logistics',
-    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/logistics.png',
+    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/logistics_hero.png',
     title: 'Global Logistics',
     description: 'Ensuring merchandise is ready and dispatched smoothly through our direct logistics partnerships.',
     isWide: false
   },
   {
     id: 'digital-ops',
-    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/ai_tech.png',
+    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/tech_hero.png',
     title: 'Digital Ops & Gen-Z Tech',
     description: 'We deploy our elite Gen-Z IT engineers to build bespoke software, dashboards, and AI integrations necessary to modernize your enterprise operations. Seamless supply chain visibility meets algorithmic efficiency.',
     isWide: true
@@ -60,6 +62,25 @@ const CapabilitiesBentoGrid = ({
   subtitle = "Bridging the gap between world-class product sourcing and elite technological engineering.",
   items = capabilitiesData
 }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (id) => {
+    const routeMap = {
+      sourcing: '/capabilities/sourcing',
+      design: '/capabilities/design',
+      manufacturing: '/capabilities/manufacturing',
+      compliance: '/capabilities/quality-control-compliance',
+      warehousing: '/capabilities/warehousing',
+      logistics: '/capabilities/logistics',
+      'digital-ops': '/capabilities/tech'
+    };
+
+    const targetRoute = routeMap[id];
+    if (targetRoute) {
+      navigate(targetRoute);
+    }
+  };
+
   return (
     <section
       id="services"
@@ -91,6 +112,8 @@ const CapabilitiesBentoGrid = ({
               isWide={item.isWide}
               width={item.width}
               height={item.height}
+              onClick={() => handleCardClick(item.id)}
+              imageStyle={item.imageStyle}
             />
           ))}
         </div>

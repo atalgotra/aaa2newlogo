@@ -160,30 +160,27 @@ const Footer = () => {
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', padding: 0, margin: 0 }}>
               {[
-                { label: 'About Us', id: 'about' },
-                { label: 'Capabilities', id: 'services' },
-                { label: 'Products', id: 'products' },
-                { label: 'Ethical Sourcing', id: 'ethical-sourcing' },
-                { label: 'Contact Hub', id: 'contact' }
-              ].map((item) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => scrollToSection(item.id)}
+                { label: 'About Us', path: '/about' },
+                { label: 'Capabilities', path: '/capabilities' },
+                { label: 'Products', path: '/products' },
+                { label: 'Ethical Sourcing', path: '/ethical-sourcing' },
+                { label: 'Contact Hub', path: '/contact' }
+              ].map((item, idx) => (
+                <li key={idx}>
+                  <Link
+                    to={item.path}
                     style={{
-                      border: 'none',
-                      background: 'transparent',
+                      textDecoration: 'none',
                       color: '#94A3B8',
-                      cursor: 'pointer',
-                      padding: 0,
                       fontSize: '13px',
                       transition: 'color 0.2s ease',
-                      textAlign: 'left'
+                      display: 'inline-block'
                     }}
                     onMouseOver={(e) => (e.target.style.color = '#93C5FD')}
                     onMouseOut={(e) => (e.target.style.color = '#94A3B8')}
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -244,9 +241,9 @@ const Footer = () => {
               </div>
 
               <button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => navigate('/contact')}
                 className="btn-primary"
-                style={{ marginTop: '4px', padding: '8px 20px', fontSize: '13px', width: 'max-content' }}
+                style={{ marginTop: '4px', padding: '8px 20px', fontSize: '13px', width: 'max-content', border: 'none', cursor: 'pointer' }}
               >
                 Contact Hub
               </button>

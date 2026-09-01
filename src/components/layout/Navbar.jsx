@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import AAA2Logo from '../common/AAA2Logo';
 
 const Navbar = () => {
@@ -10,13 +10,21 @@ const Navbar = () => {
   const [pastHero, setPastHero] = useState(false);
   const [heroProgress, setHeroProgress] = useState(0); // 0 = top of hero, 1 = past hero
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdownIndex, setActiveDropdownIndex] = useState(null);
+  const [mobileOpenDropdownIndex, setMobileOpenDropdownIndex] = useState(null);
   const [activeSection, setActiveSection] = useState('hero');
 
-  const isSubpage = location.pathname === '/privacy-policy' || location.pathname === '/terms-of-service';
+  const isSubpage = location.pathname !== '/';
   const isSolid = pastHero || isSubpage;
 
   const isManualScrollRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    setActiveDropdownIndex(null);
+    setMobileOpenDropdownIndex(null);
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,9 +78,14 @@ const Navbar = () => {
     setActiveSection(id);
 
     if (location.pathname !== '/') {
+      isManualScrollRef.current = true;
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        isManualScrollRef.current = false;
+      }, 900);
+
       if (id === 'hero') {
         navigate('/');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         navigate('/', { state: { scrollTo: id } });
       }
@@ -106,75 +119,145 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', sectionId: 'hero' },
-    { name: 'About', sectionId: 'about' },
-    { name: 'Capabilities', sectionId: 'services' },
-    { name: 'Products', sectionId: 'products' },
-    { name: 'Ethical Sourcing', sectionId: 'ethical-sourcing' },
-    { name: 'Contact', sectionId: 'contact' },
+    {
+      name: 'Company',
+      path: '/about',
+      hasDropdown: true,
+      dropdownItems: [
+        { name: 'About Us', path: '/about' },
+        { name: 'Our Team', path: '/team' }
+      ]
+    },
+    {
+      name: 'Capabilities',
+      path: '/capabilities',
+      hasDropdown: true,
+      dropdownItems: [
+        { name: 'Overview', path: '/capabilities' },
+        { name: 'Sourcing', path: '/capabilities/sourcing' },
+        { name: 'Design & PD', path: '/capabilities/design' },
+        { name: 'Manufacturing', path: '/capabilities/manufacturing' },
+        { name: 'Inspection & Compliance', path: '/capabilities/quality-control-compliance' },
+        { name: 'Warehousing', path: '/capabilities/warehousing' },
+        { name: 'Global Logistics', path: '/capabilities/logistics' },
+        { name: 'Gen-Z Tech', path: '/capabilities/tech' }
+      ]
+    },
+    { name: 'Products', path: '/products' },
+    { name: 'Ethical Sourcing', path: '/ethical-sourcing' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   return (
     <>
       <header
+        className="navbar-header"
         style={{
-          position: 'fixed',
           top: isSolid ? '10px' : '16px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 'calc(100% - 32px)',
-          maxWidth: '1280px',
           backgroundColor: isSolid
             ? 'rgba(34, 1, 80, 0.95)'
             : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`,
           backdropFilter: (heroProgress > 0.1 || isSolid)
             ? `blur(${Math.round(heroProgress * 10 + (isSolid ? 10 : 0))}px)`
             : 'none',
-          borderRadius: '50px',
           border: isSolid
             ? '1px solid rgba(255, 255, 255, 0.15)'
             : `1px solid rgba(255, 255, 255, ${(0.08 + heroProgress * 0.18).toFixed(2)})`,
-          boxShadow: isSolid ? '0 15px 40px rgba(0, 0, 0, 0.6)' : 'none',
-          zIndex: 1000,
-          transition: 'top 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease',
-          padding: '0 20px'
+          boxShadow: isSolid ? '0 15px 40px rgba(0, 0, 0, 0.6)' : 'none'
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '52px' }}>
+        <div className="navbar-container">
 
           {/* AAA2 Logo */}
-          <div
+          <button
+            type="button"
+            className="navbar-logo-btn"
             onClick={() => scrollToSection('hero')}
-            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+            aria-label="AAA2 Home"
           >
             <AAA2Logo mode="dark" size={36} />
-          </div>
+          </button>
 
           {/* Desktop Floating Navigation Items */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '4px', height: '100%' }} className="desktop-nav">
+          <nav className="desktop-nav">
             {navLinks.map((link, index) => {
-              const isActive = activeSection === link.sectionId;
+              if (link.hasDropdown) {
+                const isActive = location.pathname.startsWith(link.path) || (location.pathname === '/' && activeSection === link.sectionId);
+                const isOpen = activeDropdownIndex === index;
+                return (
+                  <div
+                    key={index}
+                    className="nav-dropdown-container"
+                    onMouseEnter={() => setActiveDropdownIndex(index)}
+                    onMouseLeave={() => setActiveDropdownIndex(null)}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigate(link.path);
+                      }}
+                      className={`desktop-nav-link ${isActive ? 'active' : ''}`}
+                    >
+                      <span>{link.name}</span>
+                      <ChevronDown
+                        size={14}
+                        style={{
+                          transition: 'transform 0.25s ease',
+                          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                          opacity: 0.85
+                        }}
+                      />
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    {isOpen && (
+                      <div className="nav-dropdown-menu">
+                        {link.dropdownItems.map((item, subIdx) => {
+                          const isSubActive = location.pathname === item.path;
+                          return (
+                            <button
+                              key={subIdx}
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(item.path);
+                                setActiveDropdownIndex(null);
+                              }}
+                              className={`nav-dropdown-item ${isSubActive ? 'active' : ''}`}
+                            >
+                              {item.name}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              if (link.path) {
+                const isActive = location.pathname === link.path;
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => {
+                      navigate(link.path);
+                    }}
+                    className={`desktop-nav-link ${isActive ? 'active' : ''}`}
+                  >
+                    {link.name}
+                  </button>
+                );
+              }
+
+              const isActive = location.pathname === '/' && activeSection === link.sectionId;
               return (
                 <button
                   key={index}
+                  type="button"
                   onClick={() => scrollToSection(link.sectionId)}
-                  style={{
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    color: isActive ? '#FFFFFF' : '#CBD5E1',
-                    backgroundColor: isActive ? 'rgba(255,255,255,0.08)' : 'transparent',
-                    border: 'none',
-                    borderRadius: '25px',
-                    padding: '6px 14px',
-                    cursor: 'pointer',
-                    transition: 'all 0.25s ease',
-                    fontFamily: "'Chakra Petch', sans-serif"
-                  }}
-                  onMouseOver={(e) => {
-                    if (!isActive) e.target.style.color = '#FFFFFF';
-                  }}
-                  onMouseOut={(e) => {
-                    if (!isActive) e.target.style.color = '#CBD5E1';
-                  }}
+                  className={`desktop-nav-link ${isActive ? 'active' : ''}`}
                 >
                   {link.name}
                 </button>
@@ -185,7 +268,10 @@ const Navbar = () => {
           {/* Action Button */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <button
-              onClick={() => scrollToSection('contact')}
+              type="button"
+              onClick={() => {
+                navigate('/contact');
+              }}
               className="btn-primary desktop-action-btn"
               style={{ padding: '8px 18px', fontSize: '13px' }}
             >
@@ -195,6 +281,7 @@ const Navbar = () => {
             {/* Mobile Menu Toggle */}
             <div className="mobile-menu-toggle" style={{ display: 'none' }}>
               <button
+                type="button"
                 aria-label="Toggle Mobile Menu"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 style={{ color: '#FFFFFF', border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '4px' }}
@@ -205,139 +292,116 @@ const Navbar = () => {
           </div>
 
         </div>
-
-        {/* Floating AAA 2 INNOVATE below Navbar Logo */}
-        <div
-          onClick={() => scrollToSection('hero')}
-          className="desktop-floating-badge"
-          style={{
-            position: 'absolute',
-            top: '58px',
-            left: '2px',
-            display: mobileMenuOpen ? 'none' : 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '5px 14px',
-            backgroundColor: isSolid
-              ? 'rgba(34, 1, 80, 0.95)'
-              : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`,
-            backdropFilter: (heroProgress > 0.1 || isSolid)
-              ? `blur(${Math.round(heroProgress * 10 + (isSolid ? 10 : 0))}px)`
-              : 'none',
-            borderRadius: '30px',
-            fontFamily: "'Orbitron', sans-serif",
-            fontSize: '10px',
-            fontWeight: 800,
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            color: '#FFFFFF',
-            whiteSpace: 'nowrap',
-            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-            userSelect: 'none'
-          }}
-        >
-          AAA 2 INNOVATE
-        </div>
-
-        <style>{`
-          @media (max-width: 992px) {
-            .desktop-nav { display: none !important; }
-            .desktop-action-btn { display: none !important; }
-            .desktop-floating-badge { display: none !important; }
-            .mobile-menu-toggle { display: block !important; }
-          }
-        `}</style>
       </header>
 
       {/* Mobile Menu Backdrop */}
       {mobileMenuOpen && (
         <div
+          className="mobile-menu-backdrop"
           onClick={() => setMobileMenuOpen(false)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(5, 0, 15, 0.6)',
-            backdropFilter: 'blur(6px)',
-            zIndex: 10001,
-            transition: 'opacity 0.3s ease'
-          }}
         />
       )}
 
       {/* Mobile Menu Sliding Drawer */}
       <div
+        className="mobile-menu-drawer"
         style={{
-          position: 'fixed',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          width: '250px',
-          maxWidth: '85vw',
-          height: '100vh',
-          backgroundColor: '#220150',
-          borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.5)',
-          borderTopLeftRadius:"20px",
-          borderBottomLeftRadius:"20px",
-          zIndex: 10002,
-          padding: '16px',
-          display: 'flex',
-          flexDirection: 'column',
-          transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
           transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
           visibility: mobileMenuOpen ? 'visible' : 'hidden'
         }}
       >
         {/* Drawer Header with Logo & Close Button */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+        <div className="mobile-drawer-header">
           <AAA2Logo mode="dark" size={32} />
           <button
+            type="button"
             aria-label="Close Mobile Menu"
+            className="mobile-drawer-close"
             onClick={() => setMobileMenuOpen(false)}
-            style={{
-              color: '#FFFFFF',
-              border: 'none',
-              background: 'rgba(255, 255, 255, 0.08)',
-              borderRadius: '50%',
-              width: '36px',
-              height: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer'
-            }}
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Navigation Links inside Drawer */}
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {navLinks.map((link, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                scrollToSection(link.sectionId);
-                setMobileMenuOpen(false);
-              }}
-              style={{
-                fontSize: '15px',
-                fontWeight: 600,
-                textAlign: 'left',
-                padding: '12px 16px',
-                borderRadius: '12px',
-                border: 'none',
-                width: '170px',
-                backgroundColor: activeSection === link.sectionId ? 'rgba(99, 102, 241, 0.25)' : 'transparent',
-                color: activeSection === link.sectionId ? '#FFFFFF' : '#CBD5E1',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                fontFamily: "'Chakra Petch', sans-serif"
-              }}
-            >
-              {link.name}
-            </button>
-          ))}
+        <nav className="mobile-nav-list">
+          {navLinks.map((link, index) => {
+            if (link.hasDropdown) {
+              const isActive = location.pathname.startsWith(link.path) || (location.pathname === '/' && activeSection === link.sectionId);
+              const isOpen = mobileOpenDropdownIndex === index;
+              return (
+                <div key={index} style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                  <button
+                    type="button"
+                    onClick={() => setMobileOpenDropdownIndex(isOpen ? null : index)}
+                    className={`mobile-nav-btn ${isActive ? 'active' : ''}`}
+                  >
+                    <span>{link.name}</span>
+                    <ChevronDown
+                      size={16}
+                      style={{
+                        transition: 'transform 0.25s ease',
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                      }}
+                    />
+                  </button>
+
+                  {isOpen && (
+                    <div className="mobile-submenu-list">
+                      {link.dropdownItems.map((subItem, subIndex) => {
+                        const isSubActive = location.pathname === subItem.path;
+                        return (
+                          <button
+                            key={subIndex}
+                            type="button"
+                            onClick={() => {
+                              navigate(subItem.path);
+                              setMobileMenuOpen(false);
+                            }}
+                            className={`mobile-submenu-btn ${isSubActive ? 'active' : ''}`}
+                          >
+                            {subItem.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            if (link.path) {
+              const isActive = location.pathname === link.path;
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => {
+                    navigate(link.path);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`mobile-nav-btn ${isActive ? 'active' : ''}`}
+                >
+                  {link.name}
+                </button>
+              );
+            }
+
+            const isActive = location.pathname === '/' && activeSection === link.sectionId;
+            return (
+              <button
+                key={index}
+                type="button"
+                onClick={() => {
+                  scrollToSection(link.sectionId);
+                  setMobileMenuOpen(false);
+                }}
+                className={`mobile-nav-btn ${isActive ? 'active' : ''}`}
+              >
+                {link.name}
+              </button>
+            );
+          })}
         </nav>
       </div>
     </>

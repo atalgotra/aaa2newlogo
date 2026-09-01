@@ -18,6 +18,7 @@ const SmoothScroll = ({ children }) => {
     });
 
     lenisRef.current = lenis;
+    window.lenis = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -28,6 +29,7 @@ const SmoothScroll = ({ children }) => {
 
     return () => {
       lenis.destroy();
+      window.lenis = null;
     };
   }, []);
 

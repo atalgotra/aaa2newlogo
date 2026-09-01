@@ -333,11 +333,6 @@ const VideoHero = () => {
         const masterTl = gsap.timeline({
           defaults: { ease: 'power3.out' },
           onComplete: () => {
-            /* Start Chevron Yoyo */
-            gsap.to(scrollChevronRef.current, {
-              y: 7, duration: 1.0, ease: 'sine.inOut', yoyo: true, repeat: -1
-            });
-
             /* Background slow breathing cycle */
             gsap.to(videoWrapRef.current, {
               scale: 1.018,
@@ -523,6 +518,7 @@ const VideoHero = () => {
       <div ref={contentRef} style={{
         position: 'absolute', inset: 0, zIndex: 5,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
+        paddingTop: '100px',
         paddingBottom: '5vh',
         willChange: 'transform',
       }}>
@@ -642,7 +638,7 @@ const VideoHero = () => {
             {/* Primary CTA — Brand Indigo */}
             <button
               ref={primaryBtnRef}
-              onClick={() => scrollToSection('services')}
+              onClick={() => scrollToSection('products')}
               onMouseMove={handleCtaMove}
               onMouseLeave={handleCtaLeave}
               className="btn-primary"
@@ -655,28 +651,7 @@ const VideoHero = () => {
               }}
             >
               <span className="hero-btn-sweep" />
-              Explore Our Capabilities <ArrowRight size={14} className="hero-arrow" />
-            </button>
-
-            {/* Secondary CTA */}
-            <button
-              onClick={() => scrollToSection('contact')}
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid rgba(255, 255, 255, 0.45)',
-                padding: '16px 28px',
-                fontSize: '11px', fontWeight: 600,
-                color: '#FFFFFF',
-                borderRadius: '50px', cursor: 'pointer',
-                textTransform: 'uppercase', letterSpacing: '1.6px',
-                transition: 'all 0.3s ease',
-                fontFamily: "'Chakra Petch', sans-serif",
-                backdropFilter: 'blur(8px)',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#FFFFFF'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.7)'; e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.16)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#FFFFFF'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.45)'; e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'; }}
-            >
-              Contact Us
+              Explore Product Showcase <ArrowRight size={14} className="hero-arrow" />
             </button>
           </div>
 

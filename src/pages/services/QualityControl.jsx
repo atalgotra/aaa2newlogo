@@ -1,18 +1,23 @@
-import React, { useEffect } from 'react';
-import FAQSection from '../../components/seo/FAQSection';
+import React, { useEffect, useRef } from 'react';
+import FAQSection from '../../components/common/FAQSection';
 import SchemaInjector from '../../components/seo/SchemaInjector';
-import Breadcrumbs from '../../components/seo/Breadcrumbs';
+// import Breadcrumbs from '../../components/seo/Breadcrumbs';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import CTASection from '../../components/CTASection';
-import { ArrowLeft, ArrowRight, ShieldCheck, Beaker, Tag, Package, FileCheck, CheckCircle2 } from 'lucide-react';
+import AccreditationsMarquee from '../../components/common/AccreditationsMarquee';
+import DivisionsBentoGrid from '../../components/common/DivisionsBentoGrid';
+import TiltCard from '../../components/animations/TiltCard';
+import PageHero from '../../components/common/PageHero';
+import { gsap, createGsapScope } from '../../utils/gsapUtils';
+import { ShieldCheck, Beaker, Tag, Package, ArrowRight, CheckCircle2, Ruler, ScanBarcode } from 'lucide-react';
 
 
 const serviceFaqs = [
   {
     "question": "What quality standards do you follow?",
-    "answer": "We adhere to international standards such as ISO 9001, AQL (Acceptable Quality Limit) inspections, and specific compliance regulations depending on the target market."
+    "answer": "We adhere to international standards such as ISO 9001, Acceptable Quality Limit (AQL) inspections, and specific compliance regulations depending on the target market."
   },
   {
     "question": "Do you offer pre-shipment inspections?",
@@ -29,31 +34,73 @@ const serviceFaqs = [
 ];
 
 const QualityControl = () => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const cleanup = createGsapScope(containerRef, () => {
+      const sections = gsap.utils.toArray('.gsap-section');
+      sections.forEach((sec) => {
+        gsap.fromTo(
+          sec,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sec,
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+    });
+    return cleanup;
+  }, []);
+
 const testingProtocols = [
-    {
-      title: 'Physical Stress Testing',
-      desc: 'Rigorous assessment of product functionality, safety parameters, stretch limits, and pull thresholds to ensure real-world durability.',
-      icon: <ShieldCheck size={28} color="var(--brand-orange)" />
-    },
-    {
-      title: 'Advanced Lab Analytics',
-      desc: 'Deep-dive chemical and structural analysis, including piling resistance, flammability rating, colorfastness (crocking), and toxicity screening.',
-      icon: <Beaker size={28} color="var(--brand-orange)" />
-    },
-    {
-      title: 'Labeling & Accuracy',
-      desc: 'Meticulous verification of compliance data, care instructions, sizing matrices, and legal declarations across all affixed product tags.',
-      icon: <Tag size={28} color="var(--brand-orange)" />
-    },
-    {
-      title: 'Packaging & Scannability',
-      desc: 'Stress-testing inner and outer cartons for transit resilience, alongside digital verification of barcode and SKU scannability at scale.',
-      icon: <Package size={28} color="var(--brand-orange)" />
-    }
-  ];
+  {
+    id: '01',
+    title: 'Physical Stress Testing',
+    desc: 'Rigorous testing of functionality, safety, stretch limits, pull thresholds, and real-world durability.',
+    Icon: ShieldCheck
+  },
+  {
+    id: '02',
+    title: 'Advanced Lab Analytics',
+    desc: 'Laboratory analysis covering pilling resistance, flammability, colorfastness, material composition, and toxicity.',
+    Icon: Beaker
+  },
+  {
+    id: '03',
+    title: 'Dimensional Accuracy',
+    desc: 'Detailed verification of product measurements, sizing, proportions, tolerances, and construction specifications.',
+    Icon: Ruler
+  },
+  {
+    id: '04',
+    title: 'Labeling & Compliance',
+    desc: 'Meticulous checks of labels, care instructions, sizing details, legal declarations, and regulatory requirements.',
+    Icon: Tag
+  },
+  {
+    id: '05',
+    title: 'Packaging Integrity',
+    desc: 'Testing inner and outer packaging for strength, protection, stacking performance, and transit resilience.',
+    Icon: Package
+  },
+  {
+    id: '06',
+    title: 'Barcode & SKU Verification',
+    desc: 'Digital verification of barcodes, SKUs, product information, and scannability to ensure error-free fulfillment.',
+    Icon: ScanBarcode
+  }
+];
 
   return (
-    <div style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '90px' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
       <Helmet>
         <title>Quality Control, Inspection & Compliance | AAA 2 Innovate</title>
         <meta name="description" content="Uncompromising quality assurance for global shipments. We enforce AQL 2.5 Level II standards, pre-shipment inspections, and strict statutory factory audits." />
@@ -61,10 +108,10 @@ const testingProtocols = [
         <meta property="og:title" content="Quality Control, Inspection & Compliance | AAA 2 Innovate" />
         <meta property="og:description" content="Uncompromising quality assurance for global shipments. We enforce AQL 2.5 Level II standards, pre-shipment inspections, and strict statutory factory audits." />
         <meta name="twitter:card" content="summary_large_image" />
-              <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
+        <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
         <meta property="og:url" content="https://www.aaa2innovate.com/" />
-  <link rel="canonical" href="https://www.aaa2innovate.com/services/quality-control-compliance" />
-</Helmet>
+        <link rel="canonical" href="https://www.aaa2innovate.com/capabilities/quality-control-compliance" />
+      </Helmet>
       <SchemaInjector schema={{
         "@context": "https://schema.org",
         "@type": "Service",
@@ -80,197 +127,130 @@ const testingProtocols = [
         }
       }} />
 
-      <div style={{ position: 'absolute', top: '90px', left: 0, width: '100%', zIndex: 10 }}>
+      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
         <Breadcrumbs />
-      </div>
-
-
-
+      </div> */}
 
       {/* Hero Section */}
-      <section style={{
-        minHeight: '60vh',  
-        display: 'flex',
-        alignItems: 'center',
-        paddingTop: '80px', // Prevent overlap with breadcrumbs
-        paddingBottom: '60px', // Prevent button clipping
-        backgroundColor: '#02040A', 
-        position: 'relative', 
-        overflow: 'hidden',
-        backgroundImage: 'url(https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_hero_bg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.75)' }}></div>
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '150px', background: 'linear-gradient(to bottom, transparent, var(--bg-main))' }}></div>
-        
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'justify', maxWidth: '800px' }}>
-            
-
-
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-              className="text-hero" style={{ color: '#FFFFFF', marginBottom: '24px', letterSpacing: '-1px' }}
-            >
-              Absolute <span style={{ color: 'var(--brand-orange)' }}>Quality Control</span> & Compliance
-            </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              style={{ fontSize: '24px', color: '#E5E7EB', lineHeight: '1.5', marginBottom: '40px', fontWeight: 400, textAlign: 'justify' }}
-            >
-              Quality is not a metric; it is our core architecture. We deploy an elite, uncompromising inspection protocol to guarantee that every product sourced from India meets the highest global standards before it ever hits a shipping container.
-            </motion.p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        backgroundImage="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_hero_bg.png"
+        titleLine1="Absolute"
+        titleLine2="Quality Control & Compliance"
+        subtitle="Quality is not a metric; it is our core architecture. We deploy an elite, uncompromising inspection protocol to guarantee that every product sourced from India meets the highest global standards before it ever hits a shipping container."
+        paddingTop="115px"
+        paddingBottom="90px"
+        overlayOpacity={0.9}
+      />
 
       {/* AQL Standard Intro */}
-      <section style={{ padding: '60px 0 80px', backgroundColor: '#05080F' }}>
+      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--bg-main)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '60px', alignItems: 'center' }}>
+          <div className="about-grid" style={{ alignItems: 'start' }}>
             
             {/* Left Content */}
             <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(255,87,34,0.1)', padding: '8px 16px', borderRadius: '50px', marginBottom: '24px' }}>
-                <ShieldCheck size={16} color="var(--brand-orange)" />
-                <span style={{ color: 'var(--brand-orange)', fontSize: '13px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>Inspection Protocol</span>
-              </div>
-              <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.2 }}>
+              <h2 className="section-title">
                 The Anatomy of Consistency
               </h2>
-              <p style={{ fontSize: '18px', color: '#9CA3AF', lineHeight: '1.7', marginBottom: '32px', textAlign: 'justify' }}>
-                Our dedicated Quality Team conducts intensive, independent inspections at every critical juncture of the production lifecycle. Operating strictly under the <strong style={{ color: '#FFFFFF' }}>AQL 2.5 Level II standard</strong>, we determine precise inspection volumes and execute exhaustive checklists on your behalf.
+              <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '32px' }}>
+                Our dedicated Quality Team conducts intensive, independent inspections at every critical juncture of the production lifecycle. <br/><br/> Operating strictly under the <strong style={{ color: 'var(--brand-indigo)' }}>AQL 2.5 Level II standard</strong>, we determine precise inspection volumes and execute exhaustive checklists on your behalf.
               </p>
               
-              <div style={{ display: 'inline-flex', padding: '16px 24px', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <div style={{ width: '4px', height: '40px', backgroundColor: 'var(--brand-orange)', borderRadius: '4px' }}></div>
-                  <p style={{ margin: 0, fontSize: '15px', color: '#9CA3AF', fontStyle: 'italic', lineHeight: '1.6' }}>
-                    * We also offer standalone, third-party inspection services for clients who require objective auditing outside of our end-to-end supply chain matrix.
+              <div style={{ display: 'inline-flex', padding: '16px 24px', backgroundColor: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-light)' }}>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'stretch' }}>
+                  <div style={{ width: '4px', backgroundColor: 'var(--brand-indigo)', borderRadius: '4px', flexShrink: 0 }}></div>
+                  <p style={{ margin: 0, fontSize: '14.5px', color: 'var(--text-secondary)', fontStyle: 'italic', lineHeight: '1.6' }}>
+                    We also offer standalone, third-party inspection services for clients who require objective auditing outside of our end-to-end supply chain matrix.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Right Image */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              style={{ position: 'relative' }}
-            >
-              <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_measurement.png" 
-                alt="Precision Measurement" 
-                style={{ 
-                  width: '100%', 
-                  height: '380px',
-                  objectFit: 'cover',
-                  borderRadius: '24px',
-                  boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
-                  position: 'relative',
-                  zIndex: 1
-                }} 
-              />
-            </motion.div>
+            {/* Right Image with TiltCard */}
+            <div style={{ position: 'relative' }}>
+              <TiltCard>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_measurement.png" 
+                    alt="Precision Measurement" 
+                    style={{ 
+                      width: '100%', 
+                      height: '380px',
+                      objectFit: 'cover',
+                      borderRadius: '24px',
+                      boxShadow: '0 15px 35px rgba(34,1,80,0.1)',
+                      border: '1px solid var(--border-light)'
+                    }} 
+                  />
+                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.5}} />
+                </motion.div>
+              </TiltCard>
+            </div>
             
           </div>
         </div>
       </section>
 
       {/* Testing Protocols Grid */}
-      <section style={{ padding: '60px 0 80px', backgroundColor: '#02040A', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '16px' }}>Comprehensive Inspection Protocols</h2>
-            <p style={{ fontSize: '18px', color: '#9CA3AF', maxWidth: '800px', margin: '0 auto' }}>A multi-layered defense mechanism ensuring your brand's integrity remains untouched.</p>
-          </div>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px' }}>
-            {testingProtocols.map((protocol, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                style={{ 
-                  backgroundColor: 'rgba(255,255,255,0.02)', 
-                  padding: '40px 32px', 
-                  borderRadius: '24px', 
-                  border: '1px solid rgba(255,255,255,0.05)',
-                  transition: 'transform 0.3s ease, background-color 0.3s ease',
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}
-                whileHover={{ transform: 'translateY(-5px)', backgroundColor: 'rgba(255,255,255,0.04)' }}
-              >
-                <div style={{ backgroundColor: 'rgba(255,87,34,0.1)', width: '64px', height: '64px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
-                  {protocol.icon}
-                </div>
-                <h3 style={{ fontSize: '22px', fontWeight: 700, color: '#FFFFFF', marginBottom: '16px', minHeight: '60px' }}>{protocol.title}</h3>
-                <p style={{ color: '#9CA3AF', fontSize: '15px', lineHeight: '1.6', margin: 0 }}>{protocol.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <DivisionsBentoGrid
+        title="Comprehensive Inspection Protocols"
+        divisions={testingProtocols}
+      />
 
       {/* Statutory Compliance Dashboard */}
-      <section style={{ padding: '60px 0 40px', backgroundColor: 'var(--bg-main)' }}>
+      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--bg-secondary)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '60px', alignItems: 'stretch' }}>
+          <div className="about-grid" style={{ alignItems: 'center' }}>
             
             {/* Left Content */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '24px', lineHeight: 1.2 }}>
-                Statutory Factory <br/><span style={{ color: 'var(--brand-orange)' }}>Compliance</span>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}>
+              <h2 className="section-title">
+                Statutory Factory Compliance
               </h2>
-              <p style={{ fontSize: '18px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '24px', textAlign: 'justify' }}>
-                Compliance is not merely a legal shield—it is a moral imperative. We enforce strict statutory audits to regulate safety, health, working hours, and fair wages across our entire vendor network.
-              </p>
-              <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '40px', textAlign: 'justify' }}>
-                Our factories are engineered to pass the world's most draconian compliance systems, effortlessly meeting the criteria demanded by global giants like Walmart, Target, Costco, and Tesco. We maintain continuous, unannounced spot-checks to ensure compliance is a permanent reality, not a temporary performance.
+              <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '32px' }}>
+                We enforce strict statutory audits regulating safety, health, working hours, and fair wages across our entire vendor network. Our factories consistently pass compliance audits demanded by global retail leaders, backed by continuous, unannounced spot-checks to ensure permanent compliance.
               </p>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 {['Health & Safety Regulations', 'Minimum Wage & Annual Leave', 'Ethical Working Hours', 'Zero Tolerance for Exploitation'].map((item, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', backgroundColor: 'var(--bg-secondary)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-light)' }}>
-                    <CheckCircle2 size={18} color="var(--brand-orange)" style={{ flexShrink: 0 }} />
-                    <span style={{ color: 'var(--text-primary)', fontSize: '14px', fontWeight: 600 }}>{item}</span>
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', backgroundColor: 'var(--bg-main)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-light)' }}>
+                    <CheckCircle2 size={18} color="var(--brand-indigo)" style={{ flexShrink: 0 }} />
+                    <span style={{ color: 'var(--text-primary)', fontSize: '13.5px', fontWeight: 700 }}>{item}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Right Image Panel */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, x: 20 }}
-              whileInView={{ opacity: 1, scale: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              style={{ display: 'flex' }}
-            >
-              <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_dashboard.png" 
-                alt="Compliance Dashboard" 
-                style={{ 
-                  width: '100%', 
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '32px',
-                  boxShadow: '0 40px 80px rgba(0,0,0,0.1)',
-                  border: '1px solid var(--border-light)'
-                }} 
-              />
-            </motion.div>
+            {/* Right Image Panel with TiltCard */}
+            <div style={{ position: 'relative', maxWidth: '510px', margin: '0 auto', width: '100%' }}>
+              <TiltCard>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95, x: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  style={{ display: 'flex', position: 'relative', borderRadius: '24px', overflow: 'hidden' }}
+                >
+                  <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_dashboard.png" 
+                    alt="Compliance Dashboard" 
+                    style={{ 
+                      width: '100%', 
+                      height: '380px',
+                      objectFit: 'cover',
+                      borderRadius: '24px',
+                      boxShadow: '0 15px 35px rgba(34,1,80,0.1)',
+                      border: '1px solid var(--border-light)',
+                      display: 'block'
+                    }} 
+                  />
+                </motion.div>
+              </TiltCard>
+           <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.5 }} />
+            </div>
             
           </div>
         </div>
@@ -282,22 +262,31 @@ const testingProtocols = [
       <FAQSection faqs={serviceFaqs} title="Frequently Asked Questions" />
 
       {/* Next Step Transition */}
-      <section style={{ padding: 'clamp(40px, 8vw, 60px) 0 clamp(50px, 8vw, 80px) 0', backgroundColor: 'var(--bg-main)', borderTop: '1px solid var(--border-light)' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '14px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '16px' }}>Next in the Matrix</p>
-          <Link to="/services/warehousing" style={{ display: 'inline-flex', alignItems: 'center', gap: '16px', textDecoration: 'none', group: 'true' }}>
-            <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: 'var(--text-primary)', margin: 0, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--brand-orange)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-primary)'}>
+      <section className="gsap-section" style={{ padding: 'clamp(24px, 3.5vw, 36px) 0', backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-light)' }}>
+        <div className="container next-transition-container">
+          <p style={{ color: 'var(--text-secondary)', fontSize: '11px', fontWeight: 700, letterSpacing: '1.2px', textTransform: 'uppercase', marginBottom: '8px', fontFamily: 'var(--font-heading)' }}>Next in the Capabilities Matrix</p>
+          <Link to="/capabilities/warehousing" className="next-transition-link">
+            <motion.h2 
+              whileHover={{ x: -4 }}
+              style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 800, color: 'var(--brand-indigo)', margin: 0, fontFamily: 'var(--font-display)' }}
+            >
               Warehousing
-            </h2>
-            <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '16px', borderRadius: '50%', display: 'flex', transition: 'background-color 0.2s' }}>
-              <ArrowRight size={32} color="var(--brand-orange)" />
-            </div>
+            </motion.h2>
+            <motion.div 
+              className="next-transition-arrow"
+              whileHover={{ scale: 1.1, rotate: 90 }}
+            >
+              <ArrowRight size={20} color="var(--brand-indigo)" />
+            </motion.div>
           </Link>
         </div>
       </section>
 
       {/* Footer CTA */}
       <CTASection titlePrefix="Ready to" highlightText="Perfect?" description={"Protect your brand's reputation with uncompromising quality assurance. Our strict, zero\u2011defect inspection protocols ensure perfection on every single unit shipped."} buttonText="Secure Your Quality" />
+
+      {/* Accreditations Marquee */}
+      <AccreditationsMarquee />
     </div>
   );
 };

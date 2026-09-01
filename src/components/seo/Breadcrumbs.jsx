@@ -7,6 +7,19 @@ const Breadcrumbs = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
+  const customNames = {
+    'capabilities': 'Capabilities',
+    'services': 'Capabilities',
+    'quality-control-compliance': 'Inspection & Compliance',
+    'tech': 'Gen-Z Tech',
+    'logistics': 'Global Logistics',
+    'design': 'Design & PD'
+  };
+
+  const getDisplayName = (name) => {
+    return customNames[name.toLowerCase()] || (name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, ' '));
+  };
+
   // Generate JSON-LD Schema
   const schemaListElements = [
     {
@@ -24,7 +37,7 @@ const Breadcrumbs = () => {
     schemaListElements.push({
       '@type': 'ListItem',
       position: index + 2,
-      name: name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, ' '),
+      name: getDisplayName(name),
       item: currentUrl,
     });
   });
@@ -47,7 +60,7 @@ const Breadcrumbs = () => {
         {pathnames.map((name, index) => {
           const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
           const isLast = index === pathnames.length - 1;
-          const title = name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, ' ');
+          const title = getDisplayName(name);
 
           return (
             <React.Fragment key={name}>

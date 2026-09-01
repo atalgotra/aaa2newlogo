@@ -3,7 +3,8 @@ import { Zap, Droplets } from 'lucide-react';
 
 const EthicalSourcingSection = ({
   title = "Sustainable & Compliant Sourcing",
-  description = "Audited manufacturing powered by renewable clean energy, zero-liquid-discharge water recycling, and certified global statutory compliance.",
+  description1 = "Audited manufacturing powered by renewable energy and zero-liquid-discharge water recycling for sustainable production.",
+  description2 = "Certified global compliance ensures consistent quality and adherence to international standards.",
   imageSrc = "https://aaawebisteimages.s3.ap-south-1.amazonaws.com/ethical_sustainability.png",
   certTitle = "Certified Facilities (SA8000 & ISO 14001)",
   certSubtitle = "GOTS & Organic Cotton Transfer Certificates"
@@ -15,7 +16,7 @@ const EthicalSourcingSection = ({
       style={{ backgroundColor: '#220150', color: '#FFFFFF' }}
     >
       <div className="container">
-        <div className="responsive-grid-2" style={{ alignItems: 'center', gap: '36px' }}>
+        <div className="responsive-grid-2" style={{ alignItems: 'start', gap: '36px' }}>
           {/* Left Content */}
           <div>
             <h2
@@ -35,10 +36,21 @@ const EthicalSourcingSection = ({
                 color: '#CBD5E1',
                 fontSize: '15px',
                 lineHeight: 1.6,
-                marginBottom: '20px'
+                marginBottom: '16px'
               }}
             >
-              {description}
+              {description1}
+            </p>
+
+            <p
+              style={{
+                color: '#CBD5E1',
+                fontSize: '15px',
+                lineHeight: 1.6,
+                marginBottom: '28px'
+              }}
+            >
+              {description2}
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>

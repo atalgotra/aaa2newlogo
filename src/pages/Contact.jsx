@@ -1,0 +1,399 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { MapPin, Phone, Mail, Clock, Send, Globe, Loader2, ArrowRight } from 'lucide-react';
+import CTASection from '../components/CTASection';
+import { motion } from 'framer-motion';
+import SchemaInjector from '../components/seo/SchemaInjector';
+// import Breadcrumbs from '../components/seo/Breadcrumbs';
+import TextReveal from '../components/animations/TextReveal';
+import PageHero from '../components/common/PageHero';
+import AccreditationsMarquee from '../components/common/AccreditationsMarquee';
+import { gsap, createGsapScope } from '../utils/gsapUtils';
+
+const Contact = () => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const cleanup = createGsapScope(containerRef, () => {
+      const sections = gsap.utils.toArray('.gsap-section');
+      sections.forEach((sec) => {
+        gsap.fromTo(
+          sec,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sec,
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+    });
+    return cleanup;
+  }, []);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    company: '',
+    email: '',
+    subject: 'Sourcing',
+    message: ''
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('https://finance.devapi.zipaworld.com/api/contactUs/contactMailAaa2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          company: formData.company || ""
+        })
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to send message');
+      }
+
+      setSubmitStatus({ type: 'success', message: 'Thank you! Your message has been sent successfully.' });
+      setFormData({ name: '', company: '', email: '', subject: 'Sourcing', message: '' });
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'Oops! Something went wrong. Please try again later.'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', minHeight: '100vh', overflowX: 'hidden' }}>
+      <Helmet>
+        <title>Contact Us | Start Your Global Sourcing Journey | AAA 2 Innovate</title>
+        <meta name="description" content="Get in touch with AAA 2 Innovate. Partner with our elite team for end-to-end global product sourcing, manufacturing, logistics, and custom IT engineering solutions." />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Contact Us | Start Your Global Sourcing Journey | AAA 2 Innovate" />
+        <meta property="og:description" content="Get in touch with AAA 2 Innovate. Whether you need custom manufacturing, global logistics, or elite IT engineering, our experts are ready to accelerate your business." />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href="https://www.aaa2innovate.com/contact" />
+        <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
+        <meta property="og:url" content="https://www.aaa2innovate.com/contact" />
+      </Helmet>
+      <SchemaInjector schema={{
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact AAA 2 Innovate",
+        "description": "Get in touch with AAA 2 Innovate. Partner with our elite team for end-to-end global product sourcing, manufacturing, logistics, and custom IT engineering solutions.",
+        "url": "https://www.aaa2innovate.com/contact"
+      }} />
+
+      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
+        <Breadcrumbs />
+      </div> */}
+
+      {/* Hero Section */}
+      <PageHero
+        backgroundImage="https://aaa-website-images.s3.ap-south-1.amazonaws.com/assets/contact_hero.png"
+        titleLine1="Let's Build the Future"
+        subtitle="Reach out to AAA 2 Innovate. Whether you're looking for high-end sourcing, tech-driven manufacturing, or design excellence, our global team is ready to assist."
+        minHeight="70vh"
+        paddingTop="180px"
+        paddingBottom="150px"
+        centered={true}
+      />
+
+      {/* Main Contact Section */}
+      <section className="gsap-section" style={{ padding: 'clamp(40px, 6vw, 70px) 0', backgroundColor: 'var(--bg-main)' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '48px' }}>
+
+            {/* Contact Information */}
+            <div>
+              <div style={{ marginBottom: '32px' }}>
+                <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--brand-indigo)', marginBottom: '12px', fontFamily: 'var(--font-display)' }}>
+                  Get in Touch
+                </h2>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: 1.6 }}>
+                  Our team of experts is standing by to answer your questions and help you scale your operations globally.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '16px', borderRadius: '16px', height: 'fit-content' }}>
+                    <MapPin color="var(--brand-indigo)" size={28} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Global Headquarters</h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: 1.6, margin: 0 }}>
+                      AAA 2 Innovate Private Limited<br />
+                      1 Floor, F-40, F Block, Sector 6,<br />
+                      Noida, Uttar Pradesh 201301
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '16px', borderRadius: '16px', height: 'fit-content' }}>
+                    <Phone color="var(--brand-indigo)" size={28} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Direct Line</h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: 1.6, margin: 0 }}>
+                      <a href="tel:+911206916907" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = 'var(--brand-indigo)'} onMouseOut={(e) => e.target.style.color = 'var(--text-secondary)'}>
+                        +91-120-691-6907
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '16px', borderRadius: '16px', height: 'fit-content' }}>
+                    <Mail color="var(--brand-indigo)" size={28} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Email Us</h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: 1.6, margin: 0 }}>
+                      <a href="mailto:info@aaa2innovate.com" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = 'var(--brand-indigo)'} onMouseOut={(e) => e.target.style.color = 'var(--text-secondary)'}>
+                        info@aaa2innovate.com
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '16px', borderRadius: '16px', height: 'fit-content' }}>
+                    <Clock color="var(--brand-indigo)" size={28} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Operating Hours</h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: 1.6, margin: 0 }}>
+                      Monday - Friday<br />
+                      9:00 AM - 6:00 PM (IST)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Form */}
+            <div style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '24px',
+              padding: '30px',
+              border: '1px solid var(--border-light)',
+              boxShadow: '0 15px 35px rgba(34,1,80,0.08)'
+            }}>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                  <div style={{ flex: 1, minWidth: '200px' }}>
+                    <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Full Name *</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="John Doe"
+                      style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s' }}
+                      onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                      onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
+                    />
+                  </div>
+                  <div style={{ flex: 1, minWidth: '200px' }}>
+                    <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Company</label>
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder="Your Company Ltd."
+                      style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s' }}
+                      onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                      onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Email Address *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="john@example.com"
+                    style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s' }}
+                    onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                    onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="subject" style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Inquiry Type *</label>
+                  <select
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s', cursor: 'pointer' }}
+                    onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                    onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
+                  >
+                    <option value="Sourcing">Apparel & Bag Sourcing</option>
+                    <option value="Design">Design & Product Development</option>
+                    <option value="Manufacturing">Manufacturing Setup</option>
+                    <option value="Tech">Tech Solutions</option>
+                    <option value="Other">General Inquiry</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Message *</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    placeholder="How can we help you scale your business?"
+                    rows={4}
+                    style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s', resize: 'vertical' }}
+                    onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
+                    onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
+                  ></textarea>
+                </div>
+
+                {submitStatus && (
+                  <div style={{
+                    marginTop: '8px',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    backgroundColor: submitStatus.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                    border: `1px solid ${submitStatus.type === 'success' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'}`,
+                    color: submitStatus.type === 'success' ? '#10B981' : '#EF4444',
+                    fontSize: '14.5px'
+                  }}>
+                    {submitStatus.message}
+                  </div>
+                )}
+
+                <motion.button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-primary"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', width: '100%', border: 'none', cursor: 'pointer' }}
+                >
+                  {loading ? (
+                    <Loader2 size={20} style={{ animation: 'spin 1s linear infinite' }} />
+                  ) : (
+                    <Send size={20} />
+                  )}
+                  {loading ? 'Sending...' : 'Send Message'}
+                </motion.button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Map or Global Presence Section */}
+      <section className="gsap-section" style={{ position: 'relative', padding: '100px 0', backgroundColor: '#140038', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
+        {/* Animated Map Background */}
+        <motion.div
+          initial={{ scale: 1.1, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 0.25 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          style={{ position: 'absolute', inset: 0, backgroundImage: 'url(https://aaa-website-images.s3.ap-south-1.amazonaws.com/assets/world_map_nodes.png)', backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, #140038 80%)', zIndex: 1 }}></div>
+
+        <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+
+
+            <h3 style={{ fontSize: 'clamp(28px, 4.5vw, 48px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', fontFamily: 'var(--font-display)' }}>
+              <TextReveal text="Global Operations, Local Expertise" elementType="span" justifyContent="center" />
+            </h3>
+
+            <p style={{ color: '#CBD5E1', fontSize: '15px', maxWidth: '600px', margin: '0 auto 48px auto', lineHeight: 1.6 }}>
+              Our operations span the globe, allowing us to source and manufacture in India and deliver seamlessly to our clients worldwide.
+            </p>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px' }}>
+              {['North America', 'Europe', 'Asia', 'UAE'].map((region, idx) => (
+                <motion.div
+                  key={region}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + (idx * 0.1), duration: 0.5, type: 'spring' }}
+                  whileHover={{ y: -5, backgroundColor: 'rgba(255,255,255,0.08)', borderColor: 'rgba(255,255,255,0.2)' }}
+                  style={{
+                    padding: '12px 28px',
+                    backgroundColor: 'rgba(255,255,255,0.03)',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                    backdropFilter: 'blur(10px)',
+                    color: '#FFFFFF',
+                    fontWeight: 600,
+                    fontSize: '14.5px',
+                    cursor: 'default',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--bg-main)', boxShadow: '0 0 10px var(--brand-orange)' }}></div>
+                    {region}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Accreditations Marquee */}
+      <AccreditationsMarquee />
+    </div>
+  );
+};
+
+export default Contact;
+
+

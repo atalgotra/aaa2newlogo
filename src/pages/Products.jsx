@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import CTASection from '../components/CTASection';
-import { ShoppingBag, Star, Sparkles, Droplet } from 'lucide-react';
+import { ShoppingBag, Star, Sparkles, Droplet, ArrowRight } from 'lucide-react';
 import SchemaInjector from '../components/seo/SchemaInjector';
-import Breadcrumbs from '../components/seo/Breadcrumbs';
+// import Breadcrumbs from '../components/seo/Breadcrumbs';
+import TiltCard from '../components/animations/TiltCard';
+import TextReveal from '../components/animations/TextReveal';
+import AccreditationsMarquee from '../components/common/AccreditationsMarquee';
+import { gsap, createGsapScope } from '../utils/gsapUtils';
 
 const heroCategories = [
   { id: 1, title: 'Apparels', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4' },
@@ -188,8 +192,34 @@ const HoverFeatureImage = ({ imageSrc, videoSrc, alt }) => {
 };
 
 const Products = () => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const cleanup = createGsapScope(containerRef, () => {
+      const sections = gsap.utils.toArray('.gsap-section');
+      sections.forEach((sec) => {
+        gsap.fromTo(
+          sec,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sec,
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+    });
+    return cleanup;
+  }, []);
+
   return (
-    <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh', color: 'var(--text-primary)', paddingTop: '90px' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
       <Helmet>
         <title>Premium B2B Products | Fast Fashion, Bags & Jewellery | AAA 2 Innovate</title>
         <meta name="description" content="Explore our luxury B2B product collections sourced directly from vetted Indian manufacturers. Featuring fast fashion, designer bags, high-end imitation jewellery, and premium copper wellness items." />
@@ -233,20 +263,17 @@ const Products = () => {
         }
       }} />
 
-      <div style={{ position: 'absolute', top: '90px', left: 0, width: '100%', zIndex: 10 }}>
+      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
         <Breadcrumbs />
-      </div>
+      </div> */}
 
-      {/* Visually hidden H1 for SEO */}
-      <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', border: 0 }}>
-        Premium B2B Products & Global Sourcing
-      </h1>
-
-      {/* Luxury Accordion Hero */}
-      <AccordionHero />
+      {/* ─── 1. Interactive Accordion Categories Matrix ─── */}
+      <section className="gsap-section" style={{ backgroundColor: '#000', padding: 0 }}>
+        <AccordionHero />
+      </section>
 
       {/* Apparels Category */}
-      <section style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: '#02040A' }}>
+      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 60px) 0', backgroundColor: '#220150' }}>
         <div className="container">
           <div style={{ marginBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '16px' }}>
             <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>Our Apparels</h2>
@@ -304,111 +331,124 @@ const Products = () => {
       {/* Bags & Accessories */}
       <section style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: '#05080F' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '64px', alignItems: 'center' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <ShoppingBag color="var(--brand-orange)" size={24} />
-                <span style={{ color: 'var(--brand-orange)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase' }}>Premium Accessories</span>
-              </div>
-              <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.1 }}>Ladies Handbags & Clutches</h2>
-              <p style={{ color: '#9CA3AF', fontSize: '18px', lineHeight: 1.6, marginBottom: '32px' }}>
+          <div className="about-grid" style={{ alignItems: 'center' }}>
+            
+            {/* Left Content */}
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+                <TextReveal text="Ladies Handbags" elementType="span" style={{ color: '#FFFFFF' }} />
+                <span style={{ color: '#FFFFFF' }}>
+                  <TextReveal text="& Clutches" elementType="span" delay={0.15} style={{ color: '#FFFFFF' }} />
+                </span>
+              </h2>
+              <p style={{ color: 'var(--text-light)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
                 Elevate any outfit with our collection of luxury-inspired handbags and elegant clutches. Crafted with premium textures and statement hardware, these bags are designed to turn heads.
               </p>
-              <Link to="/contact" tabIndex="-1">
-                <button style={{ background: 'transparent', color: '#FFF', border: '1px solid rgba(255,255,255,0.3)', padding: '16px 32px', borderRadius: '30px', fontSize: '16px', fontWeight: 600, cursor: 'pointer' }}>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
+                <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
                   Source Bags Collection
-                </button>
-              </Link>
+                  <ArrowRight size={16} />
+                </Link>
+              </motion.div>
             </div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-              style={{ position: 'relative', height: '500px', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}
-            >
-              <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_bags.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4" alt="Luxury Handbags" />
-            </motion.div>
+
+            {/* Right Graphics Panel with TiltCard */}
+            <div style={{ position: 'relative' }}>
+              <TiltCard>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, x: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
+                >
+                  <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_bags.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4" alt="Luxury Handbags" />
+                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.3 }} />
+                </motion.div>
+              </TiltCard>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* Fashion Jewellery */}
-      <section style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: '#02040A' }}>
+      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-light)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '64px', alignItems: 'center' }}>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-              style={{ position: 'relative', height: '600px', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 0 40px rgba(255, 87, 34, 0.15)' }}
-            >
-              <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_jewellery.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/fine_jewellery_hero.mp4" alt="Fashion Jewellery" />
-              {/* Luxury Shine Effect */}
-              <motion.div
-                animate={{
-                  left: ['-100%', '200%'],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatDelay: 4,
-                  ease: "easeInOut"
-                }}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  width: '50%',
-                  height: '100%',
-                  background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent)',
-                  transform: 'skewX(-20deg)',
-                  pointerEvents: 'none'
-                }}
-              />
-            </motion.div>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <Sparkles color="var(--brand-orange)" size={24} />
-                <span style={{ color: 'var(--brand-orange)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase' }}>Statement Pieces</span>
-              </div>
-              <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.1 }}>Fashion Jewellery</h2>
-              <p style={{ color: '#9CA3AF', fontSize: '18px', lineHeight: 1.6, marginBottom: '32px' }}>
+          <div className="about-grid" style={{ alignItems: 'center' }}>
+            
+            {/* Left Graphics Panel with TiltCard */}
+            <div style={{ position: 'relative' }}>
+              <TiltCard>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, x: -20 }}
+                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
+                >
+                  <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_jewellery.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/fine_jewellery_hero.mp4" alt="Fashion Jewellery" />
+                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.3 }} />
+                </motion.div>
+              </TiltCard>
+            </div>
+
+            {/* Right Content */}
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--brand-indigo)', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+                <TextReveal text="Fashion Jewellery" elementType="span" />
+              </h2>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
                 Flawless imitation jewelry that looks like a million dollars. From intricate necklaces to statement rings, our collection is curated to provide maximum sparkle and high-end aesthetics without the luxury markup.
               </p>
-              <Link to="/contact" tabIndex="-1">
-                <button style={{ backgroundColor: '#FFF', color: '#000', border: 'none', padding: '16px 32px', borderRadius: '30px', fontSize: '16px', fontWeight: 700, cursor: 'pointer' }}>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
+                <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
                   Discover Jewellery
-                </button>
-              </Link>
+                  <ArrowRight size={16} />
+                </Link>
+              </motion.div>
             </div>
+
           </div>
         </div>
       </section>
 
       {/* Wellness Items */}
-      <section style={{ paddingTop: '40px', paddingBottom: '100px', backgroundColor: '#05080F' }}>
+      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: '#140038' }}>
         <div className="container" style={{ textAlign: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
-            <Droplet color="var(--brand-orange)" size={24} />
-            <span style={{ color: 'var(--brand-orange)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase' }}>Holistic Living</span>
-          </div>
-          <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px' }}>Wellness Collection</h2>
-          <p style={{ color: '#9CA3AF', fontSize: '18px', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto 64px auto' }}>
+          <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', fontFamily: 'var(--font-display)' }}>
+            <TextReveal text="Wellness Collection" elementType="span" justifyContent="center" />
+          </h2>
+          <p style={{ color: '#CBD5E1', fontSize: '15px', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto 48px auto' }}>
             Traditional wisdom meets modern luxury. Elevate your daily routines with our premium wellness items, crafted from pure materials for maximum health benefits.
           </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            style={{ position: 'relative', height: '600px', borderRadius: '32px', overflow: 'hidden', maxWidth: '1000px', margin: '0 auto' }}
-          >
-            <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_wellness.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4" alt="Copper Wellness Items" />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', textAlign: 'left' }}>
-              <div>
-                <h3 style={{ fontSize: '32px', color: '#FFF', fontWeight: 800, marginBottom: '8px' }}>Copper Bottles & Kansa Combs</h3>
-                <p style={{ color: '#9CA3AF', fontSize: '16px', maxWidth: '400px' }}>Purify your water and revitalize your scalp with authentic, beautifully crafted wellness tools.</p>
-              </div>
-              <Link to="/contact" tabIndex="-1">
-                <button style={{ backgroundColor: 'var(--brand-orange)', color: '#FFF', border: 'none', padding: '16px 32px', borderRadius: '30px', fontSize: '16px', fontWeight: 700, cursor: 'pointer' }}>
-                  Source Wellness Items
-                </button>
-              </Link>
-            </div>
-          </motion.div>
+          <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
+            <TiltCard>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+                style={{ position: 'relative', height: '440px', borderRadius: '32px', overflow: 'hidden', boxShadow: '0 15px 35px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.05)' }}
+              >
+                <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_wellness.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4" alt="Copper Wellness Items" />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(20,0,56,0.95) 0%, rgba(20,0,56,0.4) 60%, transparent 100%)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', textAlign: 'left', zIndex: 10, flexWrap: 'wrap', gap: '20px' }}>
+                  <div>
+                    <h3 style={{ fontSize: '22px', color: '#FFFFFF', fontWeight: 800, marginBottom: '8px', fontFamily: 'var(--font-heading)' }}>Copper Vessels & Holistic Tools</h3>
+                    <p style={{ color: '#CBD5E1', fontSize: '13.5px', maxWidth: '420px', lineHeight: 1.5, margin: 0 }}>Purify your environment and revitalize your body with authentic, beautifully handcrafted traditional tools.</p>
+                  </div>
+                  <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+                    <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+                      Source Wellness Items
+                      <ArrowRight size={16} />
+                    </Link>
+                  </motion.div>
+                </div>
+                <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '32px', opacity: 0.2 }} />
+              </motion.div>
+            </TiltCard>
+          </div>
         </div>
       </section>
 
@@ -419,6 +459,9 @@ const Products = () => {
         description="Whether you are sourcing fast fashion, premium bags, or high-end wellness items, we provide the highest quality products on the market. Start your journey with us."
         buttonText="Help me source products"
       />
+
+      {/* Accreditations Marquee */}
+      <AccreditationsMarquee />
     </div>
   );
 };

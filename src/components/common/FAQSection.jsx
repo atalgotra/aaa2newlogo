@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, MessageCircle } from 'lucide-react';
-import SchemaInjector from './SchemaInjector';
+import SchemaInjector from '../seo/SchemaInjector';
 
-const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick }) => {
+const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick, contactButtonText = "Contact Sourcing Team" }) => {
+  const navigate = useNavigate();
   const [openIndex, setOpenIndex] = useState(0);
+
+  const handleContact = () => {
+    if (onContactClick) {
+      onContactClick();
+    } else {
+      navigate('/contact');
+    }
+  };
 
   if (!faqs || faqs.length === 0) return null;
 
@@ -55,8 +65,8 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick
 
               <div style={{ backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '16px', border: '1px solid rgba(34, 1, 80, 0.08)', boxShadow: '0 6px 20px -6px rgba(34, 1, 80, 0.05)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
-                  <div style={{ width: '36px', height: '48px', backgroundColor: 'rgba(34, 1, 80, 0.08)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <MessageCircle color="#220150" size={18} />
+                  <div style={{ width: '36px', height: '36px', backgroundColor: 'rgba(34, 1, 80, 0.08)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <MessageCircle color="#220150" size={16} />
                   </div>
                   <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary, #0F172A)', margin: 0 }}>
                     Still have questions?
@@ -66,7 +76,7 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick
                   Can't find what you're looking for? Reach out directly to our advisory team.
                 </p>
                 <button
-                  onClick={onContactClick}
+                  onClick={handleContact}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -84,7 +94,7 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick
                   onMouseOver={(e) => e.currentTarget.style.scale = '1.05'}
                   onMouseOut={(e) => e.currentTarget.style.scale = '1'}
                 >
-                  Contact Sourcing Team
+                  {contactButtonText}
                 </button>
               </div>
             </div>

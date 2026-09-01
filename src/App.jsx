@@ -2,23 +2,24 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './components/common/ScrollToTop';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import SmoothScroll from './components/animations/SmoothScroll';
 
 const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
-const Team = lazy(() => import('./pages/Team'));
+const About = lazy(() => import('./pages/company/About'));
+const Team = lazy(() => import('./pages/company/Team'));
 const Products = lazy(() => import('./pages/Products'));
 const EthicalSourcing = lazy(() => import('./pages/EthicalSourcing'));
+const Contact = lazy(() => import('./pages/Contact'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 
 import CookieConsent from './components/CookieConsent';
 import HomeSkeleton from './components/common/HomeSkeletons';
 
-const Services = lazy(() => import('./pages/Services'));
+const Capabilities = lazy(() => import('./pages/Capabilities'));
 const Sourcing = lazy(() => import('./pages/services/Sourcing'));
 const Design = lazy(() => import('./pages/services/Design'));
 const Manufacturing = lazy(() => import('./pages/services/Manufacturing'));
@@ -53,15 +54,26 @@ const AnimatedRoutes = () => {
           <Route path="/team" element={<Team />} />
           <Route path="/products" element={<Products />} />
           <Route path="/ethical-sourcing" element={<EthicalSourcing />} />
-          <Route path="/contact" element={<Navigate to="/" state={{ scrollTo: 'contact' }} replace />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/sourcing" element={<Sourcing />} />
-          <Route path="/services/design" element={<Design />} />
-          <Route path="/services/manufacturing" element={<Manufacturing />} />
-          <Route path="/services/quality-control-compliance" element={<QualityControl />} />
-          <Route path="/services/logistics" element={<Logistics />} />
-          <Route path="/services/warehousing" element={<Warehousing />} />
-          <Route path="/services/tech" element={<Tech />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* Capabilities Routes */}
+          <Route path="/capabilities" element={<Capabilities />} />
+          <Route path="/capabilities/sourcing" element={<Sourcing />} />
+          <Route path="/capabilities/design" element={<Design />} />
+          <Route path="/capabilities/manufacturing" element={<Manufacturing />} />
+          <Route path="/capabilities/quality-control-compliance" element={<QualityControl />} />
+          <Route path="/capabilities/logistics" element={<Logistics />} />
+          <Route path="/capabilities/warehousing" element={<Warehousing />} />
+          <Route path="/capabilities/tech" element={<Tech />} />
+
+          {/* Redirects for legacy services routes */}
+          <Route path="/services" element={<Navigate to="/capabilities" replace />} />
+          <Route path="/services/sourcing" element={<Navigate to="/capabilities/sourcing" replace />} />
+          <Route path="/services/design" element={<Navigate to="/capabilities/design" replace />} />
+          <Route path="/services/manufacturing" element={<Navigate to="/capabilities/manufacturing" replace />} />
+          <Route path="/services/quality-control-compliance" element={<Navigate to="/capabilities/quality-control-compliance" replace />} />
+          <Route path="/services/logistics" element={<Navigate to="/capabilities/logistics" replace />} />
+          <Route path="/services/warehousing" element={<Navigate to="/capabilities/warehousing" replace />} />
+          <Route path="/services/tech" element={<Navigate to="/capabilities/tech" replace />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
         </Routes>
