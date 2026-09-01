@@ -10,8 +10,6 @@ const DOMAIN = 'https://www.aaa2innovate.com';
 // Define all routes explicitly
 const routes = [
   '/',
-  '/about',
-  '/team',
   '/products',
   '/ethical-sourcing',
   '/contact',

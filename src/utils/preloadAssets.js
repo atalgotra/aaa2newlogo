@@ -12,9 +12,7 @@ const CRITICAL_IMAGES = [
   'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/quality_inspection.png',
   'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/warehousing.png',
   'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/logistics.png',
-  'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/ai_tech.png',
-  'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/team/shashank_jain.png',
-  'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/team/rohit_singh.png'
+  'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/ai_tech.png'
 ];
 
 const CRITICAL_VIDEOS = [

@@ -2,18 +2,17 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import CTASection from '../components/CTASection';
+import CTASection from '../components/common/CTASection';
 import { ShoppingBag, Star, Sparkles, Droplet, ArrowRight } from 'lucide-react';
 import SchemaInjector from '../components/seo/SchemaInjector';
-// import Breadcrumbs from '../components/seo/Breadcrumbs';
 import TiltCard from '../components/animations/TiltCard';
 import TextReveal from '../components/animations/TextReveal';
 import AccreditationsMarquee from '../components/common/AccreditationsMarquee';
 import { gsap, createGsapScope } from '../utils/gsapUtils';
 
 const heroCategories = [
-  { id: 1, title: 'Apparels', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4' },
-  { id: 2, title: 'Designer Bags', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4' },
+  { id: 1, title: 'Designer Bags', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4' },
+  { id: 2, title: 'Apparels', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4' },
   { id: 3, title: 'Fashion Jewellery', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/fine_jewellery_hero.mp4' },
   { id: 4, title: 'Holistic Wellness', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4' }
 ];
@@ -21,22 +20,52 @@ const heroCategories = [
 const HoverVideo = ({ src, title, description, delay = 0, className = '', playbackRate = 1 }) => {
   const videoRef = React.useRef(null);
   const [isHovered, setIsHovered] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  React.useEffect(() => {
+    if (isMobile && videoRef.current) {
+      videoRef.current.playbackRate = playbackRate;
+      videoRef.current.play().catch(e => console.log(e));
+    }
+  }, [isMobile, playbackRate]);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay }}
       className={className}
       style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', height: '100%', cursor: 'pointer', backgroundColor: '#000' }}
-      onMouseEnter={() => { setIsHovered(true); if (videoRef.current) { videoRef.current.playbackRate = playbackRate; videoRef.current.play().catch(e => console.log(e)); } }}
-      onMouseLeave={() => { setIsHovered(false); if (videoRef.current) { videoRef.current.pause(); } }}
+      onMouseEnter={() => {
+        if (!isMobile) {
+          setIsHovered(true);
+          if (videoRef.current) {
+            videoRef.current.playbackRate = playbackRate;
+            videoRef.current.play().catch(e => console.log(e));
+          }
+        }
+      }}
+      onMouseLeave={() => {
+        if (!isMobile) {
+          setIsHovered(false);
+          if (videoRef.current) {
+            videoRef.current.pause();
+          }
+        }
+      }}
     >
       <video
         ref={videoRef}
         src={`${src}#t=0.1`}
+        autoPlay={isMobile}
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         style={{
           position: 'absolute',
           top: 0,
@@ -67,15 +96,16 @@ const AccordionHero = () => {
   }, []);
 
   return (
-    <section style={{ width: '100%', height: '60vh', minHeight: '500px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', overflow: 'hidden', backgroundColor: '#000' }}>
+    <section style={{ width: '100%', height: '100vh', minHeight: isMobile ? '820px' : '750px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', overflow: 'hidden', backgroundColor: '#000' }}>
       {heroCategories.map((item, index) => {
         const isHovered = hoveredIndex === index;
         return (
           <motion.div
             key={item.id}
             onMouseEnter={() => setHoveredIndex(index)}
+            onClick={() => setHoveredIndex(index)}
             initial={{ flex: 1 }}
-            animate={{ flex: isHovered ? (isMobile ? 3 : 4) : 1 }}
+            animate={{ flex: isHovered ? (isMobile ? 5.5 : 4) : 1 }}
             transition={{ type: 'tween', ease: 'circOut', duration: 0.5 }}
             style={{
               position: 'relative',
@@ -115,17 +145,19 @@ const AccordionHero = () => {
                 ))}
               </div>
             ) : item.video ? (
-              <motion.video
+              <video
                 src={item.video}
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="auto"
                 style={{
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  filter: isHovered ? 'brightness(0.9)' : 'brightness(0.3)',
+                  objectPosition: 'center top',
+                  filter: isHovered ? 'brightness(0.9)' : (isMobile ? 'brightness(0.7)' : 'brightness(0.3)'),
                   transition: 'filter 0.8s ease'
                 }}
               />
@@ -167,25 +199,50 @@ const AccordionHero = () => {
 
 const HoverFeatureImage = ({ imageSrc, videoSrc, alt }) => {
   const [isHovered, setIsHovered] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
   const videoRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  React.useEffect(() => {
+    if (isMobile && videoRef.current) {
+      videoRef.current.play().catch(e => console.log(e));
+    }
+  }, [isMobile]);
 
   return (
     <div
       style={{ paddingTop: '90px', width: '100%', height: '100%', position: 'relative', cursor: 'pointer' }}
-      onMouseEnter={() => { setIsHovered(true); if (videoRef.current) { videoRef.current.play().catch(e => console.log(e)); } }}
-      onMouseLeave={() => { setIsHovered(false); if (videoRef.current) { videoRef.current.pause(); } }}
+      onMouseEnter={() => {
+        if (!isMobile) {
+          setIsHovered(true);
+          if (videoRef.current) { videoRef.current.play().catch(e => console.log(e)); }
+        }
+      }}
+      onMouseLeave={() => {
+        if (!isMobile) {
+          setIsHovered(false);
+          if (videoRef.current) { videoRef.current.pause(); }
+        }
+      }}
     >
       <img loading="lazy" src={imageSrc}
         alt={alt}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, opacity: isHovered ? 0 : 1, transition: 'opacity 0.6s ease' }}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, opacity: (isMobile || isHovered) ? 0 : 1, transition: 'opacity 0.6s ease' }}
       />
       <video
         ref={videoRef}
         src={videoSrc}
+        autoPlay={isMobile}
         muted
         loop
         playsInline
-        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, opacity: isHovered ? 1 : 0, transition: 'opacity 0.6s ease' }}
+        preload="auto"
+        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, opacity: (isMobile || isHovered) ? 1 : 0, transition: 'opacity 0.6s ease' }}
       />
     </div>
   );
@@ -219,7 +276,7 @@ const Products = () => {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
         <title>Premium B2B Products | Fast Fashion, Bags & Jewellery | AAA 2 Innovate</title>
         <meta name="description" content="Explore our luxury B2B product collections sourced directly from vetted Indian manufacturers. Featuring fast fashion, designer bags, high-end imitation jewellery, and premium copper wellness items." />
@@ -262,10 +319,6 @@ const Products = () => {
           ]
         }
       }} />
-
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
 
       {/* ─── 1. Interactive Accordion Categories Matrix ─── */}
       <section className="gsap-section" style={{ backgroundColor: '#000', padding: 0 }}>
@@ -334,17 +387,17 @@ const Products = () => {
           <div className="about-grid" style={{ alignItems: 'center' }}>
             
             {/* Left Content */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+            <div className="product-feature-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
                 <TextReveal text="Ladies Handbags" elementType="span" style={{ color: '#FFFFFF' }} />
                 <span style={{ color: '#FFFFFF' }}>
                   <TextReveal text="& Clutches" elementType="span" delay={0.15} style={{ color: '#FFFFFF' }} />
                 </span>
               </h2>
-              <p style={{ color: 'var(--text-light)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
+              <p className="product-feature-desc" style={{ color: 'var(--text-light)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
                 Elevate any outfit with our collection of luxury-inspired handbags and elegant clutches. Crafted with premium textures and statement hardware, these bags are designed to turn heads.
               </p>
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
+              <motion.div className="product-feature-btn" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
                 <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
                   Source Bags Collection
                   <ArrowRight size={16} />
@@ -394,14 +447,14 @@ const Products = () => {
             </div>
 
             {/* Right Content */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--brand-indigo)', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+            <div className="product-feature-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--brand-indigo)', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
                 <TextReveal text="Fashion Jewellery" elementType="span" />
               </h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
+              <p className="product-feature-desc" style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
                 Flawless imitation jewelry that looks like a million dollars. From intricate necklaces to statement rings, our collection is curated to provide maximum sparkle and high-end aesthetics without the luxury markup.
               </p>
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
+              <motion.div className="product-feature-btn" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
                 <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
                   Discover Jewellery
                   <ArrowRight size={16} />

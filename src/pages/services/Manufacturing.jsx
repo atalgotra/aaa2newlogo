@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import FAQSection from '../../components/common/FAQSection';
 import SchemaInjector from '../../components/seo/SchemaInjector';
-// import Breadcrumbs from '../../components/seo/Breadcrumbs';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CTASection from '../../components/CTASection';
+import CTASection from '../../components/common/CTASection';
 import AccreditationsMarquee from '../../components/common/AccreditationsMarquee';
 import DivisionsBentoGrid from '../../components/common/DivisionsBentoGrid';
 import TiltCard from '../../components/animations/TiltCard';
@@ -115,7 +114,7 @@ const Manufacturing = () => {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
         <title>Precision Custom Manufacturing in India | AAA 2 Innovate</title>
         <meta name="description" content="End-to-end precision manufacturing across 500+ specialized Indian factories. Benefit from real-time tracking, massive scalability, and zero-defect tolerance." />
@@ -141,10 +140,6 @@ const Manufacturing = () => {
           "name": "Global"
         }
       }} />
-
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
 
       {/* Hero Section */}
       <PageHero
@@ -186,7 +181,7 @@ const Manufacturing = () => {
                 India is not a single factory—it is a mosaic of hyper-specialized industrial zones. We maintain permanent, on-the-ground expertise in every major production hub. This enables us to match every product with the right region, supplier, and manufacturing capability.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '16px' }}>
                 {[
                   { label: 'Leather & Accessories', hubs: 'Kanpur, Agra' },
                   { label: 'Home Décor & Craft', hubs: 'Moradabad, Jaipur' },
@@ -212,22 +207,32 @@ const Manufacturing = () => {
             </div>
 
             {/* Right Map Visual Panel with TiltCard */}
-            <div style={{ position: 'relative', maxWidth: '510px', margin: '0 auto', width: '100%' }}>
-              <TiltCard>
+            <div className="map-callout-panel">
+              <TiltCard style={{ width: '100%' }}>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden' }}
+                  style={{
+                    position: 'relative',
+                    borderRadius: '24px',
+                    overflow: 'hidden',
+                    backgroundColor: 'rgba(20, 0, 56, 0.4)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
                 >
                   <img
                     loading="lazy"
                     src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/india_map_nodes.png"
                     alt="Pan-India Industrial Hubs"
                     className="map-callout-img"
+                    style={{ borderRadius: '24px' }}
                   />
-                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.4 }} />
                 </motion.div>
               </TiltCard>
             </div>

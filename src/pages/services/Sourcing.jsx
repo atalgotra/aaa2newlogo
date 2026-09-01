@@ -2,11 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Globe, MapPin, Layers, Cpu, ShieldCheck, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Globe, MapPin, Layers, Cpu, ShieldCheck, ArrowRight, TrendingDown, Network } from 'lucide-react';
 import FAQSection from '../../components/common/FAQSection';
 import SchemaInjector from '../../components/seo/SchemaInjector';
-// import Breadcrumbs from '../../components/seo/Breadcrumbs';
-import CTASection from '../../components/CTASection';
+import CTASection from '../../components/common/CTASection';
 import TiltCard from '../../components/animations/TiltCard';
 import PageHero from '../../components/common/PageHero';
 import AccreditationsMarquee from '../../components/common/AccreditationsMarquee';
@@ -18,20 +17,38 @@ const sourcingCapabilitiesData = [
   {
     id: '01',
     title: 'Specialized Vendor Ecosystem',
-    desc: "We partner directly with niche factories across India's specialized industrial corridors, ensuring domain-specific expertise and reliable production.",
+    desc: "We partner with niche factories across India's specialized industrial corridors for reliable, domain-specific production.",
     Icon: MapPin
   },
   {
     id: '02',
-    title: 'Raw Material Acquisition',
-    desc: 'We secure premium, sustainably sourced raw materials at scale, ensuring supply resilience and consistent product quality.',
-    Icon: Layers
+    title: 'Supplier Evaluation',
+    desc: 'We assess suppliers for quality, capacity, compliance, reliability, and manufacturing capabilities before engagement.',
+    Icon: ShieldCheck
   },
   {
     id: '03',
+    title: 'Raw Material Acquisition',
+    desc: 'We secure premium, sustainably sourced raw materials at scale for consistent quality and supply continuity.',
+    Icon: Layers
+  },
+  {
+    id: '04',
+    title: 'Cost Optimization',
+    desc: 'Our sourcing network helps identify competitive suppliers and optimize procurement costs without compromising quality.',
+    Icon: TrendingDown
+  },
+  {
+    id: '05',
     title: 'Algorithmic Visibility',
-    desc: 'Our custom software provides real-time visibility into material origins, vendor capacity, and procurement timelines.',
+    desc: 'Custom software provides real-time visibility into material origins, vendor capacity, and procurement timelines.',
     Icon: Cpu
+  },
+  {
+    id: '06',
+    title: 'Supply Chain Coordination',
+    desc: 'We coordinate suppliers, materials, timelines, and logistics to keep procurement efficient from source to production.',
+    Icon: Network
   }
 ];
 
@@ -82,7 +99,7 @@ const Sourcing = () => {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
         <title>Global Sourcing & Procurement Services | AAA 2 Innovate</title>
         <meta name="description" content="Leverage our elite sourcing network in India. We procure high-quality materials and products directly from vetted factories, completely eliminating middleman markups." />
@@ -109,10 +126,6 @@ const Sourcing = () => {
           "name": "Global"
         }
       }} />
-
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
 
       {/* Hero Section */}
       <PageHero

@@ -21,14 +21,15 @@ const PageHero = ({
   titleLine1,
   titleLine2,
   subtitle,
-  minHeight = '55vh',
-  paddingTop = '115px',
-  paddingBottom = '115px',
+  minHeight = '100vh',
+  paddingTop = '175px',
+  paddingBottom = '80px',
   overlayOpacity,
   centered = false,
 }) => {
   return (
     <section
+      id="hero"
       className="page-hero"
       style={{
         '--hero-min-height': minHeight,

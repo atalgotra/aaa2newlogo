@@ -88,7 +88,7 @@ Notes: ${formData.message || 'None'}`;
       const data = await response.json();
       if (!data.success) throw new Error(data.message || 'Submission failed');
 
-      toast.success('Project brief submitted! Our directors will contact you within 4 hours.');
+      toast.success('Project brief submitted! Our team will contact you within 4 hours.');
       setFormData({
         name: '',
         email: '',

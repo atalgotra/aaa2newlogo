@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import FAQSection from '../../components/common/FAQSection';
 import SchemaInjector from '../../components/seo/SchemaInjector';
-// import Breadcrumbs from '../../components/seo/Breadcrumbs';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CTASection from '../../components/CTASection';
+import CTASection from '../../components/common/CTASection';
 import AccreditationsMarquee from '../../components/common/AccreditationsMarquee';
 import DivisionsBentoGrid from '../../components/common/DivisionsBentoGrid';
 import TiltCard from '../../components/animations/TiltCard';
@@ -115,7 +114,7 @@ const Logistics = () => {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
         <title>Global B2B Logistics & Freight Forwarding | AAA 2 Innovate</title>
         <meta name="description" content="Command your global supply chain with our fully automated logistics infrastructure, powered by Zipaworld. Real-time quoting, route optimization, and digital documentation." />
@@ -141,10 +140,6 @@ const Logistics = () => {
           "name": "Global"
         }
       }} />
-
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
 
       {/* Cinematic Hero */}
       <PageHero

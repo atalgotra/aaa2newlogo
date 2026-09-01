@@ -14,13 +14,27 @@ const Navbar = () => {
   const [mobileOpenDropdownIndex, setMobileOpenDropdownIndex] = useState(null);
   const [activeSection, setActiveSection] = useState('hero');
 
-  const isSubpage = location.pathname !== '/';
-  const isSolid = pastHero || isSubpage;
+  const isPolicyPage = location.pathname === '/privacy-policy' || location.pathname === '/terms-of-service';
+  const isSolid = pastHero || isPolicyPage;
 
   const isManualScrollRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
+  const dropdownTimeoutRef = useRef(null);
+
+  const handleDropdownEnter = (index) => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setActiveDropdownIndex(index);
+  };
+
+  const handleDropdownLeave = () => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdownIndex(null);
+    }, 160);
+  };
 
   useEffect(() => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
     setActiveDropdownIndex(null);
     setMobileOpenDropdownIndex(null);
     setMobileMenuOpen(false);
@@ -28,19 +42,29 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroEl = document.getElementById('hero');
-      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : window.innerHeight;
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      
+      // If at top of the page, force transparent state immediately
+      if (scrollY <= 10) {
+        setHeroProgress(0);
+        setPastHero(false);
+        return;
+      }
+
+      const heroEl = document.getElementById('hero') || document.querySelector('.page-hero') || document.querySelector('section');
+      const heroBottom = heroEl ? (heroEl.offsetTop + heroEl.offsetHeight) : window.innerHeight;
       const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
+      
       // Ramp from 0→1 through the bottom 50% of the hero
-      const rawProgress = Math.min(1, Math.max(0, (window.scrollY - heroHeight * 0.5) / (heroHeight * 0.5)));
+      const rawProgress = Math.min(1, Math.max(0, (scrollY - heroHeight * 0.35) / (heroHeight * 0.45)));
       setHeroProgress(rawProgress);
-      setPastHero(window.scrollY + 90 >= heroBottom);
+      setPastHero(scrollY + 80 >= heroBottom);
 
       // Skip updating activeSection if user initiated a click-to-scroll
       if (isManualScrollRef.current) return;
 
       const sections = ['hero', 'about', 'services', 'products', 'ethical-sourcing', 'contact'];
-      const scrollPosition = window.scrollY + 140;
+      const scrollPosition = scrollY + 140;
 
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
@@ -55,12 +79,16 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    const settleTimer = setTimeout(handleScroll, 120);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
+      clearTimeout(settleTimer);
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -119,15 +147,6 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', sectionId: 'hero' },
-    {
-      name: 'Company',
-      path: '/about',
-      hasDropdown: true,
-      dropdownItems: [
-        { name: 'About Us', path: '/about' },
-        { name: 'Our Team', path: '/team' }
-      ]
-    },
     {
       name: 'Capabilities',
       path: '/capabilities',
@@ -188,8 +207,8 @@ const Navbar = () => {
                   <div
                     key={index}
                     className="nav-dropdown-container"
-                    onMouseEnter={() => setActiveDropdownIndex(index)}
-                    onMouseLeave={() => setActiveDropdownIndex(null)}
+                    onMouseEnter={() => handleDropdownEnter(index)}
+                    onMouseLeave={handleDropdownLeave}
                   >
                     <button
                       type="button"
@@ -291,6 +310,40 @@ const Navbar = () => {
             </div>
           </div>
 
+        </div>
+
+        {/* Floating AAA 2 INNOVATE below Navbar Logo */}
+        <div
+          onClick={() => scrollToSection('hero')}
+          className="navbar-floating-badge"
+          style={{
+            position: 'absolute',
+            top: '58px',
+            left: '2px',
+            display: mobileMenuOpen ? 'none' : 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '5px 14px',
+            backgroundColor: isSolid
+              ? 'rgba(34, 1, 80, 0.95)'
+              : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`,
+            backdropFilter: (heroProgress > 0.1 || isSolid)
+              ? `blur(${Math.round(heroProgress * 10 + (isSolid ? 10 : 0))}px)`
+              : 'none',
+            borderRadius: '30px',
+            fontFamily: "'Orbitron', sans-serif",
+            fontSize: '10px',
+            fontWeight: 800,
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: '#FFFFFF',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            userSelect: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          AAA 2 INNOVATE
         </div>
       </header>
 

@@ -1,13 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ChevronRight, ShieldCheck, Factory, Box, Cpu, Code, Globe, CheckCircle2,
   Truck, Package
 } from 'lucide-react';
 import SchemaInjector from '../components/seo/SchemaInjector';
-// import Breadcrumbs from '../components/seo/Breadcrumbs';
 import FAQSection from '../components/common/FAQSection';
 import TiltCard from '../components/animations/TiltCard';
 import TextReveal from '../components/animations/TextReveal';
@@ -71,6 +70,71 @@ const capabilitiesGridData = [
 
 const Capabilities = () => {
   const containerRef = useRef(null);
+  const [showPhysicalScale, setShowPhysicalScale] = useState(true);
+  const [showZeroRisk, setShowZeroRisk] = useState(true);
+
+  const physicalTimerRef = useRef(null);
+  const zeroRiskTimerRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setShowPhysicalScale(true);
+        setShowZeroRisk(true);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const triggerPhysicalScale = (autoDismiss = true) => {
+    if (window.innerWidth > 768) {
+      setShowPhysicalScale(true);
+      return;
+    }
+    if (physicalTimerRef.current) clearTimeout(physicalTimerRef.current);
+    setShowPhysicalScale(true);
+    if (autoDismiss) {
+      physicalTimerRef.current = setTimeout(() => {
+        setShowPhysicalScale(false);
+      }, 3500);
+    }
+  };
+
+  const togglePhysicalScale = () => {
+    if (window.innerWidth > 768) return;
+    if (showPhysicalScale) {
+      if (physicalTimerRef.current) clearTimeout(physicalTimerRef.current);
+      setShowPhysicalScale(false);
+    } else {
+      triggerPhysicalScale(true);
+    }
+  };
+
+  const triggerZeroRisk = (autoDismiss = true) => {
+    if (window.innerWidth > 768) {
+      setShowZeroRisk(true);
+      return;
+    }
+    if (zeroRiskTimerRef.current) clearTimeout(zeroRiskTimerRef.current);
+    setShowZeroRisk(true);
+    if (autoDismiss) {
+      zeroRiskTimerRef.current = setTimeout(() => {
+        setShowZeroRisk(false);
+      }, 3500);
+    }
+  };
+
+  const toggleZeroRisk = () => {
+    if (window.innerWidth > 768) return;
+    if (showZeroRisk) {
+      if (zeroRiskTimerRef.current) clearTimeout(zeroRiskTimerRef.current);
+      setShowZeroRisk(false);
+    } else {
+      triggerZeroRisk(true);
+    }
+  };
 
   useEffect(() => {
     const cleanup = createGsapScope(containerRef, () => {
@@ -93,11 +157,15 @@ const Capabilities = () => {
         );
       });
     });
-    return () => cleanup();
+    return () => {
+      cleanup();
+      if (physicalTimerRef.current) clearTimeout(physicalTimerRef.current);
+      if (zeroRiskTimerRef.current) clearTimeout(zeroRiskTimerRef.current);
+    };
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
         <title>Our Capabilities | Custom Sourcing &amp; IT Solutions | AAA 2 Innovate</title>
         <meta name="description" content="Explore AAA 2 Innovate's world-class B2B capabilities: Ethical Sourcing, Custom Manufacturing, Quality Control, Digital Warehousing, Global Logistics, and Elite Software Engineering." />
@@ -124,10 +192,6 @@ const Capabilities = () => {
         }
       }} />
 
-      {/* Breadcrumbs */}
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
 
       {/* ─── 1. Cinematic Hero Section ─── */}
       <PageHero
@@ -183,12 +247,16 @@ const Capabilities = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.3 }}
+              onViewportEnter={() => triggerPhysicalScale(true)}
               transition={{ duration: 0.7 }}
               style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <TiltCard style={{ height: '100%', flex: 1 }}>
-                <div style={{ position: 'relative', padding: '16px', height: '100%', maxHeight: '380px', boxSizing: 'border-box' }}>
+                <div
+                  onClick={togglePhysicalScale}
+                  style={{ position: 'relative', padding: '16px', height: '100%', maxHeight: '380px', boxSizing: 'border-box', cursor: 'pointer' }}
+                >
                   <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(34, 1, 80, 0.03)', borderRadius: '24px' }}></div>
                   <motion.div
                     whileHover={{ y: -6, boxShadow: '0 25px 45px rgba(34, 1, 80, 0.16)' }}
@@ -205,19 +273,23 @@ const Capabilities = () => {
                       style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover', objectPosition: 'center' }}
                     />
                   </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8, y: 15 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
-                    style={{ position: 'absolute', bottom: '30px', right: '30px', zIndex: 3, backgroundColor: '#FFFFFF', padding: '18px', borderRadius: '14px', boxShadow: '0 15px 35px rgba(34,1,80,0.12)', maxWidth: '240px', border: '1px solid var(--border-light)' }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                      <Factory size={20} color="var(--brand-indigo)" />
-                      <span style={{ fontWeight: 800, fontSize: '14.5px', color: 'var(--brand-indigo)', fontFamily: 'var(--font-heading)' }}>Physical Scale</span>
-                    </div>
-                    <p style={{ margin: 0, fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.45 }}>Vast networks of audited industrial and artisanal mills.</p>
-                  </motion.div>
+                  <AnimatePresence>
+                    {showPhysicalScale && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8, y: 15 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.85, y: 15 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        style={{ position: 'absolute', bottom: '30px', right: '30px', zIndex: 3, backgroundColor: '#FFFFFF', padding: '18px', borderRadius: '14px', boxShadow: '0 15px 35px rgba(34,1,80,0.12)', maxWidth: '240px', border: '1px solid var(--border-light)', userSelect: 'none' }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                          <Factory size={20} color="var(--brand-indigo)" />
+                          <span style={{ fontWeight: 800, fontSize: '14.5px', color: 'var(--brand-indigo)', fontFamily: 'var(--font-heading)' }}>Physical Scale</span>
+                        </div>
+                        <p style={{ margin: 0, fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.45 }}>Vast networks of audited industrial and artisanal mills.</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </TiltCard>
             </motion.div>
@@ -235,12 +307,16 @@ const Capabilities = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.3 }}
+              onViewportEnter={() => triggerZeroRisk(true)}
               transition={{ duration: 0.7 }}
               style={{ order: window.innerWidth > 768 ? 1 : 2 }}
             >
               <TiltCard>
-                <div style={{ position: 'relative', padding: '16px' }}>
+                <div
+                  onClick={toggleZeroRisk}
+                  style={{ position: 'relative', padding: '16px', cursor: 'pointer' }}
+                >
                   <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(34, 1, 80, 0.03)', borderRadius: '24px' }}></div>
                   <motion.div
                     whileHover={{ y: -6, boxShadow: '0 25px 45px rgba(34, 1, 80, 0.16)' }}
@@ -258,19 +334,23 @@ const Capabilities = () => {
                     />
                     <div className="page-hero-overlay" style={{ borderRadius: '20px', opacity: 0.4 }} />
                   </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8, y: 15 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
-                    style={{ position: 'absolute', bottom: '30px', right: '30px', zIndex: 3, backgroundColor: '#FFFFFF', padding: '18px', borderRadius: '14px', boxShadow: '0 15px 35px rgba(34,1,80,0.12)', maxWidth: '240px', border: '1px solid var(--border-light)' }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                      <Cpu size={20} color="var(--brand-indigo)" />
-                      <span style={{ fontWeight: 800, fontSize: '14.5px', color: 'var(--brand-indigo)', fontFamily: 'var(--font-heading)' }}>Zero Risk</span>
-                    </div>
-                    <p style={{ margin: 0, fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.45 }}>We never recommend unknown factories or unvetted tech stacks.</p>
-                  </motion.div>
+                  <AnimatePresence>
+                    {showZeroRisk && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8, y: 15 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.85, y: 15 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        style={{ position: 'absolute', bottom: '30px', right: '30px', zIndex: 3, backgroundColor: '#FFFFFF', padding: '18px', borderRadius: '14px', boxShadow: '0 15px 35px rgba(34,1,80,0.12)', maxWidth: '240px', border: '1px solid var(--border-light)', userSelect: 'none' }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                          <Cpu size={20} color="var(--brand-indigo)" />
+                          <span style={{ fontWeight: 800, fontSize: '14.5px', color: 'var(--brand-indigo)', fontFamily: 'var(--font-heading)' }}>Zero Risk</span>
+                        </div>
+                        <p style={{ margin: 0, fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.45 }}>We never recommend unknown factories or unvetted tech stacks.</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </TiltCard>
             </motion.div>

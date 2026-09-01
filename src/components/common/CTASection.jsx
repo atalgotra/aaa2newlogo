@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import MagneticWrapper from './animations/MagneticWrapper';
+import MagneticWrapper from '../animations/MagneticWrapper';
 
 const CTASection = ({ 
   titlePrefix = "Ready to", 
@@ -33,4 +33,3 @@ const CTASection = ({
 };
 
 export default CTASection;
-

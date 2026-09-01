@@ -24,7 +24,7 @@ const CapabilitiesBentoGrid = lazy(() => import('../components/home/Capabilities
 const ProductShowcaseSection = lazy(() => import('../components/home/ProductShowcaseSection'));
 const EthicalSourcingSection = lazy(() => import('../components/home/EthicalSourcingSection'));
 const InteractiveContactSection = lazy(() => import('../components/home/InteractiveContactSection'));
-const TestimonialSlider = lazy(() => import('../components/TestimonialSlider'));
+const TestimonialSlider = lazy(() => import('../components/common/TestimonialSlider'));
 const FAQSection = lazy(() => import('../components/common/FAQSection'));
 import AccreditationsMarquee from '../components/common/AccreditationsMarquee';
 import {
@@ -32,32 +32,6 @@ import {
   TrendingUp, BadgeCheck
 } from 'lucide-react';
 import { gsap, createGsapScope, animateNumberCounter } from '../utils/gsapUtils';
-
-const teamMembers = [
-  {
-    id: 'shashank',
-    name: 'Shashank Jain',
-    role: 'Director',
-    expertise: 'Finance & Strategy',
-    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/team/shashank_jain.png',
-    icon: <TrendingUp size={24} color="#2563EB" />,
-    bio: "With a profound background in corporate finance, investment strategy, and global market expansion, Shashank Jain serves as the financial architect of AAA 2 Innovate. His strategic foresight and mastery of complex financial ecosystems have been instrumental in steering the company through rapid, sustainable growth.",
-    linkedin: 'https://www.linkedin.com/in/shashank-jain-5586b023/',
-    email: 'mailto:shashank@aaa2innovate.com'
-  },
-  {
-    id: 'rohit',
-    name: 'Rohit Singh',
-    role: 'Director',
-    expertise: 'Logistics Operations & Sales',
-    image: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/team/rohit_singh.png',
-    icon: <ShieldCheck size={24} color="#2563EB" />,
-    bio: "An industry veteran with a razor-sharp focus on global supply chain mechanics, Rohit Singh drives the operational and commercial success at AAA 2 Innovate. His deep expertise in complex logistics operations and high-stakes international sales allows us to seamlessly bridge markets across continents.",
-    linkedin: 'https://www.linkedin.com/in/rohit-singh-97b60417/',
-    email: 'mailto:rohit@aaa2innovate.com',
-    objectPosition: 'left center'
-  }
-];
 
 const Home = () => {
   const location = useLocation();
@@ -202,9 +176,9 @@ const Home = () => {
                 boxShadow: '0 10px 30px rgba(34, 1, 80, 0.04)'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '16px' }}>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--brand-indigo)', margin: 0 }}>Why Brands Trust Us</h3>
-                <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 600 }}>Proven Enterprise Scale</span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '16px', alignItems: 'flex-start' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--brand-indigo)', margin: 0, lineHeight: 1.2 }}>Why Brands Trust Us</h3>
+                <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 600, letterSpacing: '0.3px' }}>Proven Enterprise Scale</span>
               </div>
 
               {/* Stats Counters */}

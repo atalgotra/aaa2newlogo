@@ -3,9 +3,8 @@ import FAQSection from '../../components/common/FAQSection';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CTASection from '../../components/CTASection';
+import CTASection from '../../components/common/CTASection';
 import SchemaInjector from '../../components/seo/SchemaInjector';
-// import Breadcrumbs from '../../components/seo/Breadcrumbs';
 import AccreditationsMarquee from '../../components/common/AccreditationsMarquee';
 import DivisionsBentoGrid from '../../components/common/DivisionsBentoGrid';
 import TiltCard from '../../components/animations/TiltCard';
@@ -129,7 +128,7 @@ const Tech = () => {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
         <title>Elite IT Engineering & Digital Operations | AAA 2 Innovate</title>
         <meta name="description" content="World-class custom software development, digital infrastructure, and AI automation built by an elite Gen-Z engineering team to scale your enterprise." />
@@ -156,15 +155,11 @@ const Tech = () => {
         }
       }} />
 
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
-
       {/* Cinematic Hero */}
       <PageHero
         backgroundImage="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/tech_hero.png"
-        titleLine1="Crafting Software with"
-        titleLine2="Technology & Simplicity"
+        titleLine1="Digital Ops &"
+        titleLine2="Gen-Z Tech"
         subtitle="We engineer fast, intelligent software that turns complex data into competitive advantage through cloud-native architecture and automation."
         paddingTop="115px"
         paddingBottom="150px"
@@ -218,53 +213,6 @@ const Tech = () => {
         subtitle="We develop reliable, scalable, and user-friendly software tailored to your specific industry requirements. From Logistics to Healthcare, we've got you covered."
         divisions={softwareServices}
       />
-
-      {/* Digital Marketing Module */}
-      {/* <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: '#220150', position: 'relative' }}> */}
-        {/* <div className="container">
-          <div className="about-grid" style={{ alignItems: 'center' }}> */}
-            
-            {/* Left Content */}
-            {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)', margin: '10px 0 20px 0' }}>
-                Amplify Your Reach. Dominate the Market.
-              </h2>
-              <p style={{ fontSize: '15px', color: '#CBD5E1', lineHeight: 1.6, marginBottom: '20px' }}>
-                We build data-driven digital ecosystems using SEO, targeted media, and engaging content to turn attention into measurable growth.
-              </p>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                {marketingServices.map((service, i) => (
-                  <div key={i} style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', padding: '16px', borderRadius: '12px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                      <service.icon size={16} color="#FFFFFF" />
-                      <h4 style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: 700, margin: 0, fontFamily: 'var(--font-heading)' }}>{service.title}</h4>
-                    </div>
-                    <p style={{ color: '#CBD5E1', fontSize: '13px', lineHeight: 1.4, margin: 0 }}>{service.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div> */}
-
-            {/* Right Graphics Panel with TiltCard */}
-            {/* <div style={{ position: 'relative' }}>
-              <TiltCard>
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95, x: 20 }}
-                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', minHeight: '420px', border: '1px solid rgba(255, 255, 255, 0.1)', boxShadow: '0 15px 35px rgba(0,0,0,0.3)' }}
-                >
-                  <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/digital_marketing_v2.png" alt="Digital Marketing SaaS Dashboard" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.3 }} />
-                </motion.div>
-              </TiltCard>
-            </div> */}
-            
-          {/* </div>
-        </div>
-      </section> */}
       
       {/* Semantic FAQ Section */}
       <FAQSection faqs={serviceFaqs} title="Frequently Asked Questions" />

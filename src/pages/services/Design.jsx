@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import FAQSection from '../../components/common/FAQSection';
 import SchemaInjector from '../../components/seo/SchemaInjector';
-// import Breadcrumbs from '../../components/seo/Breadcrumbs';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CTASection from '../../components/CTASection';
+import CTASection from '../../components/common/CTASection';
 import AccreditationsMarquee from '../../components/common/AccreditationsMarquee';
 import DivisionsBentoGrid from '../../components/common/DivisionsBentoGrid';
 import PageHero from '../../components/common/PageHero';
@@ -119,7 +118,7 @@ const Design = () => {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
         <title>Product Design & Development | Custom Manufacturing | AAA 2 Innovate</title>
         <meta name="description" content="Transform concepts into market-ready merchandise. Our specialized design team engineers physical products tailored to global consumer trends and your brand's unique identity." />
@@ -146,15 +145,11 @@ const Design = () => {
         }
       }} />
 
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
-
       {/* Hero Section */}
       <PageHero
         backgroundImage="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/images/services/design.png"
-        titleLine1="Next-Gen"
-        titleLine2="Product Engineering"
+        titleLine1="Design &"
+        titleLine2="Product Development"
         subtitle="We transform concepts into tangible, market-dominating merchandise. From raw ideas to factory-ready technical specifications, we engineer products built to scale globally."
         paddingTop="115px"
         paddingBottom="115px"

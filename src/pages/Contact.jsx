@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { toast } from 'sonner';
 import { MapPin, Phone, Mail, Clock, Send, Globe, Loader2, ArrowRight } from 'lucide-react';
-import CTASection from '../components/CTASection';
+import CTASection from '../components/common/CTASection';
 import { motion } from 'framer-motion';
 import SchemaInjector from '../components/seo/SchemaInjector';
-// import Breadcrumbs from '../components/seo/Breadcrumbs';
 import TextReveal from '../components/animations/TextReveal';
 import PageHero from '../components/common/PageHero';
 import AccreditationsMarquee from '../components/common/AccreditationsMarquee';
@@ -46,7 +46,6 @@ const Contact = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,7 +54,6 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setSubmitStatus(null);
 
     try {
       const response = await fetch('https://finance.devapi.zipaworld.com/api/contactUs/contactMailAaa2', {
@@ -78,21 +76,18 @@ const Contact = () => {
         throw new Error(data.message || 'Failed to send message');
       }
 
-      setSubmitStatus({ type: 'success', message: 'Thank you! Your message has been sent successfully.' });
+      toast.success('Thank you! Your message has been sent successfully.');
       setFormData({ name: '', company: '', email: '', subject: 'Sourcing', message: '' });
     } catch (error) {
       console.error('Submission error:', error);
-      setSubmitStatus({
-        type: 'error',
-        message: 'Oops! Something went wrong. Please try again later.'
-      });
+      toast.error(error.message || 'Oops! Something went wrong. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', minHeight: '100vh', overflowX: 'hidden' }}>
       <Helmet>
         <title>Contact Us | Start Your Global Sourcing Journey | AAA 2 Innovate</title>
         <meta name="description" content="Get in touch with AAA 2 Innovate. Partner with our elite team for end-to-end global product sourcing, manufacturing, logistics, and custom IT engineering solutions." />
@@ -112,18 +107,14 @@ const Contact = () => {
         "url": "https://www.aaa2innovate.com/contact"
       }} />
 
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
-
       {/* Hero Section */}
       <PageHero
         backgroundImage="https://aaa-website-images.s3.ap-south-1.amazonaws.com/assets/contact_hero.png"
         titleLine1="Let's Build the Future"
         subtitle="Reach out to AAA 2 Innovate. Whether you're looking for high-end sourcing, tech-driven manufacturing, or design excellence, our global team is ready to assist."
-        minHeight="70vh"
-        paddingTop="180px"
-        paddingBottom="150px"
+        minHeight="100vh"
+        paddingTop="175px"
+        paddingBottom="80px"
         centered={true}
       />
 
@@ -143,14 +134,14 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                <div style={{ display: 'flex', gap: '20px' }}>
-                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '16px', borderRadius: '16px', height: 'fit-content' }}>
-                    <MapPin color="var(--brand-indigo)" size={28} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <MapPin color="var(--brand-indigo)" size={22} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Global Headquarters</h3>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: 1.6, margin: 0 }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Global Headquarters</h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.55, margin: 0 }}>
                       AAA 2 Innovate Private Limited<br />
                       1 Floor, F-40, F Block, Sector 6,<br />
                       Noida, Uttar Pradesh 201301
@@ -158,13 +149,13 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '20px' }}>
-                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '16px', borderRadius: '16px', height: 'fit-content' }}>
-                    <Phone color="var(--brand-indigo)" size={28} />
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Phone color="var(--brand-indigo)" size={22} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Direct Line</h3>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: 1.6, margin: 0 }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Direct Line</h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.55, margin: 0 }}>
                       <a href="tel:+911206916907" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = 'var(--brand-indigo)'} onMouseOut={(e) => e.target.style.color = 'var(--text-secondary)'}>
                         +91-120-691-6907
                       </a>
@@ -172,13 +163,13 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '20px' }}>
-                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '16px', borderRadius: '16px', height: 'fit-content' }}>
-                    <Mail color="var(--brand-indigo)" size={28} />
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Mail color="var(--brand-indigo)" size={22} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Email Us</h3>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: 1.6, margin: 0 }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Email Us</h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.55, margin: 0 }}>
                       <a href="mailto:info@aaa2innovate.com" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = 'var(--brand-indigo)'} onMouseOut={(e) => e.target.style.color = 'var(--text-secondary)'}>
                         info@aaa2innovate.com
                       </a>
@@ -186,13 +177,13 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '20px' }}>
-                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '16px', borderRadius: '16px', height: 'fit-content' }}>
-                    <Clock color="var(--brand-indigo)" size={28} />
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Clock color="var(--brand-indigo)" size={22} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Operating Hours</h3>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: 1.6, margin: 0 }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Operating Hours</h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.55, margin: 0 }}>
                       Monday - Friday<br />
                       9:00 AM - 6:00 PM (IST)
                     </p>
@@ -203,17 +194,17 @@ const Contact = () => {
 
             {/* Contact Form */}
             <div style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '24px',
-              padding: '30px',
+              backgroundColor: 'var(--bg-main)',
+              borderRadius: '20px',
+              padding: 'clamp(20px, 2.5vw, 28px)',
               border: '1px solid var(--border-light)',
-              boxShadow: '0 15px 35px rgba(34,1,80,0.08)'
+              boxShadow: '0 10px 30px rgba(34, 1, 80, 0.06)'
             }}>
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
 
-                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                  <div style={{ flex: 1, minWidth: '200px' }}>
-                    <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Full Name *</label>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
+                  <div>
+                    <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '12.5px', fontWeight: 700, marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Full Name *</label>
                     <input
                       type="text"
                       name="name"
@@ -221,20 +212,20 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       placeholder="John Doe"
-                      style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s' }}
+                      style={{ width: '100%', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '10px 12px', borderRadius: '10px', fontSize: '16px', outline: 'none', transition: 'border-color 0.3s ease' }}
                       onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
                       onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
                     />
                   </div>
-                  <div style={{ flex: 1, minWidth: '200px' }}>
-                    <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Company</label>
+                  <div>
+                    <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '12.5px', fontWeight: 700, marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Company</label>
                     <input
                       type="text"
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
                       placeholder="Your Company Ltd."
-                      style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s' }}
+                      style={{ width: '100%', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '10px 12px', borderRadius: '10px', fontSize: '16px', outline: 'none', transition: 'border-color 0.3s ease' }}
                       onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
                       onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
                     />
@@ -242,7 +233,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Email Address *</label>
+                  <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '12.5px', fontWeight: 700, marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Email Address *</label>
                   <input
                     type="email"
                     name="email"
@@ -250,20 +241,38 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="john@example.com"
-                    style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s' }}
+                    style={{ width: '100%', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '10px 12px', borderRadius: '10px', fontSize: '16px', outline: 'none', transition: 'border-color 0.3s ease' }}
                     onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
                     onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="subject" style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Inquiry Type *</label>
+                  <label htmlFor="subject" style={{ display: 'block', color: 'var(--text-primary)', fontSize: '12.5px', fontWeight: 700, marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Inquiry Type *</label>
                   <select
                     id="subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s', cursor: 'pointer' }}
+                    style={{
+                      width: '100%',
+                      backgroundColor: 'var(--bg-main)',
+                      border: '1px solid var(--border-light)',
+                      color: 'var(--text-primary)',
+                      padding: '10px 38px 10px 12px',
+                      borderRadius: '10px',
+                      fontSize: '16px',
+                      outline: 'none',
+                      transition: 'border-color 0.3s ease',
+                      cursor: 'pointer',
+                      appearance: 'none',
+                      WebkitAppearance: 'none',
+                      MozAppearance: 'none',
+                      backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23220150' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'right 14px center',
+                      backgroundSize: '14px'
+                    }}
                     onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
                     onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
                   >
@@ -276,33 +285,19 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '13px', fontWeight: 700, marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>Message *</label>
+                  <label style={{ display: 'block', color: 'var(--text-primary)', fontSize: '12.5px', fontWeight: 700, marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Message *</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     placeholder="How can we help you scale your business?"
-                    rows={4}
-                    style={{ width: '100%', backgroundColor: '#FFFFFF', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '14px', borderRadius: '12px', fontSize: '15px', outline: 'none', transition: 'border-color 0.3s', resize: 'vertical' }}
+                    rows={3}
+                    style={{ width: '100%', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '10px 12px', borderRadius: '10px', fontSize: '16px', outline: 'none', resize: 'none', transition: 'border-color 0.3s ease' }}
                     onFocus={(e) => e.target.style.borderColor = 'var(--brand-indigo)'}
                     onBlur={(e) => e.target.style.borderColor = 'var(--border-light)'}
                   ></textarea>
                 </div>
-
-                {submitStatus && (
-                  <div style={{
-                    marginTop: '8px',
-                    padding: '12px 16px',
-                    borderRadius: '8px',
-                    backgroundColor: submitStatus.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                    border: `1px solid ${submitStatus.type === 'success' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'}`,
-                    color: submitStatus.type === 'success' ? '#10B981' : '#EF4444',
-                    fontSize: '14.5px'
-                  }}>
-                    {submitStatus.message}
-                  </div>
-                )}
 
                 <motion.button
                   type="submit"
@@ -310,12 +305,12 @@ const Contact = () => {
                   className="btn-primary"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', width: '100%', border: 'none', cursor: 'pointer' }}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', width: '100%', border: 'none', cursor: 'pointer', padding: '12px 20px', fontSize: '14px', borderRadius: '10px', marginTop: '2px' }}
                 >
                   {loading ? (
-                    <Loader2 size={20} style={{ animation: 'spin 1s linear infinite' }} />
+                    <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} />
                   ) : (
-                    <Send size={20} />
+                    <Send size={18} />
                   )}
                   {loading ? 'Sending...' : 'Send Message'}
                 </motion.button>

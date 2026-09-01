@@ -8,15 +8,13 @@ import Footer from './components/layout/Footer';
 import SmoothScroll from './components/animations/SmoothScroll';
 
 const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/company/About'));
-const Team = lazy(() => import('./pages/company/Team'));
 const Products = lazy(() => import('./pages/Products'));
 const EthicalSourcing = lazy(() => import('./pages/EthicalSourcing'));
 const Contact = lazy(() => import('./pages/Contact'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 
-import CookieConsent from './components/CookieConsent';
+import CookieConsent from './components/cookie/CookieConsent';
 import HomeSkeleton from './components/common/HomeSkeletons';
 
 const Capabilities = lazy(() => import('./pages/Capabilities'));
@@ -30,8 +28,8 @@ const Tech = lazy(() => import('./pages/services/Tech'));
 
 // Simple Loading Component for secondary routes
 const PageLoader = () => (
-  <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0015' }}>
-    <div style={{ width: '36px', height: '36px', border: '2.5px solid rgba(99, 102, 241, 0.15)', borderTopColor: '#6366F1', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+  <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#140038' }}>
+    <div style={{ width: '36px', height: '36px', border: '2.5px solid rgba(99, 102, 241, 0.2)', borderTopColor: '#6366F1', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
     <style>{`@keyframes spin { 100% { transform: rotate(360deg); } }`}</style>
   </div>
 );
@@ -45,13 +43,13 @@ const AnimatedRoutes = () => {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -15 }}
-        transition={{ duration: 0.4, ease: 'easeInOut' }}
-        style={{ display: 'flex', flexDirection: 'column', flex: 1 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        style={{ display: 'flex', flexDirection: 'column', flex: 1, backgroundColor: '#140038' }}
       >
         <Routes location={location}>
           <Route path="/" element={<Suspense fallback={<HomeSkeleton />}><Home /></Suspense>} />
-          <Route path="/about" element={<About />} />
-          <Route path="/team" element={<Team />} />
+          <Route path="/about" element={<Navigate to="/" replace />} />
+          <Route path="/team" element={<Navigate to="/" replace />} />
           <Route path="/products" element={<Products />} />
           <Route path="/ethical-sourcing" element={<EthicalSourcing />} />
           <Route path="/contact" element={<Contact />} />
@@ -102,9 +100,9 @@ function App() {
       />
       <Router>
         <ScrollToTop />
-        <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#140038' }}>
           <Navbar />
-          <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <main style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#140038' }}>
             <Suspense fallback={<PageLoader />}>
               <AnimatedRoutes />
             </Suspense>

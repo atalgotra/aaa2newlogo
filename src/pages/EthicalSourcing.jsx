@@ -3,11 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Leaf, ShieldCheck, Heart, Globe, Droplets, Zap, ArrowRight, GraduationCap, Recycle } from 'lucide-react';
-import CTASection from '../components/CTASection';
+import CTASection from '../components/common/CTASection';
 import TextReveal from '../components/animations/TextReveal';
 import PageHero from '../components/common/PageHero';
 import SchemaInjector from '../components/seo/SchemaInjector';
-// import Breadcrumbs from '../components/seo/Breadcrumbs';
 import TiltCard from '../components/animations/TiltCard';
 import AccreditationsMarquee from '../components/common/AccreditationsMarquee';
 import { gsap, createGsapScope } from '../utils/gsapUtils';
@@ -52,7 +51,7 @@ const EthicalSourcing = () => {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', minHeight: '100vh', overflowX: 'hidden' }}>
       <Helmet>
         <title>Ethical Sourcing & Sustainability | AAA 2 Innovate</title>
         <meta name="description" content="We enforce strict compliance, fair labor practices, and sustainable procurement across our entire Indian manufacturing network. Source globally with absolute integrity." />
@@ -75,18 +74,14 @@ const EthicalSourcing = () => {
         }
       }} />
 
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
-
       {/* Hero Section */}
       <PageHero
         backgroundImage="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/ethical_hero.png"
         titleLine1="Elevating Global Standards"
         subtitle="AAA 2 Innovate is dedicated to pioneering uncompromising ethical sourcing and sustainable manufacturing. We believe luxury and responsibility must go hand in hand."
-        minHeight="70vh"
-        paddingTop="150px"
-        paddingBottom="150px"
+        minHeight="100vh"
+        paddingTop="175px"
+        paddingBottom="80px"
         centered={true}
       />
 
@@ -128,24 +123,32 @@ const EthicalSourcing = () => {
             </div>
             
             {/* Right Graphics Panel with TiltCard */}
-            <div style={{ position: 'relative' }}>
-              <TiltCard>
+            <div style={{ position: 'relative', width: '100%' }}>
+              <TiltCard style={{ width: '100%' }}>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95, x: 20 }}
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
+                  className="media-showcase-card"
+                  style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', cursor: 'pointer', height: '380px' }}
                 >
-                  <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/ethical_sustainability.png" alt="Sustainable Manufacturing" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, opacity: 0.15 }} />
-                  <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', padding: '24px', background: 'linear-gradient(to top, rgba(34,1,80,0.85) 0%, transparent 100%)', zIndex: 2 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <Globe color="#FFF" size={16} />
-                      <span style={{ color: '#FFF', fontWeight: 700, letterSpacing: '1px', fontSize: '12px', textTransform: 'uppercase', fontFamily: 'var(--font-heading)' }}>Global Eco-Standards</span>
-                    </div>
+                  <motion.img
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    loading="lazy"
+                    src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/ethical_sustainability.png"
+                    alt="Sustainable Manufacturing"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                  <div className="media-showcase-overlay">
+                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#FFFFFF', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>
+                      Ecological Stewardship
+                    </h3>
+                    <p style={{ fontSize: '13px', color: '#CBD5E1', margin: 0, lineHeight: 1.4 }}>
+                      Integrating closed-loop water treatment, solar-powered mills, and certified organic textiles across India.
+                    </p>
                   </div>
-                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.4 }} />
                 </motion.div>
               </TiltCard>
             </div>
@@ -170,27 +173,42 @@ const EthicalSourcing = () => {
           <div className="about-grid" style={{ alignItems: 'center' }}>
             
             {/* Left Graphics Panel with TiltCard */}
-            <div style={{ position: 'relative' }}>
-              <TiltCard>
+            <div style={{ position: 'relative', width: '100%' }}>
+              <TiltCard style={{ width: '100%' }}>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95, x: -20 }}
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 15px 35px rgba(0,0,0,0.4)' }}
+                  className="media-showcase-card"
+                  style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', cursor: 'pointer', height: '380px' }}
                 >
-                  <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/ethical_community.png" alt="Empowering Communities" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, opacity: 0.2 }} />
+                  <motion.img
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    loading="lazy"
+                    src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/ethical_community.png"
+                    alt="Empowering Communities"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                  <div className="media-showcase-overlay">
+                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#FFFFFF', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>
+                      Inclusive Community Uplift
+                    </h3>
+                    <p style={{ fontSize: '13px', color: '#CBD5E1', margin: 0, lineHeight: 1.4 }}>
+                      Partnering with Cheshire Home Society India to advance disability inclusion, vocational training, and dignified livelihoods.
+                    </p>
+                  </div>
                 </motion.div>
               </TiltCard>
             </div>
 
             {/* Right Content */}
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.2, fontFamily: 'var(--font-display)' }}>
-                <TextReveal text="Empowering the" elementType="span" />
+              <h2 className="mobile-text-center" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.2, fontFamily: 'var(--font-display)' }}>
+                <TextReveal text="Empowering the" elementType="span" className="text-reveal-center-mobile" />
                 <span style={{ color: '#FFFFFF' }}>
-                  <TextReveal text="Future of India" elementType="span" delay={0.15} />
+                  <TextReveal text="Future of India" elementType="span" delay={0.15} className="text-reveal-center-mobile" />
                 </span>
               </h2>
               <p style={{ color: '#CBD5E1', fontSize: '15px', lineHeight: 1.6, marginBottom: '20px' }}>

@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import FAQSection from '../../components/common/FAQSection';
 import SchemaInjector from '../../components/seo/SchemaInjector';
-// import Breadcrumbs from '../../components/seo/Breadcrumbs';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CTASection from '../../components/CTASection';
+import CTASection from '../../components/common/CTASection';
 import AccreditationsMarquee from '../../components/common/AccreditationsMarquee';
 import DivisionsBentoGrid from '../../components/common/DivisionsBentoGrid';
 import TiltCard from '../../components/animations/TiltCard';
@@ -100,7 +99,7 @@ const testingProtocols = [
 ];
 
   return (
-    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', paddingTop: '80px', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
         <title>Quality Control, Inspection & Compliance | AAA 2 Innovate</title>
         <meta name="description" content="Uncompromising quality assurance for global shipments. We enforce AQL 2.5 Level II standards, pre-shipment inspections, and strict statutory factory audits." />
@@ -127,15 +126,11 @@ const testingProtocols = [
         }
       }} />
 
-      {/* <div style={{ position: 'absolute', top: '80px', left: 0, width: '100%', zIndex: 10 }}>
-        <Breadcrumbs />
-      </div> */}
-
       {/* Hero Section */}
       <PageHero
         backgroundImage="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_hero_bg.png"
-        titleLine1="Absolute"
-        titleLine2="Quality Control & Compliance"
+        titleLine1="Quality Inspection &"
+        titleLine2="Compliance"
         subtitle="Quality is not a metric; it is our core architecture. We deploy an elite, uncompromising inspection protocol to guarantee that every product sourced from India meets the highest global standards before it ever hits a shipping container."
         paddingTop="115px"
         paddingBottom="90px"
@@ -167,26 +162,38 @@ const testingProtocols = [
             </div>
 
             {/* Right Image with TiltCard */}
-            <div style={{ position: 'relative' }}>
-              <TiltCard>
+            <div style={{ position: 'relative', width: '100%' }}>
+              <TiltCard style={{ width: '100%' }}>
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
+                  className="media-showcase-card"
+                  style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', cursor: 'pointer' }}
                 >
-                  <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_measurement.png" 
+                  <motion.img 
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    loading="lazy" 
+                    src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_measurement.png" 
                     alt="Precision Measurement" 
                     style={{ 
                       width: '100%', 
                       height: '380px',
                       objectFit: 'cover',
-                      borderRadius: '24px',
-                      boxShadow: '0 15px 35px rgba(34,1,80,0.1)',
-                      border: '1px solid var(--border-light)'
+                      display: 'block'
                     }} 
                   />
-                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.5}} />
+                  <div className="media-showcase-overlay">
+                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#FFFFFF', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>
+                      Precision Verification
+                    </h3>
+                    <p style={{ fontSize: '13px', color: '#CBD5E1', margin: 0, lineHeight: 1.4 }}>
+                      Operating strictly under international AQL 2.5 Level II standards to ensure flawless zero-defect batches.
+                    </p>
+                  </div>
+                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.3}} />
                 </motion.div>
               </TiltCard>
             </div>
@@ -215,7 +222,7 @@ const testingProtocols = [
                 We enforce strict statutory audits regulating safety, health, working hours, and fair wages across our entire vendor network. Our factories consistently pass compliance audits demanded by global retail leaders, backed by continuous, unannounced spot-checks to ensure permanent compliance.
               </p>
               
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '16px' }}>
                 {['Health & Safety Regulations', 'Minimum Wage & Annual Leave', 'Ethical Working Hours', 'Zero Tolerance for Exploitation'].map((item, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', backgroundColor: 'var(--bg-main)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-light)' }}>
                     <CheckCircle2 size={18} color="var(--brand-indigo)" style={{ flexShrink: 0 }} />
@@ -226,30 +233,40 @@ const testingProtocols = [
             </div>
 
             {/* Right Image Panel with TiltCard */}
-            <div style={{ position: 'relative', maxWidth: '510px', margin: '0 auto', width: '100%' }}>
-              <TiltCard>
+            <div style={{ position: 'relative', width: '100%' }}>
+              <TiltCard style={{ width: '100%' }}>
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.95, x: 20 }}
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  style={{ display: 'flex', position: 'relative', borderRadius: '24px', overflow: 'hidden' }}
+                  className="media-showcase-card"
+                  style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', cursor: 'pointer', width: '100%' }}
                 >
-                  <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_dashboard.png" 
+                  <motion.img 
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    loading="lazy" 
+                    src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/qc_dashboard.png" 
                     alt="Compliance Dashboard" 
                     style={{ 
                       width: '100%', 
-                      height: '380px',
+                      height: '360px',
                       objectFit: 'cover',
-                      borderRadius: '24px',
-                      boxShadow: '0 15px 35px rgba(34,1,80,0.1)',
-                      border: '1px solid var(--border-light)',
                       display: 'block'
                     }} 
                   />
+                  <div className="media-showcase-overlay">
+                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#FFFFFF', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>
+                      Audit &amp; Ethical Governance
+                    </h3>
+                    <p style={{ fontSize: '13px', color: '#CBD5E1', margin: 0, lineHeight: 1.4 }}>
+                      Continuous, unannounced spot-checks and full transparency across statutory worker health and fair wage mandates.
+                    </p>
+                  </div>
+                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.4}} />
                 </motion.div>
               </TiltCard>
-           <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.5 }} />
             </div>
             
           </div>

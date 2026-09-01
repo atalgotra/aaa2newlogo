@@ -160,7 +160,6 @@ const Footer = () => {
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', padding: 0, margin: 0 }}>
               {[
-                { label: 'About Us', path: '/about' },
                 { label: 'Capabilities', path: '/capabilities' },
                 { label: 'Products', path: '/products' },
                 { label: 'Ethical Sourcing', path: '/ethical-sourcing' },

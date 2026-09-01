@@ -1,6 +1,5 @@
 import React from 'react';
 import { Quote, Sparkles } from 'lucide-react';
-import './TestimonialSlider.css';
 
 const testimonials = [
   {
@@ -68,11 +67,10 @@ const TestimonialSlider = () => {
       <div className="container">
         {/* Section Header */}
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-
           <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 800, color: 'var(--text-primary, #0F172A)', margin: '0 0 6px 0' }}>
-            Trusted by <strong style={{ color: '#220150', fontWeight: 800 }}>Industry Leaders</strong>
+            Trusted by <strong style={{ color: 'var(--brand-indigo)', fontWeight: 800 }}>Industry Leaders</strong>
           </h2>
-          <p style={{ color: '#64748B', fontSize: '14px', maxWidth: '600px', margin: '0 auto', lineHeight: 1.5 }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '14px', maxWidth: '600px', margin: '0 auto', lineHeight: 1.5 }}>
             See what global brands and enterprise partners say about our supply chain and engineering services.
           </p>
         </div>

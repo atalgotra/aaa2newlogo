@@ -9,6 +9,12 @@ const ScrollToTop = () => {
       history.scrollRestoration = 'manual';
     }
     
+    // Scroll to top immediately on mount / route change
+    window.scrollTo(0, 0);
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    }
+    
     // Delayed scroll attempt to execute after the exit page transition has completed (400ms)
     const timer = setTimeout(() => {
       window.scrollTo(0, 0);

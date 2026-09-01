@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Settings, Check, X, ChevronRight } from 'lucide-react';
+import { Settings, Check, X } from 'lucide-react';
 
 const GA_TRACKING_ID = 'G-LDP4XDVPSG';
 const CLARITY_PROJECT_ID = 'x7xw2gsgac';
