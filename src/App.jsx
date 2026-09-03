@@ -74,9 +74,42 @@ const AnimatedRoutes = () => {
           <Route path="/services/tech" element={<Navigate to="/capabilities/tech" replace />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/favicon" element={null} />
+          <Route path="/favicon.png" element={null} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
+  );
+};
+
+const AppLayout = () => {
+  const location = useLocation();
+  const isLogoRoute = ['/favicon', '/favicon.png'].includes(location.pathname);
+
+  if (isLogoRoute) {
+    return (
+      <div style={{ minHeight: '100vh', width: '100%', backgroundColor: '#140038', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+        <img
+          src="/favicon.png"
+          alt="AAA 2 Innovate Logo"
+          style={{ maxWidth: '240px', maxHeight: '240px', width: 'auto', height: 'auto', objectFit: 'contain' }}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#140038' }}>
+      <Navbar />
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#140038' }}>
+        <Suspense fallback={<PageLoader />}>
+          <AnimatedRoutes />
+        </Suspense>
+      </main>
+      <Footer />
+      <CookieConsent />
+    </div>
   );
 };
 
@@ -100,16 +133,7 @@ function App() {
       />
       <Router>
         <ScrollToTop />
-        <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#140038' }}>
-          <Navbar />
-          <main style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#140038' }}>
-            <Suspense fallback={<PageLoader />}>
-              <AnimatedRoutes />
-            </Suspense>
-          </main>
-          <Footer />
-          <CookieConsent />
-        </div>
+        <AppLayout />
       </Router>
     </SmoothScroll>
   );

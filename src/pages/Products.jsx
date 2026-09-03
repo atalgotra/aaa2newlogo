@@ -11,8 +11,8 @@ import AccreditationsMarquee from '../components/common/AccreditationsMarquee';
 import { gsap, createGsapScope } from '../utils/gsapUtils';
 
 const heroCategories = [
-  { id: 1, title: 'Designer Bags', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4' },
-  { id: 2, title: 'Apparels', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4' },
+  { id: 1, title: 'Apparels', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4' },
+  { id: 2, title: 'Designer Bags', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4' },
   { id: 3, title: 'Fashion Jewellery', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/fine_jewellery_hero.mp4' },
   { id: 4, title: 'Holistic Wellness', video: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4' }
 ];
@@ -96,7 +96,7 @@ const AccordionHero = () => {
   }, []);
 
   return (
-    <section style={{ width: '100%', height: '100vh', minHeight: isMobile ? '820px' : '750px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', overflow: 'hidden', backgroundColor: '#000' }}>
+    <section style={{ width: '100%', height: isMobile ? '100vh' : '82vh', minHeight: isMobile ? '820px' : '620px', maxHeight: isMobile ? 'none' : '720px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', overflow: 'hidden', backgroundColor: '#000' }}>
       {heroCategories.map((item, index) => {
         const isHovered = hoveredIndex === index;
         return (
@@ -176,15 +176,15 @@ const AccordionHero = () => {
             )}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%)', pointerEvents: 'none' }}></div>
 
-            <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: (isMobile && !isHovered) ? 'row' : 'column', justifyContent: isHovered ? (isMobile ? 'center' : 'flex-end') : 'center', alignItems: 'center', paddingBottom: (isHovered && !isMobile) ? '60px' : 0, zIndex: 10, pointerEvents: 'none' }}>
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: (isMobile && !isHovered) ? 'row' : 'column', justifyContent: isHovered ? (isMobile ? 'center' : 'flex-end') : 'center', alignItems: 'center', paddingBottom: (isHovered && !isMobile) ? '50px' : 0, paddingLeft: '16px', paddingRight: '16px', zIndex: 10, pointerEvents: 'none', boxSizing: 'border-box' }}>
               <motion.h2
                 animate={{
                   opacity: isHovered ? 1 : 0.6,
                   y: isHovered ? 0 : (isMobile ? 0 : 20),
-                  fontSize: isHovered ? (isMobile ? '32px' : '64px') : (isMobile ? '18px' : '20px'),
+                  fontSize: isHovered ? (isMobile ? '22px' : 'clamp(24px, 2.6vw, 36px)') : (isMobile ? '15px' : '18px'),
                   rotate: isHovered ? 0 : (isMobile ? 0 : -90)
                 }}
-                style={{ color: '#FFF', fontWeight: 800, margin: 0, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '4px', transformOrigin: 'center center', textShadow: '0px 4px 20px rgba(0,0,0,0.8)' }}
+                style={{ color: '#FFF', fontWeight: 800, margin: 0, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: isHovered ? '2px' : '3px', transformOrigin: 'center center', textShadow: '0px 4px 20px rgba(0,0,0,0.8)', textAlign: 'center', maxWidth: '100%' }}
               >
                 {item.title}
               </motion.h2>
@@ -198,51 +198,34 @@ const AccordionHero = () => {
 };
 
 const HoverFeatureImage = ({ imageSrc, videoSrc, alt }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
-  const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
   const videoRef = React.useRef(null);
 
   React.useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  React.useEffect(() => {
-    if (isMobile && videoRef.current) {
-      videoRef.current.play().catch(e => console.log(e));
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
     }
-  }, [isMobile]);
+  }, [videoSrc]);
 
   return (
-    <div
-      style={{ paddingTop: '90px', width: '100%', height: '100%', position: 'relative', cursor: 'pointer' }}
-      onMouseEnter={() => {
-        if (!isMobile) {
-          setIsHovered(true);
-          if (videoRef.current) { videoRef.current.play().catch(e => console.log(e)); }
-        }
-      }}
-      onMouseLeave={() => {
-        if (!isMobile) {
-          setIsHovered(false);
-          if (videoRef.current) { videoRef.current.pause(); }
-        }
-      }}
-    >
-      <img loading="lazy" src={imageSrc}
-        alt={alt}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, opacity: (isMobile || isHovered) ? 0 : 1, transition: 'opacity 0.6s ease' }}
-      />
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <video
         ref={videoRef}
         src={videoSrc}
-        autoPlay={isMobile}
+        poster={imageSrc}
+        autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, opacity: (isMobile || isHovered) ? 1 : 0, transition: 'opacity 0.6s ease' }}
+        aria-label={alt}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          position: 'absolute',
+          inset: 0,
+          zIndex: 1
+        }}
       />
     </div>
   );
@@ -326,7 +309,7 @@ const Products = () => {
       </section>
 
       {/* Apparels Category */}
-      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 60px) 0', backgroundColor: '#220150' }}>
+      <section id="apparels" className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 60px) 0', backgroundColor: '#220150' }}>
         <div className="container">
           <div style={{ marginBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '16px' }}>
             <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>Our Apparels</h2>
@@ -341,9 +324,9 @@ const Products = () => {
               className="bento-hero"
             />
             <HoverVideo
-              src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18192d86953.mp4"
-              title="Summer Chic"
-              description="Breathable and stylish pieces."
+              src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18169623f16.mp4"
+              title="Evening Glamour"
+              description="Stand out at any event."
               delay={0.1}
               className="bento-square"
               playbackRate={3.0}
@@ -356,9 +339,9 @@ const Products = () => {
               className="bento-portrait"
             />
             <HoverVideo
-              src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18169623f16.mp4"
-              title="Evening Glamour"
-              description="Stand out at any event."
+              src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4"
+              title="Statement Pieces"
+              description="Bold and beautiful designs."
               delay={0.3}
               className="bento-square"
               playbackRate={3.0}
@@ -371,9 +354,9 @@ const Products = () => {
               className="bento-wide"
             />
             <HoverVideo
-              src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4"
-              title="Statement Pieces"
-              description="Bold and beautiful designs."
+              src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18192d86953.mp4"
+              title="Summer Chic"
+              description="Breathable and stylish pieces."
               delay={0.5}
               className="bento-wide"
             />
@@ -381,13 +364,73 @@ const Products = () => {
         </div>
       </section>
 
-      {/* Bags & Accessories */}
-      <section style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: '#05080F' }}>
+      {/* Apparels Category Feature */}
+      <section id="apparels-feature" style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: '#220150' }}>
         <div className="container">
           <div className="about-grid" style={{ alignItems: 'center' }}>
             
             {/* Left Content */}
             <div className="product-feature-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+                <TextReveal text="Apparels & High" elementType="span" style={{ color: '#FFFFFF' }} />
+                <span style={{ color: '#FFFFFF' }}>
+                  <TextReveal text="Fashion" elementType="span" delay={0.15} style={{ color: '#FFFFFF' }} />
+                </span>
+              </h2>
+              <p className="product-feature-desc" style={{ color: 'var(--text-light)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
+                From trend-setting fast fashion collections to bespoke luxury evening wear and timeless classics. Crafted with certified sustainable fabrics and precision finishing across premier Indian manufacturing hubs.
+              </p>
+              <motion.div className="product-feature-btn" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
+                <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+                  Source Apparel Collection
+                  <ArrowRight size={16} />
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Right Graphics Panel with TiltCard */}
+            <div className="product-feature-media" style={{ position: 'relative' }}>
+              <TiltCard>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, x: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
+                >
+                  <HoverFeatureImage videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4" alt="Apparels & High Fashion" />
+                </motion.div>
+              </TiltCard>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Bags & Accessories */}
+      <section id="bags" style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: '#05080F' }}>
+        <div className="container">
+          <div className="about-grid" style={{ alignItems: 'center' }}>
+
+            {/* Left Content */}
+            <div className="product-feature-media" style={{ position: 'relative' }}>
+              <TiltCard>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, x: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
+                >
+                  <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_bags.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4" alt="Luxury Handbags" />
+                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.3 }} />
+                </motion.div>
+              </TiltCard>
+            </div>
+
+            {/* Right Graphics Panel with TiltCard */}
+
+<div className="product-feature-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
                 <TextReveal text="Ladies Handbags" elementType="span" style={{ color: '#FFFFFF' }} />
                 <span style={{ color: '#FFFFFF' }}>
@@ -405,33 +448,40 @@ const Products = () => {
               </motion.div>
             </div>
 
-            {/* Right Graphics Panel with TiltCard */}
-            <div style={{ position: 'relative' }}>
-              <TiltCard>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95, x: 20 }}
-                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
-                >
-                  <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_bags.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4" alt="Luxury Handbags" />
-                  <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.3 }} />
-                </motion.div>
-              </TiltCard>
-            </div>
+          
 
           </div>
         </div>
       </section>
 
       {/* Fashion Jewellery */}
-      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-light)' }}>
+      <section id="jewellery" className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-light)' }}>
         <div className="container">
           <div className="about-grid" style={{ alignItems: 'center' }}>
-            
+
             {/* Left Graphics Panel with TiltCard */}
-            <div style={{ position: 'relative' }}>
+            
+
+            {/* Right Content */}
+            <div className="product-feature-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--brand-indigo)', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+                <TextReveal text="Fashion Jewellery &" elementType="span" />
+                <span style={{  color: 'var(--brand-indigo)' }}>
+                  <TextReveal text="Statement Pieces" elementType="span" delay={0.15}/>
+                </span>
+              </h2>
+              <p className="product-feature-desc" style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
+                Flawless imitation jewelry that looks like a million dollars. From intricate necklaces to statement rings, our collection is curated to provide maximum sparkle and high-end aesthetics without the luxury markup.
+              </p>
+              <motion.div className="product-feature-btn" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
+                <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+                  Discover Jewellery
+                  <ArrowRight size={16} />
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className="product-feature-media" style={{ position: 'relative' }}>
               <TiltCard>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95, x: -20 }}
@@ -446,61 +496,53 @@ const Products = () => {
               </TiltCard>
             </div>
 
-            {/* Right Content */}
-            <div className="product-feature-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--brand-indigo)', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
-                <TextReveal text="Fashion Jewellery" elementType="span" />
-              </h2>
-              <p className="product-feature-desc" style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
-                Flawless imitation jewelry that looks like a million dollars. From intricate necklaces to statement rings, our collection is curated to provide maximum sparkle and high-end aesthetics without the luxury markup.
-              </p>
-              <motion.div className="product-feature-btn" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
-                <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-                  Discover Jewellery
-                  <ArrowRight size={16} />
-                </Link>
-              </motion.div>
-            </div>
-
           </div>
         </div>
       </section>
 
       {/* Wellness Items */}
-      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: '#140038' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', fontFamily: 'var(--font-display)' }}>
-            <TextReveal text="Wellness Collection" elementType="span" justifyContent="center" />
-          </h2>
-          <p style={{ color: '#CBD5E1', fontSize: '15px', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto 48px auto' }}>
-            Traditional wisdom meets modern luxury. Elevate your daily routines with our premium wellness items, crafted from pure materials for maximum health benefits.
-          </p>
+      <section id="wellness" className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: '#220150', borderTop: '1px solid var(--border-light)' }}>
+        <div className="container">
+          <div className="about-grid" style={{ alignItems: 'center' }}>
 
-          <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
-            <TiltCard>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-                style={{ position: 'relative', height: '440px', borderRadius: '32px', overflow: 'hidden', boxShadow: '0 15px 35px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.05)' }}
-              >
-                <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_wellness.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4" alt="Copper Wellness Items" />
-                <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(20,0,56,0.95) 0%, rgba(20,0,56,0.4) 60%, transparent 100%)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', textAlign: 'left', zIndex: 10, flexWrap: 'wrap', gap: '20px' }}>
-                  <div>
-                    <h3 style={{ fontSize: '22px', color: '#FFFFFF', fontWeight: 800, marginBottom: '8px', fontFamily: 'var(--font-heading)' }}>Copper Vessels & Holistic Tools</h3>
-                    <p style={{ color: '#CBD5E1', fontSize: '13.5px', maxWidth: '420px', lineHeight: 1.5, margin: 0 }}>Purify your environment and revitalize your body with authentic, beautifully handcrafted traditional tools.</p>
-                  </div>
-                  <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-                    <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-                      Source Wellness Items
-                      <ArrowRight size={16} />
-                    </Link>
-                  </motion.div>
-                </div>
-                <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '32px', opacity: 0.2 }} />
+            {/* Left Graphics Panel with TiltCard */}
+           
+
+            {/* Right Content */}
+            <div className="product-feature-media" style={{ position: 'relative' }}>
+              <TiltCard>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, x: -20 }}
+                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
+                >
+                  <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_wellness.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4" alt="Copper Wellness Item" />
+                </motion.div>
+              </TiltCard>
+            </div>
+
+
+ <div className="product-feature-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+                <TextReveal text="Copper Vessels &" elementType="span" style={{ color: '#FFFFFF' }} />
+                <span style={{ color: '#FFFFFF' }}>
+                  <TextReveal text="Holistic Tools" elementType="span" delay={0.15} style={{ color: '#FFFFFF' }} />
+                </span>
+              </h2>
+
+              <p className="product-feature-desc" style={{ color: 'var(--text-light)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
+                Purify your environment and revitalize your body with authentic, beautifully handcrafted traditional tools.
+              </p>
+              <motion.div className="product-feature-btn" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
+                <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+                  Source Wellness Items
+                  <ArrowRight size={16} />
+                </Link>
               </motion.div>
-            </TiltCard>
+            </div>
+
           </div>
         </div>
       </section>

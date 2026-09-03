@@ -1,6 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TextReveal from '../animations/TextReveal';
+
+const serviceRoutes = [
+  { path: '/capabilities/sourcing', title: 'Sourcing' },
+  { path: '/capabilities/design', title: 'Design & PD' },
+  { path: '/capabilities/manufacturing', title: 'Manufacturing' },
+  { path: '/capabilities/quality-control-compliance', title: 'Inspection & Compliance' },
+  { path: '/capabilities/warehousing', title: 'Warehousing' },
+  { path: '/capabilities/logistics', title: 'Global Logistics' },
+  { path: '/capabilities/tech', title: 'Gen-Z Tech' },
+];
 
 /**
  * PageHero — Reusable Cinematic Hero Section
@@ -27,6 +39,29 @@ const PageHero = ({
   overlayOpacity,
   centered = false,
 }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const normalizedPath = location.pathname.replace(/^\/services\//, '/capabilities/');
+  const isCapabilitiesOverview = normalizedPath === '/capabilities' || normalizedPath === '/capabilities/';
+  const currentIndex = serviceRoutes.findIndex(s => s.path === normalizedPath);
+  const isServicePage = currentIndex !== -1 || isCapabilitiesOverview;
+
+  let prevService = null;
+  let nextService = null;
+
+  if (isCapabilitiesOverview) {
+    prevService = null;
+    nextService = serviceRoutes[0]; // Sourcing
+  } else if (currentIndex !== -1) {
+    prevService = currentIndex === 0
+      ? { path: '/capabilities', title: 'Capabilities Overview' }
+      : serviceRoutes[currentIndex - 1];
+    nextService = currentIndex === serviceRoutes.length - 1
+      ? { path: '/products', title: 'Products' }
+      : serviceRoutes[currentIndex + 1];
+  }
+
   return (
     <section
       id="hero"
@@ -67,25 +102,57 @@ const PageHero = ({
             : undefined
         }
       >
-        <h1 className="page-hero-title">
-          <TextReveal
-            text={titleLine1}
-            elementType="div"
-            style={{ width: '100%', justifyContent: 'center' }}
-            justifyContent="center"
-          />
-          {titleLine2 && (
-            <span style={{ color: '#FFFFFF', textShadow: '0 0 35px rgba(18, 47, 81, 0.4)', width: '100%', display: 'flex', justifyContent: 'center' }}>
-              <TextReveal
-                text={titleLine2}
-                elementType="div"
-                style={{ width: '100%', justifyContent: 'center' }}
-                justifyContent="center"
-                delay={0.25}
-              />
-            </span>
+        <div className="page-hero-title-row">
+          {isServicePage && prevService && (
+            <motion.button
+              whileHover={{ scale: 1.12, x: -3 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate(prevService.path)}
+              aria-label={`Previous: ${prevService.title}`}
+              title={`Previous: ${prevService.title}`}
+              className="page-hero-nav-arrow page-hero-nav-arrow-left"
+            >
+              <ChevronLeft size={24} />
+            </motion.button>
           )}
-        </h1>
+
+          {isServicePage && !prevService && nextService && (
+            <div className="page-hero-nav-arrow-spacer" />
+          )}
+
+          <h1 className="page-hero-title">
+            <TextReveal
+              text={titleLine1}
+              elementType="div"
+              style={{ width: '100%', justifyContent: 'center' }}
+              justifyContent="center"
+            />
+            {titleLine2 && (
+              <span style={{ color: '#FFFFFF', textShadow: '0 0 35px rgba(18, 47, 81, 0.4)', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <TextReveal
+                  text={titleLine2}
+                  elementType="div"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                  justifyContent="center"
+                  delay={0.25}
+                />
+              </span>
+            )}
+          </h1>
+
+          {isServicePage && nextService && (
+            <motion.button
+              whileHover={{ scale: 1.12, x: 3 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate(nextService.path)}
+              aria-label={`Next: ${nextService.title}`}
+              title={`Next: ${nextService.title}`}
+              className="page-hero-nav-arrow page-hero-nav-arrow-right"
+            >
+              <ChevronRight size={24} />
+            </motion.button>
+          )}
+        </div>
 
         <motion.p
           initial={{ opacity: 0, y: 15 }}

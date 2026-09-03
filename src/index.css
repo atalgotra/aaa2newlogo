@@ -1834,6 +1834,70 @@ body.modal-open .scroll-to-top-btn {
   line-height: 1.6;
 }
 
+/* PageHero Service Navigation Arrows (Tablet & Mobile only: <= 1024px) */
+.page-hero-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  gap: clamp(8px, 2.5vw, 24px);
+}
+
+.page-hero-nav-arrow {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: clamp(38px, 5vw, 46px);
+  height: clamp(38px, 5vw, 46px);
+  min-width: clamp(38px, 5vw, 46px);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.85);
+  opacity: 0.5;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+  z-index: 10;
+  padding: 0;
+}
+
+.page-hero-nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #FFFFFF;
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.page-hero-nav-arrow:active {
+  opacity: 0.8;
+  transform: scale(0.92);
+}
+
+.page-hero-nav-arrow-spacer {
+  display: none;
+  width: clamp(38px, 5vw, 46px);
+  min-width: clamp(38px, 5vw, 46px);
+  visibility: hidden;
+  flex-shrink: 0;
+}
+
+@media (max-width: 992px) {
+  .page-hero-nav-arrow {
+    display: flex;
+  }
+  .page-hero-nav-arrow-spacer {
+    display: block;
+  }
+}
+
 /* 2. Overline Pill Badges */
 .pill-badge {
   display: inline-flex;
@@ -2338,10 +2402,14 @@ body.modal-open .scroll-to-top-btn {
 /* ── Product Feature Sections Mobile Centering ── */
 @media (max-width: 768px) {
   .product-feature-content {
+    order: 1 !important;
     text-align: center;
     align-items: center;
     display: flex;
     flex-direction: column;
+  }
+  .product-feature-media {
+    order: 2 !important;
   }
   .product-feature-title {
     text-align: center;
@@ -2361,5 +2429,24 @@ body.modal-open .scroll-to-top-btn {
     width: auto !important;
     display: flex;
     justify-content: center;
+  }
+}
+
+/* ── Product Showcase Grid — 4 → 2×2 → 1 ── */
+.product-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1239px) {
+  .product-showcase-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .product-showcase-grid {
+    grid-template-columns: 1fr;
   }
 }

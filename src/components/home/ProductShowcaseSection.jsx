@@ -1,30 +1,43 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductShowcaseCard from './ProductShowcaseCard';
 
 export const productsData = [
   {
-    id: 'apparel',
-    title: 'Apparel & Fashion',
+    id: 1,
+    key: 'apparel',
+    title: 'Apparels',
     category: 'Sourcing & Production',
     description: 'From fast fashion collections to bespoke luxury evening wear, ethically produced in top Indian facilities.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4',
-    ctaText: 'Source Apparel'
+    targetHash: 'apparels'
   },
   {
-    id: 'bags',
-    title: 'Designer Bags & Clutches',
+    id: 2,
+    key: 'bags',
+    title: 'Designer Bags',
     category: 'Accessories & Leather',
     description: 'Statement hardware, luxury synthetic and genuine leather clutches, structured tote bags, and accessories.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4',
-    ctaText: 'Source Accessories'
+    targetHash: 'apparels'
   },
   {
-    id: 'jewellery',
+    id: 3,
+    key: 'jewellery',
     title: 'Fashion Jewellery',
     category: 'Precision Craftsmanship',
     description: 'Imitation jewelry with maximum sparkle, intricate craftsmanship, and premium anti-tarnish plating.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/fine_jewellery_hero.mp4',
-    ctaText: 'Discover Jewellery'
+    targetHash: 'apparels'
+  },
+  {
+    id: 4,
+    key: 'wellness',
+    title: 'Holistic Wellness',
+    category: 'Ayurvedic & Metalware',
+    description: 'Traditional wisdom meets modern luxury. Handcrafted copper vessels, pure brass, and holistic wellness tools.',
+    videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4',
+    targetHash: 'apparels'
   }
 ];
 
@@ -34,6 +47,15 @@ const ProductShowcaseSection = ({
   items = productsData,
   onProductSelect
 }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (prod) => {
+    navigate('/products#apparels');
+    if (onProductSelect) {
+      onProductSelect(prod);
+    }
+  };
+
   return (
     <section
       id="products"
@@ -50,7 +72,7 @@ const ProductShowcaseSection = ({
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '32px' }}>
+        <div className="product-showcase-grid">
           {items.map((prod) => (
             <ProductShowcaseCard
               key={prod.id}
@@ -59,8 +81,7 @@ const ProductShowcaseSection = ({
               description={prod.description}
               videoSrc={prod.videoSrc}
               posterSrc={prod.posterSrc}
-              ctaText={prod.ctaText}
-              onCtaClick={() => onProductSelect && onProductSelect(prod)}
+              onClick={() => handleCardClick(prod)}
             />
           ))}
         </div>

@@ -25,6 +25,14 @@ const defaultSpecs = {
     materials: 'Anti-Tarnish Brass, 18K Gold PVD Plating, Cubic Zirconia',
     audits: 'REACH Compliant, Nickel-Free & Lead-Free',
     shipping: 'Secure Insured Courier Shipping'
+  },
+  wellness: {
+    moq: '200 Pieces / Model',
+    sampleTime: '5 – 7 Business Days',
+    productionTime: '15 – 22 Days',
+    materials: '99.9% Pure Copper, Brass, Ayurvedic Food-Grade Metals',
+    audits: 'ISO 9001 Certified, Heavy-Metal Free Testing',
+    shipping: 'Insured Global Air & Ocean Freight'
   }
 };
 
@@ -43,7 +51,7 @@ const ProductSpecModal = ({ isOpen, onClose, productData, onSelectCategory }) =>
 
   if (!isOpen || !productData) return null;
 
-  const specs = defaultSpecs[productData.id] || defaultSpecs.apparel;
+  const specs = defaultSpecs[productData.key] || defaultSpecs[productData.id] || defaultSpecs.apparel;
 
   const handleSampleRequest = () => {
     onClose();

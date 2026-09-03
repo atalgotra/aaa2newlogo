@@ -223,21 +223,7 @@ const Home = () => {
 
       {/* 4. Products Showcase Section */}
       <Suspense fallback={<ProductShowcaseSkeleton />}>
-        <ProductShowcaseSection
-          onProductSelect={(prod) => {
-            setSelectedCategoryForConfigurator(prod.title);
-            const contactEl = document.getElementById('contact');
-            if (contactEl) {
-              const offset = 80;
-              const elementPosition = contactEl.getBoundingClientRect().top;
-              const offsetPosition = elementPosition + window.scrollY - offset;
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-              });
-            }
-          }}
-        />
+        <ProductShowcaseSection />
       </Suspense>
 
       {/* 5. Ethical Sourcing & Sustainability Section */}

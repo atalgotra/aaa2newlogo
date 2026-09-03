@@ -8,13 +8,22 @@ const ProductShowcaseCard = ({
   description,
   videoSrc,
   posterSrc,
-  ctaText = 'Discover Line',
+  ctaText = null,
   onCtaClick,
+  onClick,
   className = '',
   style = {}
 }) => {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+
+  const handleClick = (e) => {
+    if (onClick) {
+      onClick(e);
+    } else if (onCtaClick) {
+      onCtaClick(e);
+    }
+  };
 
   return (
     <div
@@ -22,10 +31,20 @@ const ProductShowcaseCard = ({
       className={`product-video-card ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleClick(e);
+        }
+      }}
       style={{
         position: 'relative',
         borderRadius: '24px',
         overflow: 'hidden',
+        cursor: 'pointer',
         border: '1px solid rgba(255, 255, 255, 0.12)',
         boxShadow: isHovered
           ? '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(99, 102, 241, 0.3)'
@@ -156,21 +175,23 @@ const ProductShowcaseCard = ({
             {description}
           </p>
 
-          <button
-            onClick={onCtaClick}
-            className="btn-primary"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '10px 22px',
-              fontSize: '13px',
-              marginBottom: '2px',
-              cursor: 'pointer'
-            }}
-          >
-            {ctaText} <ArrowRight size={16} />
-          </button>
+          {ctaText && (
+            <button
+              onClick={onCtaClick}
+              className="btn-primary"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 22px',
+                fontSize: '13px',
+                marginBottom: '2px',
+                cursor: 'pointer'
+              }}
+            >
+              {ctaText} <ArrowRight size={16} />
+            </button>
+          )}
         </div>
       </div>
     </div>

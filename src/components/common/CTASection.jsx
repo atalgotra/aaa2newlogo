@@ -10,7 +10,7 @@ const CTASection = ({
   buttonText = "Start Your Project" 
 }) => {
   return (
-    <section style={{ padding: '40px 0', backgroundColor: '#0B0F19', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+    <section style={{ padding: '40px 0', backgroundColor: '#220150' }}>
       <div className="container">
         <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', textAlign: 'center', fontFamily: 'var(--font-display)', lineHeight: 1.2 }}>

@@ -60,7 +60,7 @@ const Footer = () => {
       <footer
         style={{
           padding: '40px 0 16px',
-          background: 'linear-gradient(180deg, #140038 0%, #0A001F 100%)',
+          background: 'linear-gradient(180deg, #220150 0%, #220150 100%)',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
           position: 'relative'
         }}

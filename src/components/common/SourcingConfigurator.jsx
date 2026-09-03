@@ -9,6 +9,7 @@ const categories = [
   { id: 'apparel', title: 'Apparel & Fashion', Icon: Shirt, iconColor: '#4F46E5', badge: '100+ Textile Mills' },
   { id: 'bags', title: 'Designer Bags & Leather', Icon: Briefcase, iconColor: '#4F46E5', badge: 'ISO Leather Hubs' },
   { id: 'jewellery', title: 'Fashion Jewellery', Icon: Gem, iconColor: '#4F46E5', badge: 'Anti-Tarnish Plating' },
+  { id: 'wellness', title: 'Holistic Wellness', Icon: Sparkles, iconColor: '#4F46E5', badge: 'Pure Copper & Brass' },
   { id: 'manufacturing', title: 'Custom Manufacturing', Icon: Factory, iconColor: '#4F46E5', badge: 'Zero Defect AQL' },
   { id: 'tech', title: 'Digital Ops & AI Tech', Icon: Laptop, iconColor: '#4F46E5', badge: 'Gen-Z IT Squad' }
 ];
