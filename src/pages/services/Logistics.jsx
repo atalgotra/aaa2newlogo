@@ -123,7 +123,7 @@ const Logistics = () => {
         <meta property="og:description" content="Command your global supply chain with our fully automated logistics infrastructure, powered by Zipaworld. Real-time quoting, route optimization, and digital documentation." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
-        <meta property="og:url" content="https://www.aaa2innovate.com/" />
+        <meta property="og:url" content="https://www.aaa2innovate.com/capabilities/logistics" />
         <link rel="canonical" href="https://www.aaa2innovate.com/capabilities/logistics" />
       </Helmet>
       <SchemaInjector schema={{

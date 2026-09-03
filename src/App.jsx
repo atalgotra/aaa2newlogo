@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
@@ -83,8 +83,54 @@ const AnimatedRoutes = () => {
   );
 };
 
+const VALID_ROUTES = new Set([
+  '/',
+  '/products',
+  '/ethical-sourcing',
+  '/contact',
+  '/capabilities',
+  '/capabilities/sourcing',
+  '/capabilities/design',
+  '/capabilities/manufacturing',
+  '/capabilities/quality-control-compliance',
+  '/capabilities/logistics',
+  '/capabilities/warehousing',
+  '/capabilities/tech',
+  '/privacy-policy',
+  '/terms-of-service',
+  '/favicon',
+  '/favicon.png'
+]);
+
+const REDIRECT_MAP = {
+  '/about': '/',
+  '/team': '/',
+  '/services': '/capabilities',
+  '/services/sourcing': '/capabilities/sourcing',
+  '/services/design': '/capabilities/design',
+  '/services/manufacturing': '/capabilities/manufacturing',
+  '/services/quality-control-compliance': '/capabilities/quality-control-compliance',
+  '/services/logistics': '/capabilities/logistics',
+  '/services/warehousing': '/capabilities/warehousing',
+  '/services/tech': '/capabilities/tech'
+};
+
 const AppLayout = () => {
   const location = useLocation();
+  const normalizedPath = location.pathname.length > 1 ? location.pathname.replace(/\/+$/, '') : location.pathname;
+  const isKnownRoute = VALID_ROUTES.has(normalizedPath) || Boolean(REDIRECT_MAP[normalizedPath]);
+
+  // On non-existent route: perform a clean hard reload to '/' so VideoHero and UI render with 100% consistency
+  useEffect(() => {
+    if (!isKnownRoute) {
+      window.location.replace('/');
+    }
+  }, [isKnownRoute]);
+
+  if (!isKnownRoute) {
+    return <PageLoader />;
+  }
+
   const isLogoRoute = ['/favicon', '/favicon.png'].includes(location.pathname);
 
   if (isLogoRoute) {

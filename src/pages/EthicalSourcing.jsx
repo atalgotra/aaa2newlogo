@@ -53,14 +53,15 @@ const EthicalSourcing = () => {
   return (
     <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', minHeight: '100vh', overflowX: 'hidden' }}>
       <Helmet>
-        <title>Ethical Sourcing & Sustainability | AAA 2 Innovate</title>
-        <meta name="description" content="We enforce strict compliance, fair labor practices, and sustainable procurement across our entire Indian manufacturing network. Source globally with absolute integrity." />
+        <title>Ethical Sourcing | AAA 2 Innovate</title>
+        <meta name="description" content="Learn how AAA 2 Innovate ensures responsible, transparent, and ethical sourcing practices across our global supply chain." />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Ethical Sourcing & Sustainability | AAA 2 Innovate" />
-        <meta property="og:description" content="We enforce strict compliance, fair labor practices, and sustainable procurement across our entire Indian manufacturing network. Source globally with absolute integrity." />
+        <meta property="og:title" content="Ethical Sourcing | AAA 2 Innovate" />
+        <meta property="og:description" content="Learn how AAA 2 Innovate ensures responsible, transparent, and ethical sourcing practices across our global supply chain." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
         <meta property="og:url" content="https://www.aaa2innovate.com/ethical-sourcing" />
+        <link rel="canonical" href="https://www.aaa2innovate.com/ethical-sourcing" />
       </Helmet>
 
       <SchemaInjector schema={{

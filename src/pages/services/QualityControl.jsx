@@ -108,7 +108,7 @@ const testingProtocols = [
         <meta property="og:description" content="Uncompromising quality assurance for global shipments. We enforce AQL 2.5 Level II standards, pre-shipment inspections, and strict statutory factory audits." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
-        <meta property="og:url" content="https://www.aaa2innovate.com/" />
+        <meta property="og:url" content="https://www.aaa2innovate.com/capabilities/quality-control-compliance" />
         <link rel="canonical" href="https://www.aaa2innovate.com/capabilities/quality-control-compliance" />
       </Helmet>
       <SchemaInjector schema={{

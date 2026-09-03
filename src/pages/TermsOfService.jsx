@@ -6,9 +6,15 @@ return (
     <div style={{paddingTop: '90px',  backgroundColor: 'var(--bg-main)', minHeight: '100vh', paddingBottom: '80px' }}>
       <Helmet>
         <title>Terms of Service | AAA 2 Innovate</title>
-              <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
-        <meta property="og:url" content="https://www.aaa2innovate.com/" />
-</Helmet>
+        <meta name="description" content="Review the terms and conditions governing your use of AAA 2 Innovate's website and services." />
+        <meta name="robots" content="noindex,follow" />
+        <link rel="canonical" href="https://www.aaa2innovate.com/terms-of-service" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Terms of Service | AAA 2 Innovate" />
+        <meta property="og:description" content="Review the terms and conditions governing your use of AAA 2 Innovate's website and services." />
+        <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
+        <meta property="og:url" content="https://www.aaa2innovate.com/terms-of-service" />
+      </Helmet>
       
       <div className="container">
         <div style={{ maxWidth: '1100px', margin: '0 auto', backgroundColor: '#FFFFFF', padding: 'clamp(32px, 5vw, 60px)', borderRadius: '24px', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>

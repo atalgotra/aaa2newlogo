@@ -127,7 +127,7 @@ const Design = () => {
         <meta property="og:description" content="Transform concepts into market-ready merchandise. Our specialized design team engineers physical products tailored to global consumer trends and your brand's unique identity." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
-        <meta property="og:url" content="https://www.aaa2innovate.com/" />
+        <meta property="og:url" content="https://www.aaa2innovate.com/capabilities/design" />
         <link rel="canonical" href="https://www.aaa2innovate.com/capabilities/design" />
       </Helmet>
       <SchemaInjector schema={{

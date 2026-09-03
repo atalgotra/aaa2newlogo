@@ -30,13 +30,8 @@ const AAA2Logo = ({
           height: `${size}px`, 
           width: 'auto', 
           objectFit: 'contain',
-          borderRadius: '6px',
           display: loaded ? 'block' : 'none',
-          filter: mode === 'dark' 
-            ? 'brightness(0) invert(1) drop-shadow(0.5px 0 0 #ffffff) drop-shadow(-0.5px 0 0 #ffffff) drop-shadow(0 0.5px 0 #ffffff) drop-shadow(0 -0.5px 0 #ffffff)' 
-            : 'drop-shadow(0.5px 0 0 #000000) drop-shadow(-0.5px 0 0 #000000) drop-shadow(0 0.5px 0 #000000) drop-shadow(0 -0.5px 0 #000000)',
-          transform: 'scale(1.05)',
-          transformOrigin: 'left center',
+          filter: mode === 'dark' ? 'brightness(0) invert(1)' : 'none',
           transition: 'all 0.2s ease',
           ...style 
         }} 

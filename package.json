@@ -7,7 +7,7 @@
     "dev": "vite",
     "prebuild": "node scripts/generate-sitemap.js",
     "build": "vite build",
-    "postbuild": "node -e \"console.log('Build completed successfully for Vercel deployment')\"",
+    "postbuild": "node scripts/prerender.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -32,19 +32,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
-    "react-snap": "^1.23.0",
+    "puppeteer": "^25.9.0",
     "vite": "^8.0.12"
-  },
-  "reactSnap": {
-    "source": "dist",
-    "skipThirdPartyRequests": true,
-    "minifyHtml": {
-      "collapseWhitespace": false,
-      "removeComments": false
-    },
-    "puppeteerArgs": [
-      "--no-sandbox",
-      "--disable-setuid-sandbox"
-    ]
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import AAA2Logo from '../common/AAA2Logo';
 
@@ -43,7 +43,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-      
+
       // If at top of the page, force transparent state immediately
       if (scrollY <= 10) {
         setHeroProgress(0);
@@ -54,7 +54,7 @@ const Navbar = () => {
       const heroEl = document.getElementById('hero') || document.querySelector('.page-hero') || document.querySelector('section');
       const heroBottom = heroEl ? (heroEl.offsetTop + heroEl.offsetHeight) : window.innerHeight;
       const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
-      
+
       // Ramp from 0→1 through the bottom 50% of the hero
       const rawProgress = Math.min(1, Math.max(0, (scrollY - heroHeight * 0.35) / (heroHeight * 0.45)));
       setHeroProgress(rawProgress);
@@ -164,7 +164,7 @@ const Navbar = () => {
     },
     { name: 'Products', path: '/products' },
     { name: 'Ethical Sourcing', path: '/ethical-sourcing' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Contact', path: '/contact', hideOnDesktop: true },
   ];
 
   return (
@@ -187,19 +187,46 @@ const Navbar = () => {
       >
         <div className="navbar-container">
 
-          {/* AAA2 Logo */}
+          {/* AAA2 Logo & Brand Name */}
           <button
             type="button"
             className="navbar-logo-btn"
             onClick={() => scrollToSection('hero')}
             aria-label="AAA2 Home"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '15px',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0
+            }}
           >
-            <AAA2Logo mode="dark" size={36} />
+            <AAA2Logo mode="dark" size={32} />
+            <span
+              style={{
+                fontFamily: "var(--font-display, 'Orbitron', sans-serif)",
+                fontSize: '16px',
+                fontWeight: 600,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: '#FFFFFF',
+                whiteSpace: 'nowrap',
+                display: 'inline-flex',
+                alignItems: 'center'
+              }}
+            >
+              <span>AAA</span>
+              <span style={{ marginLeft: '2px', marginRight: '6px' }}>2</span>
+              <span>INNOVATE</span>
+            </span>
           </button>
 
           {/* Desktop Floating Navigation Items */}
           <nav className="desktop-nav">
             {navLinks.map((link, index) => {
+              if (link.hideOnDesktop) return null;
               if (link.hasDropdown) {
                 const isActive = location.pathname.startsWith(link.path) || (location.pathname === '/' && activeSection === link.sectionId);
                 const isOpen = activeDropdownIndex === index;
@@ -210,11 +237,8 @@ const Navbar = () => {
                     onMouseEnter={() => handleDropdownEnter(index)}
                     onMouseLeave={handleDropdownLeave}
                   >
-                    <button
-                      type="button"
-                      onClick={() => {
-                        navigate(link.path);
-                      }}
+                    <Link
+                      to={link.path}
                       className={`desktop-nav-link ${isActive ? 'active' : ''}`}
                     >
                       <span>{link.name}</span>
@@ -226,7 +250,7 @@ const Navbar = () => {
                           opacity: 0.85
                         }}
                       />
-                    </button>
+                    </Link>
 
                     {/* Dropdown Menu */}
                     {isOpen && (
@@ -234,18 +258,17 @@ const Navbar = () => {
                         {link.dropdownItems.map((item, subIdx) => {
                           const isSubActive = location.pathname === item.path;
                           return (
-                            <button
+                            <Link
                               key={subIdx}
-                              type="button"
+                              to={item.path}
                               onClick={(e) => {
                                 e.stopPropagation();
-                                navigate(item.path);
                                 setActiveDropdownIndex(null);
                               }}
                               className={`nav-dropdown-item ${isSubActive ? 'active' : ''}`}
                             >
                               {item.name}
-                            </button>
+                            </Link>
                           );
                         })}
                       </div>
@@ -257,16 +280,13 @@ const Navbar = () => {
               if (link.path) {
                 const isActive = location.pathname === link.path;
                 return (
-                  <button
+                  <Link
                     key={index}
-                    type="button"
-                    onClick={() => {
-                      navigate(link.path);
-                    }}
+                    to={link.path}
                     className={`desktop-nav-link ${isActive ? 'active' : ''}`}
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 );
               }
 
@@ -285,7 +305,7 @@ const Navbar = () => {
           </nav>
 
           {/* Action Button */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="navbar-actions">
             <button
               type="button"
               onClick={() => {
@@ -313,7 +333,7 @@ const Navbar = () => {
         </div>
 
         {/* Floating AAA 2 INNOVATE below Navbar Logo */}
-        <div
+        {/* <div
           onClick={() => scrollToSection('hero')}
           className="navbar-floating-badge"
           style={{
@@ -344,7 +364,7 @@ const Navbar = () => {
           }}
         >
           AAA 2 INNOVATE
-        </div>
+        </div> */}
       </header>
 
       {/* Mobile Menu Backdrop */}
@@ -404,17 +424,14 @@ const Navbar = () => {
                       {link.dropdownItems.map((subItem, subIndex) => {
                         const isSubActive = location.pathname === subItem.path;
                         return (
-                          <button
+                          <Link
                             key={subIndex}
-                            type="button"
-                            onClick={() => {
-                              navigate(subItem.path);
-                              setMobileMenuOpen(false);
-                            }}
+                            to={subItem.path}
+                            onClick={() => setMobileMenuOpen(false)}
                             className={`mobile-submenu-btn ${isSubActive ? 'active' : ''}`}
                           >
                             {subItem.name}
-                          </button>
+                          </Link>
                         );
                       })}
                     </div>
@@ -426,17 +443,14 @@ const Navbar = () => {
             if (link.path) {
               const isActive = location.pathname === link.path;
               return (
-                <button
+                <Link
                   key={index}
-                  type="button"
-                  onClick={() => {
-                    navigate(link.path);
-                    setMobileMenuOpen(false);
-                  }}
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={`mobile-nav-btn ${isActive ? 'active' : ''}`}
                 >
                   {link.name}
-                </button>
+                </Link>
               );
             }
 

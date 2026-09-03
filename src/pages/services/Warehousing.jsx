@@ -147,7 +147,7 @@ const Warehousing = () => {
         <meta property="og:description" content="Powered by Zipaworld, our digital warehousing ecosystem provides AI-driven inventory management, faceless processing, and real-time cargo visibility." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
-        <meta property="og:url" content="https://www.aaa2innovate.com/" />
+        <meta property="og:url" content="https://www.aaa2innovate.com/capabilities/warehousing" />
         <link rel="canonical" href="https://www.aaa2innovate.com/capabilities/warehousing" />
       </Helmet>
       <SchemaInjector schema={{

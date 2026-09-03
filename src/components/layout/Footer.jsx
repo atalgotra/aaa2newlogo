@@ -238,14 +238,6 @@ const Footer = () => {
                   info@aaa2innovate.com
                 </a>
               </div>
-
-              <button
-                onClick={() => navigate('/contact')}
-                className="btn-primary"
-                style={{ marginTop: '4px', padding: '8px 20px', fontSize: '13px', width: 'max-content', border: 'none', cursor: 'pointer' }}
-              >
-                Contact Hub
-              </button>
             </div>
           </div>
 

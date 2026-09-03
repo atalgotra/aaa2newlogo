@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import CTASection from '../components/common/CTASection';
 import { ShoppingBag, Star, Sparkles, Droplet, ArrowRight } from 'lucide-react';
@@ -233,6 +233,32 @@ const HoverFeatureImage = ({ imageSrc, videoSrc, alt }) => {
 
 const Products = () => {
   const containerRef = useRef(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const targetId = location.hash ? location.hash.replace('#', '') : location.state?.scrollTo;
+    if (targetId) {
+      let attempts = 0;
+      const maxAttempts = 10;
+      const checkAndScroll = () => {
+        const el = document.getElementById(targetId);
+        if (el) {
+          if (window.lenis) {
+            window.lenis.scrollTo(el, { offset: -80, duration: 0.9, immediate: false });
+          } else {
+            const offset = 80;
+            const top = el.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        } else if (attempts < maxAttempts) {
+          attempts++;
+          setTimeout(checkAndScroll, 80);
+        }
+      };
+      const timer = setTimeout(checkAndScroll, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [location.hash, location.state]);
 
   useEffect(() => {
     const cleanup = createGsapScope(containerRef, () => {
@@ -261,14 +287,15 @@ const Products = () => {
   return (
     <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
-        <title>Premium B2B Products | Fast Fashion, Bags & Jewellery | AAA 2 Innovate</title>
-        <meta name="description" content="Explore our luxury B2B product collections sourced directly from vetted Indian manufacturers. Featuring fast fashion, designer bags, high-end imitation jewellery, and premium copper wellness items." />
+        <title>Products | AAA 2 Innovate</title>
+        <meta name="description" content="Explore AAA 2 Innovate's diverse product range, sourced and manufactured through vetted global partners for quality and reliability." />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Premium B2B Products | AAA 2 Innovate" />
-        <meta property="og:description" content="Discover our diverse range of premium products including Apparel, Wellness, Bags, and Artificial Jewellery, all ethically sourced and precision manufactured." />
+        <meta property="og:title" content="Products | AAA 2 Innovate" />
+        <meta property="og:description" content="Explore AAA 2 Innovate's diverse product range, sourced and manufactured through vetted global partners for quality and reliability." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
         <meta property="og:url" content="https://www.aaa2innovate.com/products" />
+        <link rel="canonical" href="https://www.aaa2innovate.com/products" />
       </Helmet>
       <SchemaInjector schema={{
         "@context": "https://schema.org",

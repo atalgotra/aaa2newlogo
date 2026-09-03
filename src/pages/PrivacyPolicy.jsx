@@ -6,9 +6,15 @@ return (
     <div style={{paddingTop: '90px',  backgroundColor: 'var(--bg-main)', minHeight: '100vh', paddingBottom: '80px' }}>
       <Helmet>
         <title>Privacy Policy | AAA 2 Innovate</title>
-              <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
-        <meta property="og:url" content="https://www.aaa2innovate.com/" />
-</Helmet>
+        <meta name="description" content="Read AAA 2 Innovate's privacy policy to understand how we collect, use, and protect your personal information." />
+        <meta name="robots" content="noindex,follow" />
+        <link rel="canonical" href="https://www.aaa2innovate.com/privacy-policy" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Privacy Policy | AAA 2 Innovate" />
+        <meta property="og:description" content="Read AAA 2 Innovate's privacy policy to understand how we collect, use, and protect your personal information." />
+        <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
+        <meta property="og:url" content="https://www.aaa2innovate.com/privacy-policy" />
+      </Helmet>
       
       <div className="container">
         <div style={{ maxWidth: '1100px', margin: '0 auto', backgroundColor: '#FFFFFF', padding: 'clamp(32px, 5vw, 60px)', borderRadius: '24px', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>

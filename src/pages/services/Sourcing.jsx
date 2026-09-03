@@ -108,7 +108,7 @@ const Sourcing = () => {
         <meta property="og:description" content="Leverage our elite sourcing network in India. We procure high-quality materials and products directly from vetted factories, completely eliminating middleman markups." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
-        <meta property="og:url" content="https://www.aaa2innovate.com/" />
+        <meta property="og:url" content="https://www.aaa2innovate.com/capabilities/sourcing" />
         <link rel="canonical" href="https://www.aaa2innovate.com/capabilities/sourcing" />
       </Helmet>
       

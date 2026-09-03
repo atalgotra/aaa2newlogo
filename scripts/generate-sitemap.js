@@ -7,22 +7,20 @@ const __dirname = path.dirname(__filename);
 
 const DOMAIN = 'https://www.aaa2innovate.com';
 
-// Define all routes explicitly
+// Define all preferred canonical/indexable routes
 const routes = [
   '/',
+  '/capabilities',
+  '/capabilities/sourcing',
+  '/capabilities/design',
+  '/capabilities/manufacturing',
+  '/capabilities/quality-control-compliance',
+  '/capabilities/logistics',
+  '/capabilities/warehousing',
+  '/capabilities/tech',
   '/products',
   '/ethical-sourcing',
-  '/contact',
-  '/services',
-  '/services/sourcing',
-  '/services/design',
-  '/services/manufacturing',
-  '/services/quality-control-compliance',
-  '/services/logistics',
-  '/services/warehousing',
-  '/services/tech',
-  '/privacy-policy',
-  '/terms-of-service'
+  '/contact'
 ];
 
 const generateSitemap = () => {

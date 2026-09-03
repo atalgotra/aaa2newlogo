@@ -167,14 +167,15 @@ const Capabilities = () => {
   return (
     <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', overflowX: 'hidden' }}>
       <Helmet>
-        <title>Our Capabilities | Custom Sourcing &amp; IT Solutions | AAA 2 Innovate</title>
-        <meta name="description" content="Explore AAA 2 Innovate's world-class B2B capabilities: Ethical Sourcing, Custom Manufacturing, Quality Control, Digital Warehousing, Global Logistics, and Elite Software Engineering." />
+        <title>Capabilities | AAA 2 Innovate</title>
+        <meta name="description" content="From sourcing to logistics, discover the full range of capabilities AAA 2 Innovate offers to power your global supply chain." />
         <link rel="canonical" href="https://www.aaa2innovate.com/capabilities" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Our Capabilities | Custom Sourcing &amp; IT Solutions | AAA 2 Innovate" />
-        <meta property="og:description" content="Explore AAA 2 Innovate's world-class B2B capabilities: Sourcing, Custom Manufacturing, Quality Control, Digital Warehousing, Global Logistics, and Elite Software Engineering." />
+        <meta property="og:title" content="Capabilities | AAA 2 Innovate" />
+        <meta property="og:description" content="From sourcing to logistics, discover the full range of capabilities AAA 2 Innovate offers to power your global supply chain." />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
         <meta property="og:url" content="https://www.aaa2innovate.com/capabilities" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
       <SchemaInjector schema={{

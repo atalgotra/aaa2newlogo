@@ -106,9 +106,15 @@ const Home = () => {
   return (
     <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)' }}>
       <Helmet>
-        <title>AAA 2 Innovate | Global Sourcing, Tech Engineering &amp; Supply Chain</title>
-        <meta name="description" content="AAA 2 Innovate bridges the gap between world-class product sourcing in India and elite Gen-Z IT engineering. Discover end-to-end global supply chain solutions." />
+        <title>AAA 2 Innovate | Future Ecosystem &amp; Global Sourcing</title>
+        <meta name="description" content="AAA 2 Innovate connects brands with reliable global sourcing, manufacturing, and supply chain solutions built for a sustainable future." />
         <link rel="canonical" href="https://www.aaa2innovate.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="AAA 2 Innovate | Future Ecosystem &amp; Global Sourcing" />
+        <meta property="og:description" content="AAA 2 Innovate connects brands with reliable global sourcing, manufacturing, and supply chain solutions built for a sustainable future." />
+        <meta property="og:url" content="https://www.aaa2innovate.com/" />
+        <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       <SchemaInjector schema={{
         "@context": "https://schema.org",

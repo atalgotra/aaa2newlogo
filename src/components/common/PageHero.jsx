@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TextReveal from '../animations/TextReveal';
+import Breadcrumbs from '../seo/Breadcrumbs';
 
 const serviceRoutes = [
   { path: '/capabilities/sourcing', title: 'Sourcing' },
@@ -62,6 +63,8 @@ const PageHero = ({
       : serviceRoutes[currentIndex + 1];
   }
 
+  const isAllowedOnDesktop = normalizedPath.startsWith('/capabilities');
+
   return (
     <section
       id="hero"
@@ -92,6 +95,13 @@ const PageHero = ({
         className="page-hero-overlay"
         style={overlayOpacity !== undefined ? { opacity: overlayOpacity } : undefined}
       />
+
+      {/* Breadcrumbs Bar — Placed just below Navbar */}
+      {isAllowedOnDesktop && (
+        <div className="page-hero-breadcrumbs-wrapper">
+          <Breadcrumbs style={{ padding: 0 }} />
+        </div>
+      )}
 
       {/* Hero Content */}
       <div
@@ -159,6 +169,7 @@ const PageHero = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35, ease: 'easeOut' }}
           className="page-hero-subtitle"
+          style={{ textAlign: 'center' }}
         >
           {subtitle}
         </motion.p>

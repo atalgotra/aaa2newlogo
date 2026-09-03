@@ -89,11 +89,11 @@ const Contact = () => {
   return (
     <div ref={containerRef} style={{ width: '100%', backgroundColor: 'var(--bg-main)', minHeight: '100vh', overflowX: 'hidden' }}>
       <Helmet>
-        <title>Contact Us | Start Your Global Sourcing Journey | AAA 2 Innovate</title>
-        <meta name="description" content="Get in touch with AAA 2 Innovate. Partner with our elite team for end-to-end global product sourcing, manufacturing, logistics, and custom IT engineering solutions." />
+        <title>Contact Us | AAA 2 Innovate</title>
+        <meta name="description" content="Have a question or want to work with us? Contact AAA 2 Innovate's team to discuss your sourcing and manufacturing needs." />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Contact Us | Start Your Global Sourcing Journey | AAA 2 Innovate" />
-        <meta property="og:description" content="Get in touch with AAA 2 Innovate. Whether you need custom manufacturing, global logistics, or elite IT engineering, our experts are ready to accelerate your business." />
+        <meta property="og:title" content="Contact Us | AAA 2 Innovate" />
+        <meta property="og:description" content="Have a question or want to work with us? Contact AAA 2 Innovate's team to discuss your sourcing and manufacturing needs." />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="canonical" href="https://www.aaa2innovate.com/contact" />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />

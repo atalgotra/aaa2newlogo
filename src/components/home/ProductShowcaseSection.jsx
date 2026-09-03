@@ -19,7 +19,7 @@ export const productsData = [
     category: 'Accessories & Leather',
     description: 'Statement hardware, luxury synthetic and genuine leather clutches, structured tote bags, and accessories.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4',
-    targetHash: 'apparels'
+    targetHash: 'bags'
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ export const productsData = [
     category: 'Precision Craftsmanship',
     description: 'Imitation jewelry with maximum sparkle, intricate craftsmanship, and premium anti-tarnish plating.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/fine_jewellery_hero.mp4',
-    targetHash: 'apparels'
+    targetHash: 'jewellery'
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ export const productsData = [
     category: 'Ayurvedic & Metalware',
     description: 'Traditional wisdom meets modern luxury. Handcrafted copper vessels, pure brass, and holistic wellness tools.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4',
-    targetHash: 'apparels'
+    targetHash: 'wellness'
   }
 ];
 
@@ -50,7 +50,8 @@ const ProductShowcaseSection = ({
   const navigate = useNavigate();
 
   const handleCardClick = (prod) => {
-    navigate('/products#apparels');
+    const target = prod.targetHash || 'apparels';
+    navigate(`/products#${target}`, { state: { scrollTo: target } });
     if (onProductSelect) {
       onProductSelect(prod);
     }

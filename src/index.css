@@ -1503,6 +1503,7 @@ body.modal-open .scroll-to-top-btn {
 }
 
 .navbar-container {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1516,9 +1517,21 @@ body.modal-open .scroll-to-top-btn {
   background: transparent;
   border: none;
   padding: 0;
+  z-index: 2;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
 }
 
 .desktop-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -1716,6 +1729,7 @@ body.modal-open .scroll-to-top-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-decoration: none;
 }
 
 .mobile-nav-btn.active {
@@ -1746,6 +1760,8 @@ body.modal-open .scroll-to-top-btn {
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: var(--font-heading, 'Chakra Petch', sans-serif);
+  display: block;
+  text-decoration: none;
 }
 
 .mobile-submenu-btn.active {
@@ -1804,12 +1820,37 @@ body.modal-open .scroll-to-top-btn {
   pointer-events: none;
 }
 
+.page-hero-breadcrumbs-wrapper {
+  position: absolute;
+  top: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 1280px;
+  padding: 0 20px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .page-hero-breadcrumbs-wrapper {
+    top: 82px !important;
+    padding-top:2px !important;
+    width: calc(100% - 24px) !important;
+    padding-left: 16px !important;
+    padding-right: 24px !important;
+  }
+}
+
 .page-hero-content {
   position: relative;
   z-index: 3;
   text-align: center;
   color: var(--text-light, #FFFFFF);
   margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .page-hero-title {
@@ -1832,6 +1873,7 @@ body.modal-open .scroll-to-top-btn {
   margin-left: auto;
   margin-right: auto;
   line-height: 1.6;
+  text-align: center;
 }
 
 /* PageHero Service Navigation Arrows (Tablet & Mobile only: <= 1024px) */
@@ -1852,14 +1894,14 @@ body.modal-open .scroll-to-top-btn {
   height: clamp(38px, 5vw, 46px);
   min-width: clamp(38px, 5vw, 46px);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: rgba(255, 255, 255, 0.85);
-  opacity: 0.5;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  color: #FFFFFF;
+  opacity: 0.9;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 12px rgba(255, 255, 255, 0.12);
   transition: all 0.25s ease;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -1869,15 +1911,16 @@ body.modal-open .scroll-to-top-btn {
 }
 
 .page-hero-nav-arrow:hover {
-  background: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.7);
   color: #FFFFFF;
   opacity: 1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 18px rgba(255, 255, 255, 0.25);
   transform: scale(1.08);
 }
 
 .page-hero-nav-arrow:active {
-  opacity: 0.8;
+  opacity: 0.95;
   transform: scale(0.92);
 }
 
@@ -2436,17 +2479,47 @@ body.modal-open .scroll-to-top-btn {
 .product-showcase-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 18px;
+  max-width: 1380px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 @media (max-width: 1239px) {
   .product-showcase-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 767px) {
   .product-showcase-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* ── Breadcrumb Mobile Truncation (Mobile Only, not on Tablets/Desktops) ── */
+.desktop-breadcrumb-title {
+  display: inline;
+}
+.mobile-breadcrumb-title {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .desktop-breadcrumb-title {
+    display: none !important;
+  }
+  .mobile-breadcrumb-title {
+    display: inline !important;
+  }
+}
+
+/* ── Hide Breadcrumbs on Desktop for specific pages ── */
+@media (min-width: 993px) {
+  .breadcrumb-desktop-hidden {
+    display: none !important;
   }
 }

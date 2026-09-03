@@ -123,7 +123,7 @@ const Manufacturing = () => {
         <meta property="og:description" content="End-to-end precision manufacturing across 500+ specialized Indian factories. Benefit from real-time tracking, massive scalability, and zero-defect tolerance." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:image" content="https://www.aaa2innovate.com/favicon.png" />
-        <meta property="og:url" content="https://www.aaa2innovate.com/" />
+        <meta property="og:url" content="https://www.aaa2innovate.com/capabilities/manufacturing" />
         <link rel="canonical" href="https://www.aaa2innovate.com/capabilities/manufacturing" />
       </Helmet>
       <SchemaInjector schema={{
