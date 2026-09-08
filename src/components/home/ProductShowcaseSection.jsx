@@ -10,6 +10,7 @@ export const productsData = [
     category: 'Sourcing & Production',
     description: 'From fast fashion collections to bespoke luxury evening wear, ethically produced in top Indian facilities.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4',
+    posterSrc: '/images/products_apparels.webp',
     targetHash: 'apparels'
   },
   {
@@ -19,6 +20,7 @@ export const productsData = [
     category: 'Accessories & Leather',
     description: 'Statement hardware, luxury synthetic and genuine leather clutches, structured tote bags, and accessories.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4',
+    posterSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_bags.png',
     targetHash: 'bags'
   },
   {
@@ -28,6 +30,7 @@ export const productsData = [
     category: 'Precision Craftsmanship',
     description: 'Imitation jewelry with maximum sparkle, intricate craftsmanship, and premium anti-tarnish plating.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/fine_jewellery_hero.mp4',
+    posterSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_jewellery.png',
     targetHash: 'jewellery'
   },
   {
@@ -37,6 +40,7 @@ export const productsData = [
     category: 'Ayurvedic & Metalware',
     description: 'Traditional wisdom meets modern luxury. Handcrafted copper vessels, pure brass, and holistic wellness tools.',
     videoSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4',
+    posterSrc: 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_wellness.png',
     targetHash: 'wellness'
   }
 ];

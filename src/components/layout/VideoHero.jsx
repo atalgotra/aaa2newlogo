@@ -200,15 +200,42 @@ const VideoHero = () => {
         ctx.stroke();
       }
 
-      frameId = requestAnimationFrame(draw);
+      if (isHeroVisible) {
+        frameId = requestAnimationFrame(draw);
+      } else {
+        frameId = null;
+      }
     };
 
-    draw();
+    let isHeroVisible = true;
+    let observer = null;
+    if (typeof IntersectionObserver !== 'undefined' && hero) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          isHeroVisible = entry.isIntersecting;
+          if (isHeroVisible && !frameId) {
+            frameId = requestAnimationFrame(draw);
+          }
+        },
+        { threshold: 0.05 }
+      );
+      observer.observe(hero);
+    }
 
-    gsap.set(canvas, { visibility: 'visible' });
-    gsap.to(canvas, { opacity: 1, duration: 2.0, delay: 0.8, ease: 'power1.out' });
+    // Light deferral to yield main thread to first paint & hero text reveal
+    const startTimer = setTimeout(() => {
+      if (isHeroVisible && !frameId) {
+        draw();
+        gsap.set(canvas, { visibility: 'visible' });
+        gsap.to(canvas, { opacity: 1, duration: 1.5, ease: 'power1.out' });
+      }
+    }, 200);
 
-    return () => cancelAnimationFrame(frameId);
+    return () => {
+      clearTimeout(startTimer);
+      if (observer) observer.disconnect();
+      if (frameId) cancelAnimationFrame(frameId);
+    };
   }, []);
 
   /* ── Interactive Stardust Trail & Click Shockwaves ── */

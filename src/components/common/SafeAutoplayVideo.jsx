@@ -20,24 +20,73 @@ const SafeAutoplayVideo = ({
   playsInline = true,
   muted = true,
   autoPlay = true,
-  preload = 'auto',
+  preload = 'metadata',
   useIntersectionObserver = true,
-  threshold = 0.15,
+  threshold = 0.05,
+  rootMargin = '0px',
   onError,
   ...props
 }) => {
+  const containerRef = useRef(null);
   const videoRef = useRef(null);
   const [hasError, setHasError] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  // If not using intersection observer (e.g. Hero), load immediately
+  const [isNearViewport, setIsNearViewport] = useState(!useIntersectionObserver);
+  const [isVisibleInView, setIsVisibleInView] = useState(!useIntersectionObserver);
 
+  // Viewport proximity detector for lazy video network loading
+  useEffect(() => {
+    if (!useIntersectionObserver || isNearViewport) return;
+    const target = containerRef.current;
+    if (!target || typeof IntersectionObserver === 'undefined') {
+      setIsNearViewport(true);
+      setIsVisibleInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsNearViewport(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [useIntersectionObserver, isNearViewport, rootMargin]);
+
+  // Active visibility observer for play/pause control
+  useEffect(() => {
+    if (!useIntersectionObserver) return;
+    const target = containerRef.current;
+    if (!target || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisibleInView(entry.isIntersecting);
+        });
+      },
+      { threshold }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [useIntersectionObserver, threshold]);
+
+  // Handle video playback
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !src || hasError) return;
+    if (!video || !src || !isNearViewport || hasError) return;
 
     let isCancelled = false;
-    let isIntersecting = !useIntersectionObserver;
 
-    // Enforce essential DOM properties for Safari WebKit autoplay policies
     if (muted) {
       video.muted = true;
       video.defaultMuted = true;
@@ -52,7 +101,7 @@ const SafeAutoplayVideo = ({
         const playPromise = video.play();
         if (playPromise !== undefined) {
           playPromise.catch(() => {
-            // Gracefully ignore autoplay restrictions (e.g. low power mode)
+            // Gracefully ignore autoplay restrictions
           });
         }
       }
@@ -65,52 +114,33 @@ const SafeAutoplayVideo = ({
       }
     };
 
-    // When media data is ready, trigger playback and reveal video
-    const handleReadyToPlay = () => {
-      if (isCancelled || !video) return;
+    if (isVisibleInView) {
+      attemptPlay();
+    } else {
+      attemptPause();
+    }
+
+    const handleReady = () => {
+      if (isCancelled) return;
       setIsReady(true);
-      if (isIntersecting) {
+      if (isVisibleInView) {
         attemptPlay();
       }
     };
 
-    video.addEventListener('loadeddata', handleReadyToPlay);
-    video.addEventListener('canplay', handleReadyToPlay);
-    video.addEventListener('playing', handleReadyToPlay);
+    video.addEventListener('loadeddata', handleReady);
+    video.addEventListener('canplay', handleReady);
+    video.addEventListener('playing', handleReady);
 
-    // If already buffered enough data, play immediately and mark ready
     if (video.readyState >= 2) {
       setIsReady(true);
-      if (isIntersecting || !useIntersectionObserver) {
-        attemptPlay();
-      }
-    } else if (!useIntersectionObserver) {
-      attemptPlay();
-    }
-
-    let observer = null;
-    if (useIntersectionObserver && typeof IntersectionObserver !== 'undefined') {
-      observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (isCancelled) return;
-            isIntersecting = entry.isIntersecting;
-            if (entry.isIntersecting) {
-              attemptPlay();
-            } else {
-              attemptPause();
-            }
-          });
-        },
-        { threshold }
-      );
-      observer.observe(video);
+      if (isVisibleInView) attemptPlay();
     }
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
         attemptPause();
-      } else if (isIntersecting && autoPlay) {
+      } else if (isVisibleInView && autoPlay) {
         attemptPlay();
       }
     };
@@ -119,51 +149,84 @@ const SafeAutoplayVideo = ({
 
     return () => {
       isCancelled = true;
-      video.removeEventListener('loadeddata', handleReadyToPlay);
-      video.removeEventListener('canplay', handleReadyToPlay);
-      video.removeEventListener('playing', handleReadyToPlay);
-      if (observer) {
-        observer.disconnect();
-      }
+      video.removeEventListener('loadeddata', handleReady);
+      video.removeEventListener('canplay', handleReady);
+      video.removeEventListener('playing', handleReady);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [src, hasError, autoPlay, muted, playsInline, useIntersectionObserver, threshold]);
+  }, [src, isNearViewport, isVisibleInView, hasError, autoPlay, muted, playsInline]);
 
   const handleVideoError = (e) => {
     setHasError(true);
     if (onError) onError(e);
   };
 
-  if (hasError && poster) {
-    return (
-      <img
-        src={poster}
-        alt=""
-        role="presentation"
-        className={className}
-        style={{ objectFit: 'cover', objectPosition: 'center', ...style }}
-      />
-    );
-  }
-
   return (
-    <video
-      ref={videoRef}
-      src={src}
-      poster={poster}
-      loop={loop}
-      muted={muted}
-      autoPlay={autoPlay}
-      playsInline={playsInline}
-      preload={preload}
-      disablePictureInPicture
-      disableRemotePlayback
-      tabIndex={-1}
-      onError={handleVideoError}
-      className={className}
-      style={style}
-      {...props}
-    />
+    <div
+      ref={containerRef}
+      className={`safe-video-container ${className || ''}`}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        backgroundColor: '#0a0015',
+        ...style
+      }}
+    >
+      {/* High-fidelity poster placeholder (visible before load or on error) */}
+      {poster && (!isReady || hasError) && (
+        <img
+          src={poster}
+          alt=""
+          role="presentation"
+          loading="lazy"
+          decoding="async"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            zIndex: 1,
+            transition: 'opacity 0.6s ease',
+            opacity: hasError || !isReady ? 1 : 0,
+            pointerEvents: 'none'
+          }}
+        />
+      )}
+
+      {/* Actual video element (only loads network stream when near viewport) */}
+      {isNearViewport && !hasError && (
+        <video
+          ref={videoRef}
+          src={src}
+          poster={poster}
+          loop={loop}
+          muted={muted}
+          autoPlay={autoPlay && isVisibleInView}
+          playsInline={playsInline}
+          preload={preload}
+          disablePictureInPicture
+          disableRemotePlayback
+          tabIndex={-1}
+          onError={handleVideoError}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            zIndex: 2,
+            transition: 'opacity 0.5s ease',
+            opacity: isReady ? 1 : 0
+          }}
+          {...props}
+        />
+      )}
+    </div>
   );
 };
 
