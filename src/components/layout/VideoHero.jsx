@@ -32,6 +32,7 @@ const NetworkCanvas = ({ canvasRef }) => (
 const VideoHero = () => {
   const { currentTheme, themeDetails } = useTheme();
   const heroVideoSrc = themeDetails?.heroVideo || (currentTheme === 'atelier' ? '/hero-video-atelier.mp4' : (currentTheme === 'forge' ? '/forge-hero.mp4' : (currentTheme === 'nexus' ? '/hero-nexus.mp4' : (currentTheme === 'aurelis' ? '/Aurelis-Hero.mp4' : '/hero-video.mp4'))));
+  const fallbackVideoSrc = themeDetails?.fallbackVideo || (currentTheme === 'atelier' ? '/hero-video-atelier.mp4' : (currentTheme === 'forge' ? '/forge-hero.mp4' : (currentTheme === 'nexus' ? '/hero-nexus.mp4' : (currentTheme === 'aurelis' ? '/Aurelis-Hero.mp4' : '/hero-video.mp4'))));
 
   const isAtelier = currentTheme === 'atelier';
   const isForge = currentTheme === 'forge';
@@ -568,6 +569,7 @@ const VideoHero = () => {
         <SafeAutoplayVideo
           key={heroVideoSrc}
           src={heroVideoSrc}
+          fallbackSrc={fallbackVideoSrc}
           useIntersectionObserver={false}
           style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
         />

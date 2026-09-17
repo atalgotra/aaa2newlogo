@@ -1,10 +1,13 @@
+export const S3_MEDIA_BASE = 'https://aaawebisteimages.s3.ap-south-1.amazonaws.com';
+
 export const THEMES = {
   default: {
     id: 'default',
     name: 'DEFAULT',
     subtitle: 'AAA 2 Innovate • Original',
     description: 'Royal Indigo / Cosmic Midnight / Original',
-    heroVideo: '/hero-video.mp4',
+    heroVideo: `${S3_MEDIA_BASE}/hero-video.mp4`,
+    fallbackVideo: '/hero-video.mp4',
     swatch: {
       primary: '#220150',
       secondary: '#140038',
@@ -22,7 +25,8 @@ export const THEMES = {
     name: 'ATELIER',
     subtitle: 'Global Craft • Precision',
     description: 'Premium Craft × Global Innovation',
-    heroVideo: '/hero-video-atelier.mp4',
+    heroVideo: `${S3_MEDIA_BASE}/hero-video-atelier.mp4`,
+    fallbackVideo: '/hero-video-atelier.mp4',
     swatch: {
       primary: '#F6F2E9',
       secondary: '#17202A',
@@ -41,7 +45,8 @@ export const THEMES = {
     name: 'FORGE',
     subtitle: 'Industrial Intelligence',
     description: 'Deep Graphite / Engineered Steel / Technology Blue',
-    heroVideo: '/forge-hero.mp4',
+    heroVideo: `${S3_MEDIA_BASE}/forge-hero.mp4`,
+    fallbackVideo: '/forge-hero.mp4',
     swatch: {
       primary: '#080D12',
       secondary: '#111A21',
@@ -60,7 +65,8 @@ export const THEMES = {
     name: 'NEXUS',
     subtitle: 'Global Intelligence • Connectivity',
     description: 'Midnight Near-Black / Deep Navy / Electric Cyan',
-    heroVideo: '/hero-nexus.mp4',
+    heroVideo: `${S3_MEDIA_BASE}/hero-nexus.mp4`,
+    fallbackVideo: '/hero-nexus.mp4',
     swatch: {
       primary: '#05070B',
       secondary: '#0B1424',
@@ -79,7 +85,8 @@ export const THEMES = {
     name: 'AURELIS',
     subtitle: 'Light Intelligence • Global Elegance',
     description: 'Pearl White / Deep Ink / Sapphire Blue',
-    heroVideo: '/Aurelis-Hero.mp4',
+    heroVideo: `${S3_MEDIA_BASE}/Aurelis-Hero.mp4`,
+    fallbackVideo: '/Aurelis-Hero.mp4',
     swatch: {
       primary: '#F7F9FA',
       secondary: '#17232D',

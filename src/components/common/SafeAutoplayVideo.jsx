@@ -13,6 +13,7 @@ import React, { useRef, useEffect, useState } from 'react';
  */
 const SafeAutoplayVideo = ({
   src,
+  fallbackSrc,
   poster,
   style,
   className,
@@ -31,12 +32,14 @@ const SafeAutoplayVideo = ({
   const videoRef = useRef(null);
   const [hasError, setHasError] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [activeSrc, setActiveSrc] = useState(src);
   // If not using intersection observer (e.g. Hero), load immediately
   const [isNearViewport, setIsNearViewport] = useState(!useIntersectionObserver);
   const [isVisibleInView, setIsVisibleInView] = useState(!useIntersectionObserver);
 
   // Reset ready and error states whenever video source changes
   useEffect(() => {
+    setActiveSrc(src);
     setHasError(false);
     setIsReady(false);
   }, [src]);
@@ -89,7 +92,7 @@ const SafeAutoplayVideo = ({
   // Handle video playback
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !src || !isNearViewport || hasError) return;
+    if (!video || !activeSrc || !isNearViewport || hasError) return;
 
     let isCancelled = false;
 
@@ -160,9 +163,14 @@ const SafeAutoplayVideo = ({
       video.removeEventListener('playing', handleReady);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [src, isNearViewport, isVisibleInView, hasError, autoPlay, muted, playsInline]);
+  }, [activeSrc, isNearViewport, isVisibleInView, hasError, autoPlay, muted, playsInline]);
 
   const handleVideoError = (e) => {
+    if (fallbackSrc && activeSrc !== fallbackSrc) {
+      console.warn(`[SafeAutoplayVideo] Stream failed for ${activeSrc}, falling back to ${fallbackSrc}`);
+      setActiveSrc(fallbackSrc);
+      return;
+    }
     setHasError(true);
     if (onError) onError(e);
   };
@@ -207,7 +215,7 @@ const SafeAutoplayVideo = ({
       {isNearViewport && !hasError && (
         <video
           ref={videoRef}
-          src={src}
+          src={activeSrc}
           poster={poster}
           loop={loop}
           muted={muted}
