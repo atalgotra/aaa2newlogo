@@ -136,7 +136,7 @@ const AppLayout = () => {
 
   if (isLogoRoute) {
     return (
-      <div style={{ minHeight: '100vh', width: '100%', backgroundColor: '#140038', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+      <div style={{ minHeight: '100vh', width: '100%', backgroundColor: 'var(--section-darker-bg, #140038)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
         <img
           src="/favicon.png"
           alt="AAA 2 Innovate Logo"
@@ -168,9 +168,9 @@ function App() {
           position="top-center"
           toastOptions={{
             style: {
-              background: '#220150',
+              background: 'var(--section-dark-bg, #220150)',
               color: '#FFFFFF',
-              border: '1px solid rgba(99, 102, 241, 0.5)',
+              border: '1px solid var(--border-light, rgba(255, 255, 255, 0.15))',
               boxShadow: '0 12px 35px rgba(0, 0, 0, 0.6)',
               fontSize: '14px',
               fontWeight: 600,

@@ -136,7 +136,7 @@ const Contact = () => {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ backgroundColor: 'var(--selector-item-active-bg, rgba(34, 1, 80, 0.05))', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <MapPin color="var(--brand-indigo)" size={22} />
                   </div>
                   <div>
@@ -150,7 +150,7 @@ const Contact = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ backgroundColor: 'var(--selector-item-active-bg, rgba(34, 1, 80, 0.05))', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Phone color="var(--brand-indigo)" size={22} />
                   </div>
                   <div>
@@ -164,7 +164,7 @@ const Contact = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ backgroundColor: 'var(--selector-item-active-bg, rgba(34, 1, 80, 0.05))', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Mail color="var(--brand-indigo)" size={22} />
                   </div>
                   <div>
@@ -178,7 +178,7 @@ const Contact = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <div style={{ backgroundColor: 'rgba(34, 1, 80, 0.05)', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ backgroundColor: 'var(--selector-item-active-bg, rgba(34, 1, 80, 0.05))', padding: '10px', borderRadius: '12px', height: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Clock color="var(--brand-indigo)" size={22} />
                   </div>
                   <div>
@@ -268,7 +268,7 @@ const Contact = () => {
                       appearance: 'none',
                       WebkitAppearance: 'none',
                       MozAppearance: 'none',
-                      backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23220150' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                      backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
                       backgroundRepeat: 'no-repeat',
                       backgroundPosition: 'right 14px center',
                       backgroundSize: '14px'
@@ -322,7 +322,7 @@ const Contact = () => {
       </section>
 
       {/* Map or Global Presence Section */}
-      <section className="gsap-section" style={{ position: 'relative', padding: '100px 0', backgroundColor: '#140038', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
+      <section className="gsap-section" style={{ position: 'relative', padding: '100px 0', backgroundColor: 'var(--section-darker-bg, #140038)', transition: 'background-color 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
         {/* Animated Map Background */}
         <motion.div
           initial={{ scale: 1.1, opacity: 0 }}
@@ -331,7 +331,7 @@ const Contact = () => {
           transition={{ duration: 1.5, ease: "easeOut" }}
           style={{ position: 'absolute', inset: 0, backgroundImage: 'url(https://aaa-website-images.s3.ap-south-1.amazonaws.com/assets/world_map_nodes.png)', backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }}
         />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, #140038 80%)', zIndex: 1 }}></div>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, var(--section-darker-bg, #140038) 80%)', zIndex: 1 }}></div>
 
         <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
           <motion.div

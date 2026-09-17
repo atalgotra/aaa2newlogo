@@ -17,15 +17,15 @@ const ToggleSwitch = ({ checked, onChange, disabled }) => (
       width: '36px',
       height: '20px',
       background: disabled
-        ? 'rgba(34, 1, 80, 0.5)'
+        ? 'rgba(99, 102, 241, 0.3)'
         : checked
-          ? '#220150'
+          ? 'var(--brand-indigo, #220150)'
           : 'rgba(255, 255, 255, 0.12)',
       borderRadius: '20px',
       position: 'relative',
       cursor: disabled ? 'not-allowed' : 'pointer',
       transition: 'all 0.3s ease',
-      boxShadow: checked ? '0 0 10px rgba(34, 1, 80, 0.6)' : 'inset 0 2px 4px rgba(0,0,0,0.25)',
+      boxShadow: checked ? '0 0 10px rgba(0, 0, 0, 0.4)' : 'inset 0 2px 4px rgba(0,0,0,0.25)',
       border: checked ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(255, 255, 255, 0.08)',
       flexShrink: 0
     }}
@@ -47,7 +47,7 @@ const ToggleSwitch = ({ checked, onChange, disabled }) => (
         alignItems: 'center'
       }}
     >
-      {checked && <Check size={10} color="#220150" strokeWidth={3} />}
+      {checked && <Check size={10} color="var(--brand-indigo, #220150)" strokeWidth={3} />}
     </motion.div>
   </div>
 );
@@ -145,25 +145,25 @@ export default function CookieConsent() {
           exit={{ y: 120, opacity: 0, scale: 0.95 }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           style={{
-            background: 'linear-gradient(135deg, rgba(20, 0, 56, 0.95) 0%, rgba(34, 1, 80, 0.92) 100%)',
+            background: 'linear-gradient(135deg, var(--section-darker-bg, rgba(20, 0, 56, 0.95)) 0%, var(--section-dark-bg, rgba(34, 1, 80, 0.92)) 100%)',
             backdropFilter: 'blur(24px) saturate(180%)',
             border: '1px solid rgba(255, 255, 255, 0.12)',
             padding: showPreferences ? '16px 18px' : '14px 18px',
             borderRadius: '14px',
             maxWidth: showPreferences ? '490px' : '520px',
             width: '100%',
-            boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(34, 1, 80, 0.4)',
+            boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.7)',
             pointerEvents: 'auto',
             color: 'white',
             overflow: 'hidden',
             position: 'relative'
           }}
         >
-          {/* Subtle glowing Brand Indigo orb in background */}
+          {/* Subtle glowing orb in background */}
           <div/>
 
           {!showPreferences ? (
-            // Layer 1: Minimalist Premium Compact Banner in Brand Indigo
+            // Layer 1: Minimalist Premium Compact Banner
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', position: 'relative', zIndex: 1 }}>
               <div>
                 <h3 style={{ margin: '0 0 3px 0', fontSize: '0.92rem', fontWeight: '700', color: '#FFFFFF', letterSpacing: '-0.01em' }}>
@@ -186,15 +186,15 @@ export default function CookieConsent() {
                 <button
                   onClick={handleRejectAll}
                   style={{ background: 'rgba(255, 255, 255, 0.05)', color: '#CBD5E1', border: '1px solid rgba(255, 255, 255, 0.12)', padding: '6px 12px', borderRadius: '8px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600', transition: 'all 0.2s' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(34, 1, 80, 0.7), inset 0 1px 2px rgba(255,255,255,0.3)' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255,255,255,0.3)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
                 >
                   Reject Non-Essential
                 </button>
                 <button
                   onClick={handleAcceptAll}
                   style={{
-                    background: 'linear-gradient(135deg, #220150 0%, #220150 100%)',
+                    background: 'linear-gradient(135deg, var(--brand-indigo, #220150) 0%, var(--section-darker-bg, #140038) 100%)',
                     color: '#FFFFFF',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     padding: '6px 16px',
@@ -202,11 +202,11 @@ export default function CookieConsent() {
                     cursor: 'pointer',
                     fontSize: '0.8rem',
                     fontWeight: '700',
-                    boxShadow: '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)',
+                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255,255,255,0.25)',
                     transition: 'all 0.2s'
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(34, 1, 80, 0.7), inset 0 1px 2px rgba(255,255,255,0.3)' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255,255,255,0.3)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255,255,255,0.25)' }}
                 >
                   Accept All
                 </button>
@@ -252,12 +252,12 @@ export default function CookieConsent() {
                 <div
                   onClick={() => togglePreference('analytical')}
                   style={{
-                    background: preferences.analytical ? 'rgba(34, 1, 80, 0.45)' : 'rgba(255,255,255,0.04)',
+                    background: preferences.analytical ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255,255,255,0.04)',
                     padding: '10px 12px',
                     borderRadius: '10px',
                     border: `0.5px solid ${preferences.analytical ? '#FFFFFF' : 'rgba(255,255,255,0.08)'}`,
                     display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer', transition: 'all 0.25s',
-                    boxShadow: preferences.analytical ? 'inset 0 0 15px rgba(34, 1, 80, 0.4)' : 'none'
+                    boxShadow: preferences.analytical ? 'inset 0 0 15px rgba(0, 0, 0, 0.25)' : 'none'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.borderColor = preferences.analytical ? '#FFFFFF' : 'rgba(255,255,255,0.25)'}
                   onMouseLeave={(e) => e.currentTarget.style.borderColor = preferences.analytical ? '#FFFFFF' : 'rgba(255,255,255,0.08)'}
@@ -275,12 +275,12 @@ export default function CookieConsent() {
                 <div
                   onClick={() => togglePreference('marketing')}
                   style={{
-                    background: preferences.marketing ? 'rgba(34, 1, 80, 0.45)' : 'rgba(255,255,255,0.04)',
+                    background: preferences.marketing ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255,255,255,0.04)',
                     padding: '10px 12px',
                     borderRadius: '10px',
                     border: `0.5px solid ${preferences.marketing ? '#FFFFFF' : 'rgba(255,255,255,0.08)'}`,
                     display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer', transition: 'all 0.25s',
-                    boxShadow: preferences.marketing ? 'inset 0 0 15px rgba(34, 1, 80, 0.4)' : 'none'
+                    boxShadow: preferences.marketing ? 'inset 0 0 15px rgba(0, 0, 0, 0.25)' : 'none'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.borderColor = preferences.marketing ? '#FFFFFF' : 'rgba(255,255,255,0.25)'}
                   onMouseLeave={(e) => e.currentTarget.style.borderColor = preferences.marketing ? '#FFFFFF' : 'rgba(255,255,255,0.08)'}
@@ -299,7 +299,7 @@ export default function CookieConsent() {
                 <button
                   onClick={handleSavePreferences}
                   style={{
-                    background: 'linear-gradient(135deg, #220150 100%)',
+                    background: 'linear-gradient(135deg, var(--brand-indigo, #220150) 0%, var(--section-darker-bg, #140038) 100%)',
                     color: '#FFFFFF',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     padding: '7px 20px',
@@ -307,14 +307,14 @@ export default function CookieConsent() {
                     cursor: 'pointer',
                     fontSize: '0.82rem',
                     fontWeight: '700',
-                    boxShadow: '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)',
+                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255,255,255,0.25)',
                     transition: 'all 0.2s',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px'
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(34, 1, 80, 0.7), inset 0 1px 2px rgba(255,255,255,0.3)' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(34, 1, 80, 0.5), inset 0 1px 2px rgba(255,255,255,0.25)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255,255,255,0.3)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255,255,255,0.25)' }}
                 >
                   Save Choices
                 </button>

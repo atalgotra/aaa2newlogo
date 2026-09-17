@@ -169,7 +169,7 @@ const EthicalSourcing = () => {
       </section>
 
       {/* Social Impact Section */}
-      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: '#220150' }}>
+      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--section-dark-bg, #220150)', transition: 'background-color 0.3s ease' }}>
         <div className="container">
           <div className="about-grid" style={{ alignItems: 'center' }}>
             
@@ -206,30 +206,30 @@ const EthicalSourcing = () => {
 
             {/* Right Content */}
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 className="mobile-text-center" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.2, fontFamily: 'var(--font-display)' }}>
+              <h2 className="mobile-text-center" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--text-light, #FFFFFF)', marginBottom: '24px', lineHeight: 1.2, fontFamily: 'var(--font-display)' }}>
                 <TextReveal text="Empowering the" elementType="span" className="text-reveal-center-mobile" />
-                <span style={{ color: '#FFFFFF' }}>
+                <span style={{ color: 'var(--accent-secondary, #FFFFFF)' }}>
                   <TextReveal text="Future of India" elementType="span" delay={0.15} className="text-reveal-center-mobile" />
                 </span>
               </h2>
-              <p style={{ color: '#CBD5E1', fontSize: '15px', lineHeight: 1.6, marginBottom: '20px' }}>
+              <p style={{ color: 'rgba(255, 255, 255, 0.78)', fontSize: '15px', lineHeight: 1.6, marginBottom: '20px' }}>
                 True responsibility begins with community prosperity. We support the people behind our sourcing network.
               </p>
-              <p style={{ color: '#CBD5E1', fontSize: '15px', lineHeight: 1.6, marginBottom: '20px' }}>
+              <p style={{ color: 'rgba(255, 255, 255, 0.78)', fontSize: '15px', lineHeight: 1.6, marginBottom: '20px' }}>
 We proudly support Cheshire Home Society India, advancing inclusion, care, and livelihood opportunities while helping create a more empowered and independent future for individuals with disabilities.
               </p>
 
               
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '20px', marginTop: '24px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', backgroundColor: 'rgba(255, 255, 255, 0.05)', padding: '16px 20px', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                  <GraduationCap color="#FFFFFF" size={24} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', backgroundColor: 'rgba(255, 255, 255, 0.05)', padding: '16px 20px', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+                  <GraduationCap color="var(--accent-secondary, #FFFFFF)" size={24} />
                   <div>
                     <h4 style={{ color: '#FFFFFF', fontWeight: 700, fontSize: '14.5px', margin: 0, fontFamily: 'var(--font-heading)' }}>Skill Development</h4>
                     <span style={{ color: '#CBD5E1', fontSize: '12px' }}>Future Livelihoods</span>
                   </div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', backgroundColor: 'rgba(255, 255, 255, 0.05)', padding: '16px 20px', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                  <Recycle color="#FFFFFF" size={24} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', backgroundColor: 'rgba(255, 255, 255, 0.05)', padding: '16px 20px', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+                  <Recycle color="var(--accent-secondary, #FFFFFF)" size={24} />
                   <div>
                     <h4 style={{ color: '#FFFFFF', fontWeight: 700, fontSize: '14.5px', margin: 0, fontFamily: 'var(--font-heading)' }}>Sustainable Impact</h4>
                     <span style={{ color: '#CBD5E1', fontSize: '12px' }}>Upcycling Communities</span>

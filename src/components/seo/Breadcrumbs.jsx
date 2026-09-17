@@ -99,7 +99,7 @@ const Breadcrumbs = ({ style = {} }) => {
                     position: 'absolute',
                     top: 'calc(100% + 8px)',
                     right: 0,
-                    backgroundColor: '#220150',
+                    backgroundColor: 'var(--brand-indigo, #220150)',
                     color: '#FFFFFF',
                     border: '1px solid rgba(255, 255, 255, 0.25)',
                     boxShadow: '0 8px 24px rgba(0, 0, 0, 0.6)',

@@ -10,13 +10,18 @@ const CTASection = ({
   buttonText = "Start Your Project" 
 }) => {
   return (
-    <section style={{ padding: '40px 0', backgroundColor: '#220150' }}>
+    <section style={{ 
+      padding: '48px 0', 
+      background: 'linear-gradient(180deg, var(--section-dark-bg, #220150) 0%, var(--section-darker-bg, #140038) 100%)',
+      borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+      transition: 'background 0.3s ease'
+    }}>
       <div className="container">
         <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', textAlign: 'center', fontFamily: 'var(--font-display)', lineHeight: 1.2 }}>
-            {titlePrefix} <span style={{ color: 'color-mix(in srgb, var(--brand-indigo), white 30%)' }}>{highlightText}</span>
+          <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: 'var(--text-light, #FFFFFF)', marginBottom: '20px', textAlign: 'center', fontFamily: 'var(--font-display)', lineHeight: 1.2 }}>
+            {titlePrefix} <span style={{ color: 'var(--accent-secondary, #6366F1)' }}>{highlightText}</span>
           </h2>
-          <p style={{ color: '#9CA3AF', fontSize: '18px', lineHeight: 1.6, marginBottom: '40px', textAlign: 'center', textAlignLast: 'center', textWrap: 'balance', maxWidth: '780px', marginLeft: 'auto', marginRight: 'auto' }}>
+          <p style={{ color: 'rgba(255, 255, 255, 0.75)', fontSize: '17px', lineHeight: 1.6, marginBottom: '36px', textAlign: 'center', textAlignLast: 'center', textWrap: 'balance', maxWidth: '780px', marginLeft: 'auto', marginRight: 'auto' }}>
             {description}
           </p>
           <Link to="/contact" tabIndex="-1">

@@ -28,8 +28,9 @@ const DivisionsBentoGrid = ({
   // Base styles depending on theme (alternate background and text colors)
   const sectionStyle = {
     padding: 'clamp(40px, 5vw, 60px) 0',
-    backgroundColor: isLight ? 'var(--bg-main, #FFFFFF)' : '#220150',
-    color: isLight ? 'var(--text-primary, #0F172A)' : '#FFFFFF'
+    backgroundColor: isLight ? 'var(--bg-main, #FFFFFF)' : 'var(--section-dark-bg, #220150)',
+    color: isLight ? 'var(--text-primary, #0F172A)' : 'var(--text-light, #FFFFFF)',
+    transition: 'background-color 0.3s ease, color 0.3s ease'
   };
 
   const titleStyle = {
@@ -37,7 +38,7 @@ const DivisionsBentoGrid = ({
     fontWeight: 800,
     marginBottom: '10px',
     letterSpacing: '-0.01em',
-    color: isLight ? 'var(--brand-indigo)' : '#FFFFFF'
+    color: isLight ? 'var(--brand-indigo)' : 'var(--text-light, #FFFFFF)'
   };
 
   const subtitleStyle = {
@@ -47,7 +48,7 @@ const DivisionsBentoGrid = ({
     lineHeight: 1.5,
     textAlign: 'center',
     textAlignLast: 'center',
-    color: isLight ? 'var(--text-secondary, #475569)' : '#CBD5E1'
+    color: isLight ? 'var(--text-secondary, #475569)' : 'rgba(255, 255, 255, 0.72)'
   };
 
   const cardHoverStyle = {
@@ -105,7 +106,7 @@ const DivisionsBentoGrid = ({
                   transition={{ type: "spring", stiffness: 300 }}
                   className={`bento-icon-box ${isLight ? 'bento-icon-box-light' : 'bento-icon-box-dark'}`}
                 >
-                  <divItem.Icon size={20} color={isLight ? 'var(--brand-indigo)' : '#FFFFFF'} />
+                  <divItem.Icon size={20} color={isLight ? 'var(--brand-indigo)' : 'var(--accent-secondary, #FFFFFF)'} />
                 </motion.div>
                 
                 <div style={{ position: 'relative', zIndex: 2 }}>

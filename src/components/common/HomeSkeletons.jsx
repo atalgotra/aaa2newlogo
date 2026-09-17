@@ -119,7 +119,7 @@ export const CapabilitiesSkeleton = () => (
 
 /* ── 4. Product Showcase Skeleton ── */
 export const ProductShowcaseSkeleton = () => (
-  <section style={{ padding: 'clamp(50px, 7vw, 80px) 0', backgroundColor: '#220150' }}>
+  <section style={{ padding: 'clamp(50px, 7vw, 80px) 0', backgroundColor: 'var(--section-dark-bg, #220150)' }}>
     <div className="container">
       <div style={{ textAlign: 'center', marginBottom: '44px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
         <div className="skeleton-dark" style={{ width: '280px', height: '36px', borderRadius: '10px' }} />
@@ -142,7 +142,7 @@ export const ProductShowcaseSkeleton = () => (
 
 /* ── 5. Ethical Sourcing Skeleton ── */
 export const EthicalSourcingSkeleton = () => (
-  <section style={{ padding: 'clamp(40px, 6vw, 60px) 0', backgroundColor: '#220150' }}>
+  <section style={{ padding: 'clamp(40px, 6vw, 60px) 0', backgroundColor: 'var(--section-dark-bg, #220150)' }}>
     <div className="container">
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '36px', alignItems: 'center' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>

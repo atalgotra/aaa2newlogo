@@ -81,7 +81,7 @@ const TestimonialSlider = () => {
             {marqueeItems.map((item, index) => (
               <div key={`${item.id}-${index}`} className="testimonial-card">
                 {/* Background Watermark Quote in brand indigo */}
-                <Quote className="quote-watermark" size={60} color="#220150" fill="#220150" />
+                <Quote className="quote-watermark" size={60} color="var(--brand-indigo, #220150)" fill="var(--brand-indigo, #220150)" />
 
                 <div className="quote-icon-wrapper">
                   <Quote size={14} strokeWidth={2.5} />

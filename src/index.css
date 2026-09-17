@@ -46,6 +46,9 @@ html {
   --section-dark-bg: #220150;
   --section-darker-bg: #140038;
 
+  /* PageHero Overlay */
+  --page-hero-overlay: linear-gradient(135deg, rgba(34, 1, 80, 0.88) 0%, rgba(20, 0, 56, 0.82) 60%, rgba(10, 0, 21, 0.92) 100%);
+
   /* Hero Video Filter & Overlay */
   --hero-video-filter: none;
   --hero-overlay-tint: rgba(10, 0, 21, 0.25);
@@ -128,6 +131,9 @@ html {
   --section-dark-bg: #17232D;
   --section-darker-bg: #101820;
 
+  /* PageHero Overlay */
+  --page-hero-overlay: linear-gradient(135deg, rgba(23, 35, 45, 0.86) 0%, rgba(23, 32, 42, 0.80) 60%, rgba(16, 24, 32, 0.92) 100%);
+
   /* Hero Video Filter & Overlay */
   --hero-video-filter: brightness(0.95) contrast(1.02) saturate(0.92);
   --hero-overlay-tint: rgba(246, 242, 233, 0.06);
@@ -198,6 +204,9 @@ html {
   /* Section Alternation (Deep Graphite & Steel Rhythm) */
   --section-dark-bg: #111A21;
   --section-darker-bg: #080D12;
+
+  /* PageHero Overlay */
+  --page-hero-overlay: linear-gradient(135deg, rgba(17, 26, 33, 0.90) 0%, rgba(8, 13, 18, 0.85) 60%, rgba(5, 8, 11, 0.94) 100%);
 
   /* Hero Video Filter & Overlay */
   --hero-video-filter: none;
@@ -270,6 +279,9 @@ html {
   --section-dark-bg: #0B1424;
   --section-darker-bg: #05070B;
 
+  /* PageHero Overlay */
+  --page-hero-overlay: linear-gradient(135deg, rgba(11, 20, 36, 0.92) 0%, rgba(5, 7, 11, 0.86) 60%, rgba(3, 5, 8, 0.95) 100%);
+
   /* Hero Video Filter & Overlay (No filters that alter hero-nexus appearance) */
   --hero-video-filter: none;
   --hero-overlay-tint: transparent;
@@ -340,6 +352,9 @@ html {
   /* Section Dark Backgrounds */
   --section-dark-bg: #17232D;
   --section-darker-bg: #0F171E;
+
+  /* PageHero Overlay */
+  --page-hero-overlay: linear-gradient(135deg, rgba(15, 23, 30, 0.90) 0%, rgba(21, 90, 138, 0.50) 60%, rgba(23, 35, 45, 0.92) 100%);
 
   /* Hero Video Filter & Overlay */
   --hero-video-filter: none;
@@ -2025,7 +2040,7 @@ body.modal-open .scroll-to-top-btn {
   width: min(320px, 88vw);
   max-width: 88vw;
   height: 100vh;
-  background-color: #220150;
+  background-color: var(--section-dark-bg, #220150);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
   border-top-left-radius: 20px;
@@ -2168,7 +2183,7 @@ body.modal-open .scroll-to-top-btn {
 .page-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(34, 1, 80, 0.85) 0%, rgba(13, 31, 48, 0.75) 60%, rgba(5, 14, 23, 0.9) 100%);
+  background: var(--page-hero-overlay, linear-gradient(135deg, rgba(34, 1, 80, 0.85) 0%, rgba(13, 31, 48, 0.75) 60%, rgba(5, 14, 23, 0.9) 100%));
   z-index: 2;
   pointer-events: none;
 }
@@ -2316,8 +2331,8 @@ body.modal-open .scroll-to-top-btn {
 }
 
 .pill-badge-light {
-  background-color: rgba(34, 1, 80, 0.08);
-  border: 1px solid rgba(34, 1, 80, 0.12);
+  background-color: var(--selector-item-active-bg, rgba(34, 1, 80, 0.08));
+  border: 1px solid var(--border-light, rgba(34, 1, 80, 0.12));
   color: var(--brand-indigo, #220150);
 }
 
@@ -2386,17 +2401,17 @@ body.modal-open .scroll-to-top-btn {
 /* 4. Stat / Metric Cards */
 .stat-card {
   padding: 26px 20px;
-  background-color: var(--bg-main, #FFFFFF);
+  background-color: var(--bg-surface, var(--bg-main, #FFFFFF));
   border-radius: 16px;
   border: 1px solid var(--border-light, #E2E8F0);
-  box-shadow: 0 8px 24px rgba(34, 1, 80, 0.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
   text-align: center;
   transition: all 0.3s ease;
 }
 
 .stat-card:hover {
   border-color: var(--brand-indigo, #220150);
-  box-shadow: 0 16px 36px rgba(34, 1, 80, 0.08);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
 }
 
 .stat-number {
@@ -2449,15 +2464,15 @@ body.modal-open .scroll-to-top-btn {
 }
 
 .bento-card-light {
-  background-color: var(--bg-main);
+  background-color: var(--bg-surface, var(--bg-main));
   border: 1px solid var(--border-light, #E2E8F0);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
 }
 
 .bento-card-light:hover {
-  background-color: #F8FAFC;
-  border-color: rgba(34, 1, 80, 0.3);
-  box-shadow: 0 20px 40px rgba(34, 1, 80, 0.12);
+  background-color: var(--bg-surface, #F8FAFC);
+  border-color: var(--border-indigo, rgba(34, 1, 80, 0.3));
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
 /* Watermarks */
@@ -2491,7 +2506,8 @@ body.modal-open .scroll-to-top-btn {
 }
 
 .bento-watermark-tr-light {
-  color: rgba(34, 1, 80, 0.1);
+  color: var(--brand-indigo);
+  opacity: 0.12;
 }
 
 /* Icon Boxes */
@@ -2512,8 +2528,8 @@ body.modal-open .scroll-to-top-btn {
 }
 
 .bento-icon-box-light {
-  background-color: rgba(34, 1, 80, 0.06);
-  border: 1px solid rgba(34, 1, 80, 0.12);
+  background-color: var(--selector-item-active-bg, rgba(34, 1, 80, 0.06));
+  border: 1px solid var(--border-light, rgba(34, 1, 80, 0.12));
 }
 
 /* Titles and Descriptions */
@@ -2668,13 +2684,13 @@ body.modal-open .scroll-to-top-btn {
 
 .testimonial-card {
   width: 310px;
-  background: var(--bg-main);
-  border: 1px solid rgba(34, 1, 80, 0.08);
+  background: var(--bg-surface, var(--bg-main));
+  border: 1px solid var(--border-light, rgba(34, 1, 80, 0.08));
   border-radius: 16px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 6px 20px -6px rgba(34, 1, 80, 0.06);
+  box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.08);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: grab;
   position: relative;
@@ -2687,8 +2703,8 @@ body.modal-open .scroll-to-top-btn {
 
 .testimonial-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 28px -8px rgba(34, 1, 80, 0.16);
-  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 14px 28px -8px rgba(0, 0, 0, 0.16);
+  border-color: var(--border-indigo, rgba(99, 102, 241, 0.3));
 }
 
 .quote-watermark {
@@ -2714,15 +2730,15 @@ body.modal-open .scroll-to-top-btn {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(34, 1, 80, 0.06);
-  color: var(--brand-indigo);
-  border: 1px solid rgba(34, 1, 80, 0.1);
+  background: var(--selector-item-active-bg, rgba(34, 1, 80, 0.06));
+  color: var(--accent-secondary, var(--brand-indigo));
+  border: 1px solid var(--border-light, rgba(34, 1, 80, 0.1));
 }
 
 .testimonial-text {
   font-size: 13px;
   line-height: 1.55;
-  color: #334155;
+  color: var(--text-secondary, #334155);
   font-weight: 400;
   flex-grow: 1;
   margin: 0 0 16px 0;
@@ -4028,14 +4044,14 @@ body.modal-open .scroll-to-top-btn {
   }
 }
 
-/* ── Inner Page Hero Overlay in Aurelis (Pearl & Silver) ── */
+/* ── Inner Page Hero Overlay in Aurelis (Deep Obsidian & Intelligent Blue) ── */
 [data-theme="aurelis"] .page-hero-overlay {
-  background: linear-gradient(135deg, rgba(247, 249, 250, 0.92) 0%, rgba(238, 242, 244, 0.88) 60%, rgba(220, 227, 231, 0.92) 100%);
+  background: linear-gradient(135deg, rgba(15, 23, 30, 0.90) 0%, rgba(21, 90, 138, 0.50) 60%, rgba(23, 35, 45, 0.92) 100%);
 }
 
 /* ── Media Showcase Card Overlay in Aurelis ── */
 [data-theme="aurelis"] .media-showcase-overlay {
-  background: linear-gradient(to top, rgba(247, 249, 250, 0.95) 0%, rgba(238, 242, 244, 0.60) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(15, 23, 30, 0.95) 0%, rgba(23, 35, 45, 0.60) 60%, transparent 100%);
 }
 
 

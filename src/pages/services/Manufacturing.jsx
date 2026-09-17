@@ -167,17 +167,17 @@ const Manufacturing = () => {
       </section>
 
       {/* Pan-India Map Callout */}
-      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: '#220150', position: 'relative', overflow: 'hidden' }}>
+      <section className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--section-dark-bg, #220150)', transition: 'background-color 0.3s ease', position: 'relative', overflow: 'hidden' }}>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div className="map-callout-grid">
 
             {/* Left Content */}
             <div>
 
-              <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '20px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+              <h2 style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--text-light, #FFFFFF)', marginBottom: '20px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
                 Everywhere Your Product Needs to Be Made.
               </h2>
-              <p style={{ fontSize: '15px', color: '#CBD5E1', lineHeight: 1.6, marginBottom: 'clamp(24px, 3.5vw, 40px)' }}>
+              <p style={{ fontSize: '15px', color: 'rgba(255, 255, 255, 0.78)', lineHeight: 1.6, marginBottom: 'clamp(24px, 3.5vw, 40px)' }}>
                 India is not a single factory—it is a mosaic of hyper-specialized industrial zones. We maintain permanent, on-the-ground expertise in every major production hub. This enables us to match every product with the right region, supplier, and manufacturing capability.
               </p>
 
@@ -200,7 +200,7 @@ const Manufacturing = () => {
                     }}
                   >
                     <div style={{ color: '#FFFFFF', fontWeight: 600, fontSize: '15px', marginBottom: '6px' }}>{item.label}</div>
-                    <div style={{ color: '#CBD5E1', fontSize: '13px', fontWeight: 500 }}>{item.hubs}</div>
+                    <div style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '13px', fontWeight: 500 }}>{item.hubs}</div>
                   </motion.div>
                 ))}
               </div>
@@ -218,7 +218,7 @@ const Manufacturing = () => {
                     position: 'relative',
                     borderRadius: '24px',
                     overflow: 'hidden',
-                    backgroundColor: 'rgba(20, 0, 56, 0.4)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.25)',
                     border: '1px solid rgba(255, 255, 255, 0.1)',
                     boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
                     display: 'flex',

@@ -336,7 +336,7 @@ const Products = () => {
       </section>
 
       {/* Apparels Category */}
-      <section id="apparels" className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 60px) 0', backgroundColor: '#220150' }}>
+      <section id="apparels" className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 60px) 0', backgroundColor: 'var(--section-dark-bg, #220150)', transition: 'background-color 0.3s ease' }}>
         <div className="container">
           <div style={{ marginBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '16px' }}>
             <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>Our Apparels</h2>
@@ -392,19 +392,19 @@ const Products = () => {
       </section>
 
       {/* Apparels Category Feature */}
-      <section id="apparels-feature" style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: '#220150' }}>
+      <section id="apparels-feature" style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: 'var(--section-dark-bg, #220150)', transition: 'background-color 0.3s ease' }}>
         <div className="container">
           <div className="about-grid" style={{ alignItems: 'center' }}>
             
             {/* Left Content */}
             <div className="product-feature-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
-                <TextReveal text="Apparels & High" elementType="span" style={{ color: '#FFFFFF' }} />
-                <span style={{ color: '#FFFFFF' }}>
-                  <TextReveal text="Fashion" elementType="span" delay={0.15} style={{ color: '#FFFFFF' }} />
+              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--text-light, #FFFFFF)', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+                <TextReveal text="Apparels & High" elementType="span" style={{ color: 'var(--text-light, #FFFFFF)' }} />
+                <span style={{ color: 'var(--accent-secondary, #FFFFFF)' }}>
+                  <TextReveal text="Fashion" elementType="span" delay={0.15} style={{ color: 'var(--accent-secondary, #FFFFFF)' }} />
                 </span>
               </h2>
-              <p className="product-feature-desc" style={{ color: 'var(--text-light)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
+              <p className="product-feature-desc" style={{ color: 'rgba(255, 255, 255, 0.78)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
                 From trend-setting fast fashion collections to bespoke luxury evening wear and timeless classics. Crafted with certified sustainable fabrics and precision finishing across premier Indian manufacturing hubs.
               </p>
               <motion.div className="product-feature-btn" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>
@@ -423,7 +423,7 @@ const Products = () => {
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
+                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)' }}
                 >
                   <HoverFeatureImage videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/6a18173c8cb4a.mp4" alt="Apparels & High Fashion" />
                 </motion.div>
@@ -435,7 +435,7 @@ const Products = () => {
       </section>
 
       {/* Bags & Accessories */}
-      <section id="bags" style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: '#05080F' }}>
+      <section id="bags" style={{ paddingTop: '40px', paddingBottom: '40px', backgroundColor: 'var(--section-darker-bg, #05080F)', transition: 'background-color 0.3s ease' }}>
         <div className="container">
           <div className="about-grid" style={{ alignItems: 'center' }}>
 
@@ -447,7 +447,7 @@ const Products = () => {
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
+                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)' }}
                 >
                   <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_bags.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/meta_ai_video.mp4" alt="Luxury Handbags" />
                   <div className="page-hero-overlay" style={{ position: 'absolute', inset: 0, borderRadius: '24px', opacity: 0.3 }} />
@@ -528,7 +528,7 @@ const Products = () => {
       </section>
 
       {/* Wellness Items */}
-      <section id="wellness" className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: '#220150', borderTop: '1px solid var(--border-light)' }}>
+      <section id="wellness" className="gsap-section" style={{ padding: 'clamp(60px, 8vw, 100px) 0', backgroundColor: 'var(--section-dark-bg, #220150)', transition: 'background-color 0.3s ease', borderTop: '1px solid var(--border-light)' }}>
         <div className="container">
           <div className="about-grid" style={{ alignItems: 'center' }}>
 
@@ -543,7 +543,7 @@ const Products = () => {
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
+                  style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)' }}
                 >
                   <HoverFeatureImage imageSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/products_wellness.png" videoSrc="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/wellness_hero.mp4" alt="Copper Wellness Item" />
                 </motion.div>
@@ -552,14 +552,14 @@ const Products = () => {
 
 
  <div className="product-feature-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
-                <TextReveal text="Copper Vessels &" elementType="span" style={{ color: '#FFFFFF' }} />
-                <span style={{ color: '#FFFFFF' }}>
-                  <TextReveal text="Holistic Tools" elementType="span" delay={0.15} style={{ color: '#FFFFFF' }} />
+              <h2 className="product-feature-title" style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800, color: 'var(--text-light, #FFFFFF)', marginBottom: '24px', lineHeight: 1.22, fontFamily: 'var(--font-display)' }}>
+                <TextReveal text="Copper Vessels &" elementType="span" style={{ color: 'var(--text-light, #FFFFFF)' }} />
+                <span style={{ color: 'var(--accent-secondary, #FFFFFF)' }}>
+                  <TextReveal text="Holistic Tools" elementType="span" delay={0.15} style={{ color: 'var(--accent-secondary, #FFFFFF)' }} />
                 </span>
               </h2>
 
-              <p className="product-feature-desc" style={{ color: 'var(--text-light)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
+              <p className="product-feature-desc" style={{ color: 'rgba(255, 255, 255, 0.78)', fontSize: '15px', lineHeight: 1.6, marginBottom: '24px' }}>
                 Purify your environment and revitalize your body with authentic, beautifully handcrafted traditional tools.
               </p>
               <motion.div className="product-feature-btn" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ width: 'fit-content' }}>

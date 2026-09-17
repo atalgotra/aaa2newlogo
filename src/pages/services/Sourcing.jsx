@@ -146,16 +146,16 @@ const Sourcing = () => {
       />
 
       {/* Zero Risk Banner */}
-      <section className="gsap-section" style={{ padding: 'clamp(24px, 3.5vw, 36px) 0', backgroundColor: '#220150', color: '#FFFFFF' }}>
+      <section className="gsap-section" style={{ padding: 'clamp(24px, 3.5vw, 36px) 0', backgroundColor: 'var(--section-dark-bg, #220150)', color: 'var(--text-light, #FFFFFF)', transition: 'background-color 0.3s ease' }}>
         <div className="container">
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
             <div style={{ flex: '1 1 500px', display: 'flex', alignItems: 'center', gap: '16px' }}>
               <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.15)', padding: '10px', borderRadius: '50%', flexShrink: 0 }}>
-                <ShieldCheck size={24} color="var(--text-light)" />
+                <ShieldCheck size={24} color="var(--accent-secondary, var(--text-light))" />
               </div>
               <div>
-                <h2 style={{ fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>The "Zero Risk" Mandate</h2>
-                <p style={{ fontSize: '14px', color: '#CBD5E1', margin: 0, lineHeight: 1.45 }}>We never recommend unknown factories or unvetted material sources.</p>
+                <h2 style={{ fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 800, color: 'var(--text-light, #FFFFFF)', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>The "Zero Risk" Mandate</h2>
+                <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.75)', margin: 0, lineHeight: 1.45 }}>We never recommend unknown factories or unvetted material sources.</p>
               </div>
             </div>
           </div>

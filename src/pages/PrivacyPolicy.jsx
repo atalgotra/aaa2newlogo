@@ -17,7 +17,7 @@ return (
       </Helmet>
       
       <div className="container">
-        <div style={{ maxWidth: '1100px', margin: '0 auto', backgroundColor: '#FFFFFF', padding: 'clamp(32px, 5vw, 60px)', borderRadius: '24px', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', backgroundColor: 'var(--bg-surface, #FFFFFF)', border: '1px solid var(--border-light)', padding: 'clamp(32px, 5vw, 60px)', borderRadius: '24px', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>
           <h1 style={{ fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '32px' }}>Privacy Policy</h1>
           
           <div style={{ color: 'var(--text-secondary)', fontSize: '16px', lineHeight: '1.8', display: 'flex', flexDirection: 'column', gap: '24px' }}>

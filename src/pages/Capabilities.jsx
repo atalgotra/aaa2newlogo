@@ -258,9 +258,9 @@ const Capabilities = () => {
                   onClick={togglePhysicalScale}
                   style={{ position: 'relative', padding: '16px', height: '100%', maxHeight: '380px', boxSizing: 'border-box', cursor: 'pointer' }}
                 >
-                  <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(34, 1, 80, 0.03)', borderRadius: '24px' }}></div>
+                  <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--selector-item-active-bg, rgba(34, 1, 80, 0.03))', borderRadius: '24px' }}></div>
                   <motion.div
-                    whileHover={{ y: -6, boxShadow: '0 25px 45px rgba(34, 1, 80, 0.16)' }}
+                    whileHover={{ y: -6, boxShadow: '0 25px 45px rgba(0, 0, 0, 0.16)' }}
                     transition={{ duration: 0.3 }}
                     className="media-showcase-card"
                     style={{ position: 'relative', zIndex: 2, borderRadius: '20px', cursor: 'pointer', height: '100%', maxHeight: '350px', overflow: 'hidden' }}
@@ -281,7 +281,7 @@ const Capabilities = () => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.85, y: 15 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        style={{ position: 'absolute', bottom: '30px', right: '30px', zIndex: 3, backgroundColor: '#FFFFFF', padding: '18px', borderRadius: '14px', boxShadow: '0 15px 35px rgba(34,1,80,0.12)', maxWidth: '240px', border: '1px solid var(--border-light)', userSelect: 'none' }}
+                        style={{ position: 'absolute', bottom: '30px', right: '30px', zIndex: 3, backgroundColor: 'var(--bg-surface, #FFFFFF)', padding: '18px', borderRadius: '14px', boxShadow: '0 15px 35px rgba(0, 0, 0, 0.12)', maxWidth: '240px', border: '1px solid var(--border-light)', userSelect: 'none' }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                           <Factory size={20} color="var(--brand-indigo)" />
@@ -318,9 +318,9 @@ const Capabilities = () => {
                   onClick={toggleZeroRisk}
                   style={{ position: 'relative', padding: '16px', cursor: 'pointer' }}
                 >
-                  <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(34, 1, 80, 0.03)', borderRadius: '24px' }}></div>
+                  <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--selector-item-active-bg, rgba(34, 1, 80, 0.03))', borderRadius: '24px' }}></div>
                   <motion.div
-                    whileHover={{ y: -6, boxShadow: '0 25px 45px rgba(34, 1, 80, 0.16)' }}
+                    whileHover={{ y: -6, boxShadow: '0 25px 45px rgba(0, 0, 0, 0.16)' }}
                     transition={{ duration: 0.3 }}
                     className="media-showcase-card"
                     style={{ position: 'relative', zIndex: 2, borderRadius: '20px', cursor: 'pointer', overflow: 'hidden' }}
@@ -330,7 +330,7 @@ const Capabilities = () => {
                       transition={{ duration: 0.5, ease: "easeOut" }}
                       loading="lazy"
                       src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/services-digital.png"
-                      alt="Digital Sourcing &amp; Engineering Operations"
+                      alt="Digital Sourcing & Engineering Operations"
                       style={{ width: '100%', display: 'block', height: '100%', objectFit: 'cover' }}
                     />
                     <div className="page-hero-overlay" style={{ borderRadius: '20px', opacity: 0.4 }} />
@@ -342,7 +342,7 @@ const Capabilities = () => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.85, y: 15 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        style={{ position: 'absolute', bottom: '30px', right: '30px', zIndex: 3, backgroundColor: '#FFFFFF', padding: '18px', borderRadius: '14px', boxShadow: '0 15px 35px rgba(34,1,80,0.12)', maxWidth: '240px', border: '1px solid var(--border-light)', userSelect: 'none' }}
+                        style={{ position: 'absolute', bottom: '30px', right: '30px', zIndex: 3, backgroundColor: 'var(--bg-surface, #FFFFFF)', padding: '18px', borderRadius: '14px', boxShadow: '0 15px 35px rgba(0, 0, 0, 0.12)', maxWidth: '240px', border: '1px solid var(--border-light)', userSelect: 'none' }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                           <Cpu size={20} color="var(--brand-indigo)" />
@@ -378,7 +378,7 @@ const Capabilities = () => {
                   "Once verified, we source materials from specialized markets or develop unique digital components specifically for you."
                 ].map((item, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                    <div style={{ marginTop: '2px', backgroundColor: 'rgba(34, 1, 80, 0.06)', borderRadius: '50%', padding: '4px', flexShrink: 0 }}>
+                    <div style={{ marginTop: '2px', backgroundColor: 'var(--selector-item-active-bg, rgba(34, 1, 80, 0.06))', borderRadius: '50%', padding: '4px', flexShrink: 0 }}>
                       <ChevronRight size={14} color="var(--brand-indigo)" strokeWidth={3} />
                     </div>
                     <span style={{ fontSize: '14.5px', color: 'var(--text-primary)', lineHeight: '1.5', fontWeight: 500 }}>{item}</span>
