@@ -65,7 +65,7 @@ const ProductShowcaseSection = ({
     <section
       id="products"
       className="section-padding gsap-section"
-      style={{ backgroundColor: '#220150', color: '#FFFFFF' }}
+      style={{ backgroundColor: 'var(--section-dark-bg, #220150)', color: 'var(--text-light, #FFFFFF)', transition: 'background-color 0.28s ease' }}
     >
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '56px' }}>

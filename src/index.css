@@ -2,20 +2,29 @@ html {
   scroll-behavior: smooth;
 }
 
-:root {
-  /* Colors - AAA2 Deep Midnight Blue (#220150) & Electric Sapphire Palette */
+:root,
+[data-theme="default"] {
+  /* Atmosphere: DEFAULT (Original AAA 2 Innovate Royal Deep Indigo / Midnight Violet) */
+  --app-bg: #140038;
   --bg-main: #FFFFFF;
   --bg-secondary: #F0F4FA;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #FFFFFF;
   --bg-dark: #220150;
+  --bg-darker: #0a0015;
   --bg-deep-indigo: #140038;
   --bg-overlay: rgba(34, 1, 80, 0.7);
 
-  /* Primary Brand Accent Colors (Electric Blue & Cyan, No Purple) */
+  /* Primary Brand Accent Colors */
   --brand-blue: #2563EB;
   --brand-blue-hover: #1D4ED8;
   --brand-blue-light: #3B82F6;
   --brand-indigo: #220150;
   --brand-cyan: #00F0FF;
+
+  --accent-primary: #2563EB;
+  --accent-secondary: #220150;
+  --accent-champagne: #CBD5E1;
 
   /* Compatibility Mapping */
   --brand-orange: #2563EB;
@@ -30,22 +39,335 @@ html {
   /* Typography */
   --text-primary: #220150;
   --text-secondary: #475569;
+  --text-tertiary: #94A3B8;
   --text-light: #FFFFFF;
+
+  /* Section Dark Background */
+  --section-dark-bg: #220150;
+  --section-darker-bg: #140038;
+
+  /* Hero Video Filter & Overlay */
+  --hero-video-filter: none;
+  --hero-overlay-tint: rgba(10, 0, 21, 0.25);
+  --hero-gradient-overlay: linear-gradient(to bottom, rgba(10,0,21,0.25) 0%, transparent 22%, transparent 55%, rgba(10,0,21,0.65) 80%, #0a0015 100%);
+  --hero-bg-vignette: radial-gradient(ellipse 85% 75% at 50% 40%, rgba(5,0,18,0.40) 0%, rgba(10,0,21,0.82) 100%);
+  --hero-motto-color: rgba(255, 255, 255, 0.7);
+  --hero-motto-line: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.8), rgba(59, 130, 246, 0.8), transparent);
+  --hero-motto-glow: 0 0 10px rgba(99, 102, 241, 0.7), 0 0 4px rgba(34, 1, 80, 0.9);
+
+  /* Navbar */
+  --navbar-bg-solid: rgba(34, 1, 80, 0.95);
+  --navbar-bg-transparent-base: 34, 1, 80;
+  --navbar-border-color: rgba(255, 255, 255, 0.15);
+  --navbar-text-color: #FFFFFF;
+  --navbar-brand-color: #FFFFFF;
+  --navbar-item-active-color: #FFFFFF;
+  --navbar-item-active-bg: rgba(255, 255, 255, 0.08);
+
+  /* Theme Selector */
+  --selector-trigger-bg: rgba(255, 255, 255, 0.08);
+  --selector-trigger-border: rgba(255, 255, 255, 0.20);
+  --selector-trigger-color: #FFFFFF;
+  --selector-panel-bg: #0d1f30;
+  --selector-panel-border: rgba(255, 255, 255, 0.15);
+  --selector-panel-text: #FFFFFF;
+  --selector-panel-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  --theme-item-active-bg: rgba(37, 99, 235, 0.15);
 
   /* Font Families */
   --font-display: 'Orbitron', sans-serif;
-  /* Hero headlines, major section titles */
   --font-heading: 'Chakra Petch', sans-serif;
-  /* Sub-headings, nav, labels, counters */
   --font-body: 'Plus Jakarta Sans', sans-serif;
-  /* All body text, descriptions */
   --font-accent: 'Michroma', sans-serif;
-  /* Stat numbers, decorative accents */
 
   /* Layout & Responsive Margins / Gutters */
   --container-max-width: 1280px;
   --page-gutter: clamp(32px, 6vw, 64px);
   --section-gutter: var(--page-gutter);
+}
+
+[data-theme="atelier"] {
+  /* Atmosphere: ATELIER (Ivory / Champagne / Modern Craft) */
+  --app-bg: #F6F2E9;
+  --bg-main: #F6F2E9;
+  --bg-secondary: #EDE7DA;
+  --bg-surface: #FBF9F4;
+  --bg-elevated: #FFFFFF;
+  --bg-dark: #17232D;
+  --bg-darker: #101820;
+  --bg-deep-indigo: #17232D;
+  --bg-overlay: rgba(23, 35, 45, 0.7);
+
+  /* Primary Brand Accent Colors */
+  --brand-blue: #164B78;
+  --brand-blue-hover: #0F3556;
+  --brand-blue-light: #205D91;
+  --brand-indigo: #17202A;
+  --brand-cyan: #164B78;
+
+  --accent-primary: #17202A;
+  --accent-secondary: #B89B62;
+  --accent-champagne: #B89B62;
+
+  --brand-orange: #E87522;
+  --brand-orange-hover: #D06316;
+  --brand-grey: #59616A;
+
+  /* Borders */
+  --border-light: #D9D2C5;
+  --border-indigo: #D9D2C5;
+  --border-medium: #D9D2C5;
+
+  /* Typography */
+  --text-primary: #17202A;
+  --text-secondary: #59616A;
+  --text-tertiary: #7B807F;
+  --text-light: #F6F2E9;
+
+  /* Section Dark Navy Features */
+  --section-dark-bg: #17232D;
+  --section-darker-bg: #101820;
+
+  /* Hero Video Filter & Overlay */
+  --hero-video-filter: brightness(0.95) contrast(1.02) saturate(0.92);
+  --hero-overlay-tint: rgba(246, 242, 233, 0.06);
+  --hero-gradient-overlay: linear-gradient(to bottom, rgba(23, 35, 45, 0.32) 0%, rgba(23, 35, 45, 0.08) 35%, rgba(23, 35, 45, 0.20) 70%, rgba(246, 242, 233, 0.82) 95%, #F6F2E9 100%);
+  --hero-bg-vignette: radial-gradient(ellipse 85% 75% at 50% 42%, rgba(246, 242, 233, 0.02) 0%, rgba(23, 35, 45, 0.38) 100%);
+  --hero-motto-color: rgba(246, 242, 233, 0.88);
+  --hero-motto-line: linear-gradient(90deg, transparent, rgba(232, 117, 34, 0.9), rgba(184, 155, 98, 0.9), transparent);
+  --hero-motto-glow: 0 0 10px rgba(232, 117, 34, 0.5), 0 0 4px rgba(184, 155, 98, 0.6);
+
+  /* Navbar */
+  --navbar-bg-solid: rgba(246, 242, 233, 0.95);
+  --navbar-bg-transparent-base: 246, 242, 233;
+  --navbar-border-color: #D9D2C5;
+  --navbar-text-color: #17202A;
+  --navbar-brand-color: #17202A;
+  --navbar-item-active-color: #164B78;
+  --navbar-item-active-bg: rgba(22, 75, 120, 0.08);
+
+  /* Theme Selector */
+  --selector-trigger-bg: #FBF9F4;
+  --selector-trigger-border: #D9D2C5;
+  --selector-trigger-color: #17202A;
+  --selector-panel-bg: #FBF9F4;
+  --selector-panel-border: #D9D2C5;
+  --selector-panel-text: #17202A;
+  --selector-panel-shadow: 0 12px 32px rgba(23, 32, 42, 0.12);
+  --theme-item-active-bg: rgba(232, 117, 34, 0.08);
+}
+
+[data-theme="forge"] {
+  /* Atmosphere: FORGE (Industrial Intelligence / Advanced Engineering / Precision) */
+  --app-bg: #080D12;
+  --bg-main: #080D12;
+  --bg-secondary: #111A21;
+  --bg-surface: #111A21;
+  --bg-elevated: #1C2832;
+  --bg-dark: #111A21;
+  --bg-darker: #080D12;
+  --bg-deep-indigo: #080D12;
+  --bg-overlay: rgba(8, 13, 18, 0.85);
+
+  /* Primary Brand Accent Colors — Electric & Precision Engineering Blue */
+  --brand-blue: #1677C8;
+  --brand-blue-hover: #45B8FF;
+  --brand-blue-light: #45B8FF;
+  --brand-indigo: #EAF3F7;
+  --brand-cyan: #45B8FF;
+
+  --accent-primary: #1677C8;
+  --accent-secondary: #45B8FF;
+  --accent-champagne: #27343E;
+
+  --brand-orange: #E87522;
+  --brand-orange-hover: #D06316;
+  --brand-grey: #8EA2AE;
+
+  /* Borders — Precision Machine Tolerances */
+  --border-light: rgba(221, 229, 234, 0.08);
+  --border-indigo: rgba(69, 184, 255, 0.22);
+  --border-medium: rgba(221, 229, 234, 0.16);
+
+  /* Typography — Ice White & Muted Steel */
+  --text-primary: #EAF3F7;
+  --text-secondary: #8EA2AE;
+  --text-tertiary: #5A6D79;
+  --text-light: #FFFFFF;
+
+  /* Section Alternation (Deep Graphite & Steel Rhythm) */
+  --section-dark-bg: #111A21;
+  --section-darker-bg: #080D12;
+
+  /* Hero Video Filter & Overlay */
+  --hero-video-filter: none;
+  --hero-overlay-tint: transparent;
+  --hero-gradient-overlay: linear-gradient(to bottom, rgba(5, 8, 11, 0.20) 0%, rgba(5, 8, 11, 0.08) 45%, rgba(5, 8, 11, 0.70) 100%);
+  --hero-bg-vignette: radial-gradient(ellipse 85% 75% at 50% 42%, rgba(5, 8, 11, 0.04) 0%, rgba(5, 8, 11, 0.40) 100%);
+  --hero-motto-color: #EAF3F7;
+  --hero-motto-line: linear-gradient(90deg, transparent, rgba(69, 184, 255, 0.8), rgba(232, 117, 34, 0.9), transparent);
+  --hero-motto-glow: 0 0 8px rgba(69, 184, 255, 0.3);
+
+  /* Navbar */
+  --navbar-bg-solid: rgba(11, 17, 23, 0.92);
+  --navbar-bg-transparent-base: 8, 13, 18;
+  --navbar-border-color: rgba(69, 184, 255, 0.10);
+  --navbar-text-color: #8EA2AE;
+  --navbar-brand-color: #EAF3F7;
+  --navbar-item-active-color: #EAF3F7;
+  --navbar-item-active-bg: transparent;
+
+  /* Theme Selector */
+  --selector-trigger-bg: rgba(17, 26, 33, 0.85);
+  --selector-trigger-border: rgba(69, 184, 255, 0.22);
+  --selector-trigger-color: #EAF3F7;
+  --selector-panel-bg: #111A21;
+  --selector-panel-border: rgba(69, 184, 255, 0.20);
+  --selector-panel-text: #EAF3F7;
+  --selector-panel-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  --theme-item-active-bg: rgba(22, 119, 200, 0.16);
+}
+
+[data-theme="nexus"] {
+  /* Atmosphere: NEXUS (Global Intelligence / Connectivity / Future Commerce) */
+  --app-bg: #05070B;
+  --bg-main: #05070B;
+  --bg-secondary: #0B1424;
+  --bg-surface: #0B1424;
+  --bg-elevated: #102B4A;
+  --bg-dark: #0B1424;
+  --bg-darker: #05070B;
+  --bg-deep-indigo: #05070B;
+  --bg-overlay: rgba(5, 7, 11, 0.88);
+
+  /* Primary Brand Accent Colors */
+  --brand-blue: #1769AA;
+  --brand-blue-hover: #13588F;
+  --brand-blue-light: #39C6E8;
+  --brand-indigo: #EAF7FA;
+  --brand-cyan: #39C6E8;
+
+  --accent-primary: #1769AA;
+  --accent-secondary: #39C6E8;
+  --accent-champagne: #102B4A;
+
+  --brand-orange: #E87522;
+  --brand-orange-hover: #D06316;
+  --brand-grey: #718692;
+
+  /* Borders */
+  --border-light: rgba(234, 247, 250, 0.10);
+  --border-indigo: rgba(57, 198, 232, 0.20);
+  --border-medium: rgba(234, 247, 250, 0.18);
+
+  /* Typography */
+  --text-primary: #EAF7FA;
+  --text-secondary: #AABCC5;
+  --text-tertiary: #718692;
+  --text-light: #EAF7FA;
+
+  /* Section Dark Backgrounds */
+  --section-dark-bg: #0B1424;
+  --section-darker-bg: #05070B;
+
+  /* Hero Video Filter & Overlay (No filters that alter hero-nexus appearance) */
+  --hero-video-filter: none;
+  --hero-overlay-tint: transparent;
+  --hero-gradient-overlay: linear-gradient(to bottom, rgba(5, 7, 11, 0.35) 0%, rgba(5, 7, 11, 0.04) 35%, rgba(5, 7, 11, 0.30) 75%, #05070B 100%);
+  --hero-bg-vignette: radial-gradient(ellipse 85% 75% at 50% 42%, rgba(5, 7, 11, 0.04) 0%, rgba(5, 7, 11, 0.45) 100%);
+  --hero-motto-color: #EAF7FA;
+  --hero-motto-line: linear-gradient(90deg, transparent, rgba(57, 198, 232, 0.8), rgba(232, 117, 34, 0.85), transparent);
+  --hero-motto-glow: 0 0 10px rgba(57, 198, 232, 0.35), 0 0 4px rgba(232, 117, 34, 0.45);
+
+  /* Navbar */
+  --navbar-bg-solid: rgba(5, 7, 11, 0.95);
+  --navbar-bg-transparent-base: 5, 7, 11;
+  --navbar-border-color: rgba(234, 247, 250, 0.10);
+  --navbar-text-color: #EAF7FA;
+  --navbar-brand-color: #EAF7FA;
+  --navbar-item-active-color: #39C6E8;
+  --navbar-item-active-bg: rgba(57, 198, 232, 0.08);
+
+  /* Theme Selector */
+  --selector-trigger-bg: rgba(11, 20, 36, 0.90);
+  --selector-trigger-border: rgba(234, 247, 250, 0.12);
+  --selector-trigger-color: #EAF7FA;
+  --selector-panel-bg: #0B1424;
+  --selector-panel-border: rgba(57, 198, 232, 0.25);
+  --selector-panel-text: #EAF7FA;
+  --selector-panel-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+  --theme-item-active-bg: rgba(23, 105, 170, 0.20);
+}
+
+[data-theme="aurelis"] {
+  /* Atmosphere: AURELIS (Light Intelligence / Global Elegance / Human Innovation) */
+  --app-bg: #F7F9FA;
+  --bg-main: #F7F9FA;
+  --bg-secondary: #EEF2F4;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #FFFFFF;
+  --bg-dark: #17232D;
+  --bg-darker: #0F171E;
+  --bg-deep-indigo: #17232D;
+  --bg-overlay: rgba(247, 249, 250, 0.75);
+
+  /* Primary Brand Accent Colors */
+  --brand-blue: #155A8A;
+  --brand-blue-hover: #0F456B;
+  --brand-blue-light: #2D91C9;
+  --brand-indigo: #17232D;
+  --brand-cyan: #2D91C9;
+
+  --accent-primary: #155A8A;
+  --accent-secondary: #2D91C9;
+  --accent-champagne: #B89B62;
+
+  --brand-orange: #E87522;
+  --brand-orange-hover: #D06316;
+  --brand-grey: #667783;
+
+  /* Borders */
+  --border-light: rgba(23, 35, 45, 0.10);
+  --border-indigo: rgba(21, 90, 138, 0.20);
+  --border-medium: rgba(23, 35, 45, 0.16);
+
+  /* Typography */
+  --text-primary: #17232D;
+  --text-secondary: #667783;
+  --text-tertiary: #8A9AA5;
+  --text-light: #F7F9FA;
+
+  /* Section Dark Backgrounds */
+  --section-dark-bg: #17232D;
+  --section-darker-bg: #0F171E;
+
+  /* Hero Video Filter & Overlay */
+  --hero-video-filter: none;
+  --hero-overlay-tint: transparent;
+  --hero-gradient-overlay: linear-gradient(to bottom, rgba(247, 249, 250, 0.15) 0%, transparent 40%, rgba(247, 249, 250, 0.40) 80%, #F7F9FA 100%);
+  --hero-bg-vignette: radial-gradient(ellipse 85% 75% at 50% 45%, transparent 40%, rgba(247, 249, 250, 0.40) 100%);
+  --hero-motto-color: #17232D;
+  --hero-motto-line: linear-gradient(90deg, transparent, rgba(21, 90, 138, 0.7), rgba(232, 117, 34, 0.8), transparent);
+  --hero-motto-glow: 0 0 8px rgba(21, 90, 138, 0.15);
+
+  /* Navbar */
+  --navbar-bg-solid: rgba(255, 255, 255, 0.92);
+  --navbar-bg-transparent-base: 255, 255, 255;
+  --navbar-border-color: rgba(23, 35, 45, 0.10);
+  --navbar-text-color: #17232D;
+  --navbar-brand-color: #17232D;
+  --navbar-item-active-color: #155A8A;
+  --navbar-item-active-bg: rgba(21, 90, 138, 0.08);
+
+  /* Theme Selector */
+  --selector-trigger-bg: rgba(255, 255, 255, 0.90);
+  --selector-trigger-border: rgba(23, 35, 45, 0.12);
+  --selector-trigger-color: #17232D;
+  --selector-panel-bg: #FFFFFF;
+  --selector-panel-border: rgba(23, 35, 45, 0.12);
+  --selector-panel-text: #17232D;
+  --selector-panel-shadow: 0 16px 40px rgba(23, 35, 45, 0.12);
+  --theme-item-active-bg: rgba(21, 90, 138, 0.08);
 }
 
 /* ── Disable native iOS Safari / WebKit media control overlays on background videos ── */
@@ -80,7 +402,8 @@ video::-webkit-media-controls-panel {
 html,
 body,
 #root {
-  background-color: #140038;
+  background-color: var(--app-bg, #0d1f30);
+  transition: background-color 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
@@ -93,6 +416,29 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+}
+
+/* Atmosphere Theme Switch Smooth Transition Rules */
+.app-container,
+.navbar-header,
+.navbar-header *,
+.theme-selector-trigger,
+.theme-selector-panel,
+.stat-card,
+.service-bento-card,
+.contact-card,
+.testimonial-card,
+.testimonial-section,
+.page-hero,
+.page-hero-overlay,
+.configurator-input,
+.configurator-select,
+.configurator-textarea,
+footer {
+  transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Display headings — Orbitron for cinematic impact */
@@ -414,8 +760,8 @@ button {
   width: 100%;
   padding: 16px 0;
   background: var(--bg-main);
-  border-top: 1px solid rgba(34, 1, 80, 0.08);
-  border-bottom: 1px solid rgba(34, 1, 80, 0.08);
+  border-top: 1px solid var(--border-light, rgba(34, 1, 80, 0.08));
+  border-bottom: 1px solid var(--border-light, rgba(34, 1, 80, 0.08));
 }
 
 .marquee-container::before,
@@ -431,12 +777,12 @@ button {
 
 .marquee-container::before {
   left: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  background: linear-gradient(to right, var(--bg-main), transparent);
 }
 
 .marquee-container::after {
   right: 0;
-  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  background: linear-gradient(to left, var(--bg-main), transparent);
 }
 
 .marquee-track {
@@ -455,7 +801,7 @@ button {
   padding: 0 20px;
   font-size: 13.5px;
   font-weight: 700;
-  color: #64748B;
+  color: var(--text-secondary, #64748B);
   font-family: var(--font-heading);
   letter-spacing: 1.5px;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -463,7 +809,7 @@ button {
 }
 
 .marquee-item:hover {
-  color: #220150;
+  color: var(--accent-secondary, var(--accent-primary, #220150));
   transform: scale(1.03);
 }
 
@@ -504,8 +850,7 @@ button {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(34, 1, 80, 0.70) 0%, rgba(34, 1, 80, 0.50) 45%, rgba(34, 1, 80, 0.20) 75%, transparent 100%);
-  mix-blend-mode: multiply;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.40) 45%, rgba(0, 0, 0, 0.10) 75%, transparent 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -514,7 +859,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.85;
+  opacity: 1;
   will-change: transform;
   transform: scale(1.001);
   backface-visibility: hidden;
@@ -1112,16 +1457,14 @@ button {
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.12;
-  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.5s ease, filter 0.5s ease;
+  opacity: 0.14;
+  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.5s ease;
   z-index: 0;
-  filter: grayscale(40%) brightness(80%);
 }
 
 .service-matrix-card:hover .matrix-card-bg {
   transform: scale(1.08);
-  opacity: 0.45;
-  filter: grayscale(0%) brightness(100%);
+  opacity: 0.40;
 }
 
 .service-matrix-card:hover {
@@ -1186,6 +1529,18 @@ button {
   text-fill-color: transparent;
   animation: indigoSheen 8s ease-in-out infinite alternate;
   filter: drop-shadow(0 2px 24px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 30px rgba(129, 140, 248, 0.45));
+}
+
+.hero-headline-line1,
+.hero-headline-line2 {
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .hero-headline-line1,
+  .hero-headline-line2 {
+    white-space: normal;
+  }
 }
 
 @keyframes indigoSheen {
@@ -1310,7 +1665,7 @@ button {
 }
 
 .spec-modal-container {
-  background: linear-gradient(135deg, rgba(34, 1, 80, 0.95) 0%, rgba(15, 0, 40, 0.98) 100%);
+  background: linear-gradient(135deg, rgba(34, 1, 80, 0.95) 0%, rgba(13, 31, 48, 0.98) 100%);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(37, 99, 235, 0.3);
   border-radius: 28px;
@@ -1667,8 +2022,8 @@ body.modal-open .scroll-to-top-btn {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 250px;
-  max-width: 85vw;
+  width: min(320px, 88vw);
+  max-width: 88vw;
   height: 100vh;
   background-color: #220150;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -1795,7 +2150,7 @@ body.modal-open .scroll-to-top-btn {
   padding-top: var(--hero-pad-top, 175px);
   padding-bottom: var(--hero-pad-bottom, 80px);
   overflow: hidden;
-  background-color: var(--bg-dark, #140038);
+  background-color: var(--bg-dark, #0d1f30);
   width: 100%;
 }
 
@@ -1813,7 +2168,7 @@ body.modal-open .scroll-to-top-btn {
 .page-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(34, 1, 80, 0.85) 0%, rgba(20, 0, 56, 0.75) 60%, rgba(5, 0, 20, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(34, 1, 80, 0.85) 0%, rgba(13, 31, 48, 0.75) 60%, rgba(5, 14, 23, 0.9) 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -2521,3 +2876,1168 @@ body.modal-open .scroll-to-top-btn {
     display: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ATELIER ATMOSPHERE & THEME SYSTEM SPECIALIZED RULES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Atmosphere Console (Signature AAA 2 Innovate Theme Control) ── */
+.theme-selector-trigger,
+.atmosphere-console-trigger {
+  background-color: var(--selector-trigger-bg);
+  border: 1px solid var(--selector-trigger-border);
+  color: var(--selector-trigger-color);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 30px;
+  min-height: 38px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              background-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.theme-selector-trigger:hover,
+.atmosphere-console-trigger:hover {
+  border-color: var(--accent-primary, #E87522);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.theme-selector-trigger:focus-visible,
+.atmosphere-console-trigger:focus-visible {
+  outline: 2px solid var(--accent-primary, #E87522);
+  outline-offset: 2px;
+}
+
+.theme-selector-panel,
+.atmosphere-console-panel {
+  background-color: var(--selector-panel-bg);
+  border: 1px solid var(--selector-panel-border);
+  color: var(--selector-panel-text);
+  box-shadow: var(--selector-panel-shadow);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 20px;
+  padding: 14px;
+  width: 326px;
+  animation: consolePanelEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.atmosphere-console-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 12px 8px 14px;
+  border-radius: 13px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.22s ease,
+              border-color 0.22s ease,
+              box-shadow 0.22s ease;
+}
+
+.atmosphere-console-row:focus-visible {
+  outline: 2px solid var(--accent-primary, #E87522);
+  outline-offset: 1px;
+}
+
+.atmosphere-console-row .row-accent-bar {
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 3.5px;
+  border-radius: 0 3px 3px 0;
+  transform: scaleY(0);
+  transform-origin: center center;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.22s ease;
+}
+
+.atmosphere-console-row:hover .row-accent-bar,
+.atmosphere-console-row.selected .row-accent-bar {
+  transform: scaleY(1);
+}
+
+.atmosphere-console-row:hover {
+  transform: translateX(2px);
+}
+
+.atmosphere-console-row.selected {
+  border-color: var(--accent-primary, #E87522) !important;
+  background-color: var(--theme-item-active-bg, rgba(232, 117, 34, 0.08));
+}
+
+.atmosphere-swatch-orb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.atmosphere-console-row:hover .atmosphere-swatch-orb {
+  transform: scale(1.15);
+}
+
+@keyframes consolePanelEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere-console-panel {
+    animation: none;
+  }
+  .atmosphere-console-row {
+    transition: none;
+  }
+  .atmosphere-console-row:hover {
+    transform: none;
+  }
+}
+
+/* ── Hero Video & Atmospheric Overlays in Atelier ── */
+.hero-video-wrap video {
+  filter: var(--hero-video-filter, none);
+  transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-warm-tint-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-color: var(--hero-overlay-tint, transparent);
+  transition: background-color 0.35s ease;
+}
+
+.hero-atmospheric-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: var(--hero-gradient-overlay);
+  transition: background 0.35s ease;
+}
+
+.hero-radial-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: var(--hero-bg-vignette);
+  transition: background 0.35s ease;
+}
+
+/* ── Specific Overrides under [data-theme="atelier"] ── */
+[data-theme="atelier"] .btn-primary {
+  background-color: #17202A;
+  color: #F6F2E9;
+  border: 1px solid rgba(23, 32, 42, 0.20);
+  box-shadow: 0 4px 14px rgba(23, 32, 42, 0.15);
+}
+
+[data-theme="atelier"] .btn-primary:hover {
+  background-color: #101820;
+  color: #F6F2E9;
+  border-color: #B89B62;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(23, 32, 42, 0.25), 0 0 15px rgba(184, 155, 98, 0.25);
+}
+
+[data-theme="atelier"] .desktop-nav-link {
+  color: #59616A;
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  border-bottom: 2px solid transparent !important;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+[data-theme="atelier"] .desktop-nav-link:hover {
+  color: #17202A;
+}
+
+[data-theme="atelier"] .desktop-nav-link.active {
+  color: #17202A;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid #B89B62 !important;
+  border-radius: 0 !important;
+  padding-bottom: 4px;
+}
+
+[data-theme="atelier"] .nav-dropdown-menu {
+  background-color: rgba(251, 249, 244, 0.98);
+  border: 1px solid #D9D2C5;
+  box-shadow: 0 15px 35px rgba(23, 32, 42, 0.12);
+}
+
+[data-theme="atelier"] .nav-dropdown-item {
+  color: #59616A;
+}
+
+[data-theme="atelier"] .nav-dropdown-item:hover {
+  background-color: rgba(232, 117, 34, 0.08);
+  color: #E87522;
+}
+
+[data-theme="atelier"] .nav-dropdown-item.active {
+  color: #164B78;
+  background-color: rgba(22, 75, 120, 0.10);
+  font-weight: 700;
+}
+
+/* Mobile Drawer in Atelier */
+[data-theme="atelier"] .mobile-menu-drawer {
+  background-color: #FBF9F4;
+  border-left: 1px solid #D9D2C5;
+  box-shadow: -10px 0 40px rgba(23, 32, 42, 0.15);
+}
+
+[data-theme="atelier"] .mobile-drawer-close {
+  color: #17202A;
+  background: rgba(23, 32, 42, 0.06);
+}
+
+[data-theme="atelier"] .mobile-nav-btn {
+  color: #59616A;
+}
+
+[data-theme="atelier"] .mobile-nav-btn:hover {
+  color: #E87522;
+  background-color: rgba(232, 117, 34, 0.06);
+}
+
+[data-theme="atelier"] .mobile-nav-btn.active {
+  color: #164B78;
+  background-color: rgba(22, 75, 120, 0.08);
+  font-weight: 700;
+}
+
+/* Cards and Materiality in Atelier */
+[data-theme="atelier"] .service-bento-card {
+  border: 1px solid #D9D2C5;
+  box-shadow: 0 6px 18px rgba(23, 32, 42, 0.06);
+}
+
+[data-theme="atelier"] .service-bento-card:hover {
+  transform: translateY(-2px);
+  border-color: #164B78;
+  box-shadow: 0 10px 24px rgba(23, 32, 42, 0.10);
+}
+
+[data-theme="atelier"] .bento-card-light {
+  background-color: #FBF9F4;
+  border: 1px solid #D9D2C5;
+  box-shadow: 0 4px 16px rgba(23, 32, 42, 0.04);
+}
+
+[data-theme="atelier"] .bento-card-light:hover {
+  background-color: #FFFFFF;
+  border-color: #164B78;
+  box-shadow: 0 8px 24px rgba(23, 32, 42, 0.08);
+}
+
+[data-theme="atelier"] .stat-card {
+  background-color: #FBF9F4;
+  border: 1px solid #D9D2C5;
+  box-shadow: 0 4px 16px rgba(23, 32, 42, 0.03);
+}
+
+[data-theme="atelier"] .stat-card:hover {
+  border-color: #164B78;
+  box-shadow: 0 8px 24px rgba(23, 32, 42, 0.06);
+}
+
+[data-theme="atelier"] .stat-number {
+  color: #17202A;
+}
+
+[data-theme="atelier"] .stat-title {
+  color: #17202A;
+}
+
+/* Testimonials in Atelier */
+[data-theme="atelier"] .testimonial-section {
+  background-color: #EDE7DA;
+  border-top: 1px solid #D9D2C5;
+  border-bottom: 1px solid #D9D2C5;
+}
+
+[data-theme="atelier"] .testimonial-card {
+  background: #FBF9F4;
+  border: 1px solid #D9D2C5;
+  box-shadow: 0 4px 16px rgba(23, 32, 42, 0.04);
+}
+
+[data-theme="atelier"] .testimonial-card:hover {
+  transform: translateY(-2px);
+  border-color: #164B78;
+  box-shadow: 0 10px 24px rgba(23, 32, 42, 0.08);
+}
+
+[data-theme="atelier"] .testimonial-text {
+  color: #17202A;
+}
+
+[data-theme="atelier"] .testimonial-company {
+  color: #164B78;
+}
+
+[data-theme="atelier"] .avatar-circle {
+  background: linear-gradient(135deg, #17202A 0%, #164B78 100%);
+  color: #F6F2E9;
+  box-shadow: 0 3px 8px rgba(23, 32, 42, 0.2);
+}
+
+/* Configurator Inputs in Atelier */
+[data-theme="atelier"] .configurator-input,
+[data-theme="atelier"] .configurator-select,
+[data-theme="atelier"] .configurator-textarea {
+  background-color: #FBF9F4 !important;
+  border: 1px solid #D9D2C5 !important;
+  color: #17202A !important;
+}
+
+[data-theme="atelier"] .configurator-input::placeholder,
+[data-theme="atelier"] .configurator-textarea::placeholder {
+  color: #7B807F !important;
+}
+
+[data-theme="atelier"] .configurator-input:focus,
+[data-theme="atelier"] .configurator-select:focus,
+[data-theme="atelier"] .configurator-textarea:focus {
+  border-color: #164B78 !important;
+  box-shadow: 0 0 0 2px rgba(22, 75, 120, 0.15) !important;
+}
+
+[data-theme="atelier"] .configurator-label {
+  color: #17202A !important;
+}
+
+[data-theme="atelier"] .configurator-summary-strip {
+  background-color: rgba(23, 32, 42, 0.04) !important;
+  border-color: #D9D2C5 !important;
+}
+
+/* Footer in Atelier */
+[data-theme="atelier"] footer {
+  background: linear-gradient(180deg, #17232D 0%, #101820 100%) !important;
+  border-top: 1px solid rgba(217, 210, 197, 0.15) !important;
+  color: #F6F2E9 !important;
+}
+
+[data-theme="atelier"] footer p {
+  color: #B9C0C5 !important;
+}
+
+[data-theme="atelier"] footer a {
+  color: #F6F2E9 !important;
+}
+
+[data-theme="atelier"] footer a:hover {
+  color: #E87522 !important;
+}
+
+/* ── Liquid Gold Headline Text in Atelier (Warm Gold / Champagne / Amber) ── */
+[data-theme="atelier"] .liquid-gold-gradient-text {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF5E6 20%, #F59E0B 45%, #E87522 70%, #B89B62 90%, #FFFFFF 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  animation: atelierGoldSheen 8s ease-in-out infinite alternate;
+  filter: drop-shadow(0 2px 20px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 25px rgba(232, 117, 34, 0.45));
+}
+
+@keyframes atelierGoldSheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ── Inner Page Hero Overlay in Atelier (Warm Slate Navy & Craft Blue) ── */
+[data-theme="atelier"] .page-hero-overlay {
+  background: linear-gradient(135deg, rgba(23, 35, 45, 0.88) 0%, rgba(22, 75, 120, 0.76) 60%, rgba(16, 24, 32, 0.92) 100%);
+}
+
+/* ── Media Showcase Card Overlay in Atelier ── */
+[data-theme="atelier"] .media-showcase-overlay {
+  background: linear-gradient(to top, rgba(23, 35, 45, 0.95) 0%, rgba(23, 35, 45, 0.6) 60%, transparent 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FORGE ATMOSPHERE SPECIALIZED RULES
+   Industrial Intelligence • Advanced Engineering • Precision
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Primary Action Buttons in Forge ── */
+[data-theme="forge"] .btn-primary {
+  background-color: #1677C8;
+  color: #FFFFFF;
+  border: 1px solid rgba(69, 184, 255, 0.25);
+  box-shadow: 0 4px 14px rgba(69, 184, 255, 0.18);
+}
+
+[data-theme="forge"] .btn-primary:hover {
+  background-color: #45B8FF;
+  color: #080D12;
+  border-color: #45B8FF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(69, 184, 255, 0.35);
+}
+
+/* ── Navigation in Forge ── */
+[data-theme="forge"] .desktop-nav-link {
+  color: #8EA2AE;
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+[data-theme="forge"] .desktop-nav-link:hover {
+  color: #45B8FF;
+}
+
+[data-theme="forge"] .desktop-nav-link.active {
+  color: #EAF3F7;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid #45B8FF !important;
+  border-radius: 0 !important;
+  padding-bottom: 4px;
+}
+
+[data-theme="forge"] .desktop-nav-link:focus-visible {
+  outline: none !important;
+  border-bottom: 2px solid #45B8FF !important;
+}
+
+[data-theme="forge"] .nav-dropdown-menu {
+  background-color: #111A21;
+  border: 1px solid rgba(221, 229, 234, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+}
+
+[data-theme="forge"] .nav-dropdown-item {
+  color: #8EA2AE;
+}
+
+[data-theme="forge"] .nav-dropdown-item:hover {
+  background-color: rgba(22, 119, 200, 0.12);
+  color: #45B8FF;
+}
+
+[data-theme="forge"] .nav-dropdown-item.active {
+  color: #EAF3F7;
+  background-color: rgba(22, 119, 200, 0.18);
+  font-weight: 700;
+}
+
+/* ── Mobile Drawer in Forge ── */
+[data-theme="forge"] .mobile-menu-drawer {
+  background-color: #0E161C;
+  border-left: 1px solid rgba(221, 229, 234, 0.08);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="forge"] .mobile-drawer-close {
+  color: #EAF3F7;
+  background: rgba(221, 229, 234, 0.06);
+}
+
+[data-theme="forge"] .mobile-nav-btn {
+  color: #8EA2AE;
+}
+
+[data-theme="forge"] .mobile-nav-btn:hover {
+  color: #45B8FF;
+  background-color: rgba(69, 184, 255, 0.06);
+}
+
+[data-theme="forge"] .mobile-nav-btn.active {
+  color: #EAF3F7;
+  background-color: rgba(69, 184, 255, 0.08);
+  border-left: 3px solid #45B8FF;
+  font-weight: 700;
+}
+
+/* ── Cards and Engineered Surfaces in Forge ── */
+[data-theme="forge"] .service-bento-card,
+[data-theme="forge"] .bento-card-light {
+  background-color: #111A21;
+  border: 1px solid rgba(221, 229, 234, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="forge"] .service-bento-card:hover,
+[data-theme="forge"] .bento-card-light:hover {
+  transform: translateY(-2px);
+  background-color: #16222C;
+  border-color: rgba(69, 184, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.50), 0 0 16px rgba(69, 184, 255, 0.08);
+}
+
+[data-theme="forge"] .stat-card {
+  background-color: #111A21;
+  border: 1px solid rgba(221, 229, 234, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="forge"] .stat-card:hover {
+  border-color: rgba(69, 184, 255, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="forge"] .stat-number {
+  color: #EAF3F7;
+}
+
+[data-theme="forge"] .stat-title {
+  color: #8EA2AE;
+}
+
+/* ── Testimonials in Forge ── */
+[data-theme="forge"] .testimonial-section {
+  background-color: #0E161C;
+  border-top: 1px solid rgba(221, 229, 234, 0.08);
+  border-bottom: 1px solid rgba(221, 229, 234, 0.08);
+}
+
+[data-theme="forge"] .testimonial-card {
+  background: #111A21;
+  border: 1px solid rgba(221, 229, 234, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.30);
+}
+
+[data-theme="forge"] .testimonial-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(69, 184, 255, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="forge"] .testimonial-text {
+  color: #EAF3F7;
+}
+
+[data-theme="forge"] .testimonial-company {
+  color: #45B8FF;
+}
+
+[data-theme="forge"] .avatar-circle {
+  background: linear-gradient(135deg, #111A21 0%, #1C2832 100%);
+  border: 1px solid rgba(69, 184, 255, 0.3);
+  color: #EAF3F7;
+}
+
+/* ── Configurator Inputs in Forge ── */
+[data-theme="forge"] .configurator-input,
+[data-theme="forge"] .configurator-select,
+[data-theme="forge"] .configurator-textarea {
+  background-color: #111A21 !important;
+  border: 1px solid rgba(221, 229, 234, 0.12) !important;
+  color: #EAF3F7 !important;
+}
+
+[data-theme="forge"] .configurator-input::placeholder,
+[data-theme="forge"] .configurator-textarea::placeholder {
+  color: #5A6D79 !important;
+}
+
+[data-theme="forge"] .configurator-input:focus,
+[data-theme="forge"] .configurator-select:focus,
+[data-theme="forge"] .configurator-textarea:focus {
+  border-color: #1677C8 !important;
+  box-shadow: 0 0 0 2px rgba(69, 184, 255, 0.18) !important;
+}
+
+[data-theme="forge"] .configurator-label {
+  color: #8EA2AE !important;
+}
+
+[data-theme="forge"] .configurator-summary-strip {
+  background-color: rgba(28, 40, 50, 0.6) !important;
+  border-color: rgba(221, 229, 234, 0.08) !important;
+}
+
+/* ── Footer in Forge ── */
+[data-theme="forge"] footer {
+  background: linear-gradient(180deg, #111A21 0%, #080D12 100%) !important;
+  border-top: 1px solid rgba(221, 229, 234, 0.08) !important;
+  color: #8EA2AE !important;
+}
+
+[data-theme="forge"] footer p {
+  color: #8EA2AE !important;
+}
+
+[data-theme="forge"] footer a {
+  color: #EAF3F7 !important;
+}
+
+[data-theme="forge"] footer a:hover {
+  color: #45B8FF !important;
+}
+
+/* ── Restrained Headline Accent in Forge ── */
+[data-theme="forge"] .liquid-gold-gradient-text {
+  background: linear-gradient(135deg, #EAF3F7 0%, #EAF3F7 50%, #45B8FF 82%, #1677C8 95%, #EAF3F7 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  animation: forgeSheen 8s ease-in-out infinite alternate;
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 16px rgba(69, 184, 255, 0.20));
+}
+
+@keyframes forgeSheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ── Inner Page Hero Overlay in Forge (Graphite & Engineered Steel) ── */
+[data-theme="forge"] .page-hero-overlay {
+  background: linear-gradient(135deg, rgba(8, 13, 18, 0.92) 0%, rgba(17, 26, 33, 0.85) 60%, rgba(28, 40, 50, 0.90) 100%);
+}
+
+/* ── Media Showcase Card Overlay in Forge ── */
+[data-theme="forge"] .media-showcase-overlay {
+  background: linear-gradient(to top, rgba(8, 13, 18, 0.95) 0%, rgba(17, 26, 33, 0.55) 60%, transparent 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NEXUS ATMOSPHERE SPECIALIZED RULES
+   Global Intelligence • Connectivity • Future Commerce
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Primary Action Buttons in Nexus ── */
+[data-theme="nexus"] .btn-primary {
+  background-color: #1769AA !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(57, 198, 232, 0.45) !important;
+  box-shadow: 0 4px 16px rgba(23, 105, 170, 0.35) !important;
+}
+
+[data-theme="nexus"] .btn-primary:hover {
+  background-color: #39C6E8 !important;
+  color: #05070B !important;
+  border-color: #39C6E8 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(57, 198, 232, 0.45) !important;
+}
+
+/* ── Navigation in Nexus ── */
+[data-theme="nexus"] .desktop-nav-link {
+  color: #AABCC5;
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  border-bottom: 2px solid transparent !important;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+[data-theme="nexus"] .desktop-nav-link:hover {
+  color: #39C6E8;
+}
+
+[data-theme="nexus"] .desktop-nav-link.active {
+  color: #EAF7FA;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid #39C6E8 !important;
+  border-radius: 0 !important;
+  padding-bottom: 4px;
+}
+
+[data-theme="nexus"] .nav-dropdown-menu {
+  background-color: #0B1424;
+  border: 1px solid rgba(234, 247, 250, 0.10);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+}
+
+[data-theme="nexus"] .nav-dropdown-item {
+  color: #AABCC5;
+}
+
+[data-theme="nexus"] .nav-dropdown-item:hover {
+  background-color: rgba(23, 105, 170, 0.15);
+  color: #39C6E8;
+}
+
+[data-theme="nexus"] .nav-dropdown-item.active {
+  color: #EAF7FA;
+  background-color: rgba(23, 105, 170, 0.22);
+  font-weight: 700;
+}
+
+/* ── Mobile Drawer in Nexus ── */
+[data-theme="nexus"] .mobile-menu-drawer {
+  background-color: #0B1424;
+  border-left: 1px solid rgba(234, 247, 250, 0.10);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.75);
+}
+
+[data-theme="nexus"] .mobile-drawer-close {
+  color: #EAF7FA;
+  background: rgba(234, 247, 250, 0.06);
+}
+
+[data-theme="nexus"] .mobile-nav-btn {
+  color: #AABCC5;
+}
+
+[data-theme="nexus"] .mobile-nav-btn:hover {
+  color: #39C6E8;
+  background-color: rgba(57, 198, 232, 0.06);
+}
+
+[data-theme="nexus"] .mobile-nav-btn.active {
+  color: #EAF7FA;
+  background-color: rgba(57, 198, 232, 0.12);
+  font-weight: 700;
+}
+
+/* ── Cards and Panels in Nexus ── */
+[data-theme="nexus"] .service-bento-card {
+  background-color: #0B1424;
+  border: 1px solid rgba(234, 247, 250, 0.10);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="nexus"] .service-bento-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(57, 198, 232, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65), 0 0 20px rgba(23, 105, 170, 0.18);
+}
+
+[data-theme="nexus"] .bento-card-light {
+  background-color: #0B1424;
+  border: 1px solid rgba(234, 247, 250, 0.10);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="nexus"] .bento-card-light:hover {
+  background-color: #102B4A;
+  border-color: rgba(57, 198, 232, 0.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), 0 0 16px rgba(23, 105, 170, 0.15);
+}
+
+[data-theme="nexus"] .stat-card {
+  background-color: #0B1424;
+  border: 1px solid rgba(234, 247, 250, 0.10);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="nexus"] .stat-card:hover {
+  border-color: rgba(57, 198, 232, 0.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="nexus"] .stat-number {
+  color: #EAF7FA;
+}
+
+[data-theme="nexus"] .stat-title {
+  color: #AABCC5;
+}
+
+/* ── Testimonials in Nexus ── */
+[data-theme="nexus"] .testimonial-section {
+  background-color: #0B1424;
+  border-top: 1px solid rgba(234, 247, 250, 0.10);
+  border-bottom: 1px solid rgba(234, 247, 250, 0.10);
+}
+
+[data-theme="nexus"] .testimonial-card {
+  background: #102B4A;
+  border: 1px solid rgba(234, 247, 250, 0.10);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="nexus"] .testimonial-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(57, 198, 232, 0.35);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="nexus"] .testimonial-text {
+  color: #EAF7FA;
+}
+
+[data-theme="nexus"] .testimonial-company {
+  color: #39C6E8;
+}
+
+[data-theme="nexus"] .avatar-circle {
+  background: linear-gradient(135deg, #0B1424 0%, #102B4A 100%);
+  border: 1px solid rgba(57, 198, 232, 0.35);
+  color: #EAF7FA;
+}
+
+/* ── Configurator Inputs in Nexus ── */
+[data-theme="nexus"] .configurator-input,
+[data-theme="nexus"] .configurator-select,
+[data-theme="nexus"] .configurator-textarea {
+  background-color: #0B1424 !important;
+  border: 1px solid rgba(234, 247, 250, 0.12) !important;
+  color: #EAF7FA !important;
+}
+
+[data-theme="nexus"] .configurator-input::placeholder,
+[data-theme="nexus"] .configurator-textarea::placeholder {
+  color: #718692 !important;
+}
+
+[data-theme="nexus"] .configurator-input:focus,
+[data-theme="nexus"] .configurator-select:focus,
+[data-theme="nexus"] .configurator-textarea:focus {
+  border-color: #39C6E8 !important;
+  box-shadow: 0 0 0 2px rgba(57, 198, 232, 0.20) !important;
+}
+
+[data-theme="nexus"] .configurator-label {
+  color: #EAF7FA !important;
+}
+
+[data-theme="nexus"] .configurator-summary-strip {
+  background-color: rgba(16, 43, 74, 0.6) !important;
+  border-color: rgba(234, 247, 250, 0.10) !important;
+}
+
+/* ── Footer in Nexus ── */
+[data-theme="nexus"] footer {
+  background: linear-gradient(180deg, #0B1424 0%, #05070B 100%) !important;
+  border-top: 1px solid rgba(234, 247, 250, 0.10) !important;
+  color: #EAF7FA !important;
+}
+
+[data-theme="nexus"] footer p {
+  color: #718692 !important;
+}
+
+[data-theme="nexus"] footer a {
+  color: #AABCC5 !important;
+}
+
+[data-theme="nexus"] footer a:hover {
+  color: #39C6E8 !important;
+}
+
+/* ── Liquid Headline Accent in Nexus ── */
+[data-theme="nexus"] .liquid-gold-gradient-text {
+  background: linear-gradient(135deg, #FFFFFF 0%, #EAF7FA 25%, #39C6E8 65%, #1769AA 90%, #FFFFFF 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  animation: nexusSheen 8s ease-in-out infinite alternate;
+  filter: drop-shadow(0 2px 20px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 25px rgba(57, 198, 232, 0.35));
+}
+
+@keyframes nexusSheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ── Inner Page Hero Overlay in Nexus (Midnight & Deep Blue) ── */
+[data-theme="nexus"] .page-hero-overlay {
+  background: linear-gradient(135deg, rgba(5, 7, 11, 0.92) 0%, rgba(11, 20, 36, 0.88) 60%, rgba(16, 43, 74, 0.92) 100%);
+}
+
+/* ── Media Showcase Card Overlay in Nexus ── */
+[data-theme="nexus"] .media-showcase-overlay {
+  background: linear-gradient(to top, rgba(5, 7, 11, 0.95) 0%, rgba(11, 20, 36, 0.60) 60%, transparent 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   AURELIS ATMOSPHERE SPECIALIZED RULES
+   Light Intelligence • Global Elegance • Human Innovation
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Primary Action Buttons in Aurelis ── */
+[data-theme="aurelis"] .btn-primary {
+  background-color: #155A8A !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(21, 90, 138, 0.40) !important;
+  box-shadow: 0 4px 14px rgba(21, 90, 138, 0.20) !important;
+}
+
+[data-theme="aurelis"] .btn-primary:hover {
+  background-color: #2D91C9 !important;
+  color: #FFFFFF !important;
+  border-color: #2D91C9 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 145, 201, 0.35) !important;
+}
+
+/* ── Navigation in Aurelis ── */
+[data-theme="aurelis"] .desktop-nav-link {
+  color: #5A6D7C;
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  border-bottom: 2px solid transparent !important;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+[data-theme="aurelis"] .desktop-nav-link:hover {
+  color: #155A8A;
+}
+
+[data-theme="aurelis"] .desktop-nav-link.active {
+  color: #17232D;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid #155A8A !important;
+  border-radius: 0 !important;
+  padding-bottom: 4px;
+}
+
+[data-theme="aurelis"] .nav-dropdown-menu {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(23, 35, 45, 0.10);
+  box-shadow: 0 16px 40px rgba(23, 35, 45, 0.12);
+}
+
+[data-theme="aurelis"] .nav-dropdown-item {
+  color: #667783;
+}
+
+[data-theme="aurelis"] .nav-dropdown-item:hover {
+  background-color: rgba(21, 90, 138, 0.08);
+  color: #155A8A;
+}
+
+[data-theme="aurelis"] .nav-dropdown-item.active {
+  color: #17232D;
+  background-color: rgba(21, 90, 138, 0.12);
+  font-weight: 700;
+}
+
+/* ── Mobile Drawer in Aurelis ── */
+[data-theme="aurelis"] .mobile-menu-drawer {
+  background-color: #FFFFFF;
+  border-left: 1px solid rgba(23, 35, 45, 0.10);
+  box-shadow: -10px 0 40px rgba(23, 35, 45, 0.15);
+}
+
+[data-theme="aurelis"] .mobile-drawer-close {
+  color: #17232D;
+  background: rgba(23, 35, 45, 0.06);
+}
+
+[data-theme="aurelis"] .mobile-nav-btn {
+  color: #667783;
+}
+
+[data-theme="aurelis"] .mobile-nav-btn:hover {
+  color: #155A8A;
+  background-color: rgba(21, 90, 138, 0.06);
+}
+
+[data-theme="aurelis"] .mobile-nav-btn.active {
+  color: #17232D;
+  background-color: rgba(21, 90, 138, 0.10);
+  font-weight: 700;
+}
+
+/* ── Cards and Architectural Surfaces in Aurelis ── */
+[data-theme="aurelis"] .service-bento-card {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(23, 35, 45, 0.10);
+  box-shadow: 0 6px 20px rgba(23, 35, 45, 0.06);
+}
+
+[data-theme="aurelis"] .service-bento-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(21, 90, 138, 0.35);
+  box-shadow: 0 12px 30px rgba(23, 35, 45, 0.12), 0 0 20px rgba(21, 90, 138, 0.08);
+}
+
+[data-theme="aurelis"] .bento-card-light {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(23, 35, 45, 0.10);
+  box-shadow: 0 4px 16px rgba(23, 35, 45, 0.05);
+}
+
+[data-theme="aurelis"] .bento-card-light:hover {
+  background-color: #EEF2F4;
+  border-color: rgba(21, 90, 138, 0.35);
+  box-shadow: 0 8px 24px rgba(23, 35, 45, 0.10);
+}
+
+[data-theme="aurelis"] .stat-card {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(23, 35, 45, 0.10);
+  box-shadow: 0 4px 16px rgba(23, 35, 45, 0.05);
+}
+
+[data-theme="aurelis"] .stat-card:hover {
+  border-color: rgba(21, 90, 138, 0.30);
+  box-shadow: 0 8px 24px rgba(23, 35, 45, 0.08);
+}
+
+[data-theme="aurelis"] .stat-number {
+  color: #17232D;
+}
+
+[data-theme="aurelis"] .stat-title {
+  color: #667783;
+}
+
+/* ── Testimonials in Aurelis ── */
+[data-theme="aurelis"] .testimonial-section {
+  background-color: #EEF2F4;
+  border-top: 1px solid rgba(23, 35, 45, 0.08);
+  border-bottom: 1px solid rgba(23, 35, 45, 0.08);
+}
+
+[data-theme="aurelis"] .testimonial-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(23, 35, 45, 0.10);
+  box-shadow: 0 4px 16px rgba(23, 35, 45, 0.06);
+}
+
+[data-theme="aurelis"] .testimonial-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(21, 90, 138, 0.30);
+  box-shadow: 0 10px 24px rgba(23, 35, 45, 0.10);
+}
+
+[data-theme="aurelis"] .testimonial-text {
+  color: #17232D;
+}
+
+[data-theme="aurelis"] .testimonial-company {
+  color: #155A8A;
+}
+
+[data-theme="aurelis"] .avatar-circle {
+  background: linear-gradient(135deg, #F7F9FA 0%, #EEF2F4 100%);
+  border: 1px solid rgba(21, 90, 138, 0.25);
+  color: #17232D;
+}
+
+/* ── Configurator Inputs in Aurelis ── */
+[data-theme="aurelis"] .configurator-input,
+[data-theme="aurelis"] .configurator-select,
+[data-theme="aurelis"] .configurator-textarea {
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(23, 35, 45, 0.15) !important;
+  color: #17232D !important;
+}
+
+[data-theme="aurelis"] .configurator-input::placeholder,
+[data-theme="aurelis"] .configurator-textarea::placeholder {
+  color: #8A9AA5 !important;
+}
+
+[data-theme="aurelis"] .configurator-input:focus,
+[data-theme="aurelis"] .configurator-select:focus,
+[data-theme="aurelis"] .configurator-textarea:focus {
+  border-color: #155A8A !important;
+  box-shadow: 0 0 0 2px rgba(21, 90, 138, 0.15) !important;
+}
+
+[data-theme="aurelis"] .configurator-label {
+  color: #17232D !important;
+}
+
+[data-theme="aurelis"] .configurator-summary-strip {
+  background-color: rgba(238, 242, 244, 0.85) !important;
+  border-color: rgba(23, 35, 45, 0.10) !important;
+}
+
+/* ── Footer in Aurelis ── */
+[data-theme="aurelis"] footer {
+  background: linear-gradient(180deg, #17232D 0%, #0F171E 100%) !important;
+  border-top: 1px solid rgba(23, 35, 45, 0.20) !important;
+  color: #F4F8FA !important;
+}
+
+[data-theme="aurelis"] footer p {
+  color: #8A9AA5 !important;
+}
+
+[data-theme="aurelis"] footer a {
+  color: #DCE3E7 !important;
+}
+
+[data-theme="aurelis"] footer a:hover {
+  color: #2D91C9 !important;
+}
+
+/* ── Liquid Headline Accent in Aurelis ── */
+[data-theme="aurelis"] .liquid-gold-gradient-text {
+  background: linear-gradient(135deg, #0C3E66 0%, #155A8A 35%, #257DAE 68%, #155A8A 90%, #0C3E66 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  animation: aurelisSheen 8s ease-in-out infinite alternate;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+@keyframes aurelisSheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ── Inner Page Hero Overlay in Aurelis (Pearl & Silver) ── */
+[data-theme="aurelis"] .page-hero-overlay {
+  background: linear-gradient(135deg, rgba(247, 249, 250, 0.92) 0%, rgba(238, 242, 244, 0.88) 60%, rgba(220, 227, 231, 0.92) 100%);
+}
+
+/* ── Media Showcase Card Overlay in Aurelis ── */
+[data-theme="aurelis"] .media-showcase-overlay {
+  background: linear-gradient(to top, rgba(247, 249, 250, 0.95) 0%, rgba(238, 242, 244, 0.60) 60%, transparent 100%);
+}
+
+
+
+

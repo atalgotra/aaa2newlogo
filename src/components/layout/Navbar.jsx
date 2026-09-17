@@ -2,10 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import AAA2Logo from '../common/AAA2Logo';
+import ThemeSelector from '../common/ThemeSelector';
+import { useTheme } from '../../context/ThemeContext';
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { currentTheme } = useTheme();
+  const isAtelier = currentTheme === 'atelier';
+  const isForge = currentTheme === 'forge';
+  const isNexus = currentTheme === 'nexus';
+  const isAurelis = currentTheme === 'aurelis';
 
   const [pastHero, setPastHero] = useState(false);
   const [heroProgress, setHeroProgress] = useState(0); // 0 = top of hero, 1 = past hero
@@ -174,15 +181,51 @@ const Navbar = () => {
         style={{
           top: isSolid ? '10px' : '16px',
           backgroundColor: isSolid
-            ? 'rgba(34, 1, 80, 0.95)'
-            : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`,
-          backdropFilter: (heroProgress > 0.1 || isSolid)
-            ? `blur(${Math.round(heroProgress * 10 + (isSolid ? 10 : 0))}px)`
-            : 'none',
-          border: isSolid
-            ? '1px solid rgba(255, 255, 255, 0.15)'
-            : `1px solid rgba(255, 255, 255, ${(0.08 + heroProgress * 0.18).toFixed(2)})`,
-          boxShadow: isSolid ? '0 15px 40px rgba(0, 0, 0, 0.6)' : 'none'
+            ? (isAtelier
+                ? 'rgba(246, 242, 233, 0.95)'
+                : (isForge
+                    ? 'rgba(11, 17, 23, 0.92)'
+                    : (isNexus
+                        ? 'rgba(5, 7, 11, 0.95)'
+                        : (isAurelis ? 'rgba(255, 255, 255, 0.92)' : 'rgba(34, 1, 80, 0.95)'))))
+            : (isAtelier
+                ? `rgba(246, 242, 233, ${(0.82 + heroProgress * 0.15).toFixed(2)})`
+                : (isForge
+                    ? `rgba(8, 13, 18, ${(0.72 + heroProgress * 0.20).toFixed(2)})`
+                    : (isNexus
+                        ? `rgba(5, 7, 11, ${(0.75 + heroProgress * 0.20).toFixed(2)})`
+                        : (isAurelis
+                            ? `rgba(255, 255, 255, ${(0.72 + heroProgress * 0.20).toFixed(2)})`
+                            : `rgba(34, 1, 80, ${(heroProgress * 0.45).toFixed(2)})`)))),
+          backdropFilter: isForge
+            ? 'blur(18px)'
+            : ((heroProgress > 0.05 || isSolid || isAtelier || isNexus || isAurelis)
+                ? `blur(${Math.round(heroProgress * 10 + (isSolid ? 12 : 8))}px)`
+                : 'none'),
+          border: isAtelier
+            ? '1px solid #D9D2C5'
+            : (isForge
+                ? '1px solid rgba(69, 184, 255, 0.10)'
+                : (isNexus
+                    ? (isSolid
+                        ? '1px solid rgba(234, 247, 250, 0.15)'
+                        : `1px solid rgba(234, 247, 250, ${(0.08 + heroProgress * 0.12).toFixed(2)})`)
+                    : (isAurelis
+                        ? (isSolid
+                            ? '1px solid rgba(23, 35, 45, 0.12)'
+                            : `1px solid rgba(23, 35, 45, ${(0.06 + heroProgress * 0.10).toFixed(2)})`)
+                        : (isSolid
+                            ? '1px solid rgba(255, 255, 255, 0.15)'
+                            : `1px solid rgba(255, 255, 255, ${(0.08 + heroProgress * 0.18).toFixed(2)})`)))),
+          boxShadow: isAtelier
+            ? (isSolid ? '0 10px 30px rgba(23, 32, 42, 0.08)' : '0 2px 10px rgba(23, 32, 42, 0.03)')
+            : (isForge
+                ? (isSolid ? '0 10px 30px rgba(0, 0, 0, 0.50)' : '0 2px 10px rgba(0, 0, 0, 0.25)')
+                : (isNexus
+                    ? (isSolid ? '0 14px 40px rgba(0, 0, 0, 0.75)' : '0 4px 16px rgba(0, 0, 0, 0.45)')
+                    : (isAurelis
+                        ? (isSolid ? '0 10px 30px rgba(23, 35, 45, 0.08)' : '0 2px 12px rgba(23, 35, 45, 0.03)')
+                        : (isSolid ? '0 15px 40px rgba(0, 0, 0, 0.6)' : 'none'))))
         }}
       >
         <div className="navbar-container">
@@ -203,7 +246,7 @@ const Navbar = () => {
               padding: 0
             }}
           >
-            <AAA2Logo mode="dark" size={32} />
+            <AAA2Logo mode={isAtelier || isAurelis ? 'light' : 'dark'} size={32} />
             <span
               style={{
                 fontFamily: "var(--font-display, 'Orbitron', sans-serif)",
@@ -211,10 +254,11 @@ const Navbar = () => {
                 fontWeight: 600,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
-                color: '#FFFFFF',
+                color: (isAtelier || isAurelis) ? '#17202A' : (isNexus ? '#EAF7FA' : '#F2F6F8'),
                 whiteSpace: 'nowrap',
                 display: 'inline-flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                transition: 'color 0.28s ease'
               }}
             >
               <span>AAA</span>
@@ -304,8 +348,9 @@ const Navbar = () => {
             })}
           </nav>
 
-          {/* Action Button */}
+          {/* Action Button & Theme Selector */}
           <div className="navbar-actions">
+            <ThemeSelector />
             <button
               type="button"
               onClick={() => {
@@ -323,7 +368,7 @@ const Navbar = () => {
                 type="button"
                 aria-label="Toggle Mobile Menu"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                style={{ color: '#FFFFFF', border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '4px' }}
+                style={{ color: (isAtelier || isAurelis) ? '#17202A' : '#FFFFFF', border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '4px' }}
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -385,7 +430,7 @@ const Navbar = () => {
       >
         {/* Drawer Header with Logo & Close Button */}
         <div className="mobile-drawer-header">
-          <AAA2Logo mode="dark" size={32} />
+          <AAA2Logo mode={isAtelier || isAurelis ? 'light' : 'dark'} size={32} />
           <button
             type="button"
             aria-label="Close Mobile Menu"
@@ -394,6 +439,11 @@ const Navbar = () => {
           >
             <X size={20} />
           </button>
+        </div>
+
+        {/* Atmosphere Selector inside Drawer */}
+        <div style={{ marginBottom: '20px', width: '100%' }}>
+          <ThemeSelector isMobileDrawer={true} />
         </div>
 
         {/* Navigation Links inside Drawer */}

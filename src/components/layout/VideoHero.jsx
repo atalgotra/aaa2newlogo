@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { gsap, ScrollTrigger, createGsapScope, prefersReducedMotion } from '../../utils/gsapUtils';
 import SafeAutoplayVideo from '../common/SafeAutoplayVideo';
+import { useTheme } from '../../context/ThemeContext';
 
 /* ─────────────────────────────────────────────────────────────
    WORLD-CLASS LIVING GLOBAL NETWORK & STARDUST CANVAS
@@ -29,6 +30,14 @@ const NetworkCanvas = ({ canvasRef }) => (
    HERO CINEMATIC EXPERIENTIAL COMPONENT
 ───────────────────────────────────────────────────────────── */
 const VideoHero = () => {
+  const { currentTheme, themeDetails } = useTheme();
+  const heroVideoSrc = themeDetails?.heroVideo || (currentTheme === 'atelier' ? '/hero-video-atelier.mp4' : (currentTheme === 'forge' ? '/forge-hero.mp4' : (currentTheme === 'nexus' ? '/hero-nexus.mp4' : (currentTheme === 'aurelis' ? '/Aurelis-Hero.mp4' : '/hero-video.mp4'))));
+
+  const isAtelier = currentTheme === 'atelier';
+  const isForge = currentTheme === 'forge';
+  const isNexus = currentTheme === 'nexus';
+  const isAurelis = currentTheme === 'aurelis';
+
   /* DOM element references */
   const heroRef = useRef(null);
   const videoWrapRef = useRef(null);
@@ -115,17 +124,22 @@ const VideoHero = () => {
         n.pulse += 0.015;
       });
 
-      /* Subtle brand-indigo network connections */
+      /* Subtle network connections (Warm Amber/Gold in Atelier, Technology Blue in Forge, Electric Cyan in Nexus, Sapphire Blue in Aurelis, Brand Indigo in Default) */
+      const lineStrokeBase = isAtelier
+        ? '232, 117, 34'
+        : (isForge
+            ? '22, 119, 200'
+            : (isNexus ? '57, 198, 232' : (isAurelis ? '21, 90, 138' : '99, 102, 241')));
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[j].x - nodes[i].x;
           const dy = nodes[j].y - nodes[i].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < LINK_DIST) {
-            const alpha = (1 - dist / LINK_DIST) * 0.08;
+            const alpha = (1 - dist / LINK_DIST) * (isAtelier ? 0.10 : (isForge ? 0.12 : (isNexus ? 0.13 : (isAurelis ? 0.11 : 0.08))));
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
-            ctx.lineWidth = 0.6;
+            ctx.strokeStyle = `rgba(${lineStrokeBase}, ${alpha})`;
+            ctx.lineWidth = (isForge || isNexus || isAurelis) ? 0.75 : 0.6;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
@@ -138,7 +152,13 @@ const VideoHero = () => {
         const alpha = 0.18 + Math.sin(n.pulse) * 0.08;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(224, 231, 255, ${alpha})`;
+        ctx.fillStyle = isAtelier
+          ? `rgba(246, 242, 233, ${alpha})`
+          : (isForge
+              ? `rgba(221, 229, 234, ${alpha * 0.95})`
+              : (isNexus
+                  ? `rgba(234, 247, 250, ${alpha})`
+                  : (isAurelis ? `rgba(21, 90, 138, ${alpha * 1.1})` : `rgba(224, 231, 255, ${alpha})`)));
         ctx.fill();
       });
 
@@ -157,8 +177,8 @@ const VideoHero = () => {
           const py = nA.y + (nB.y - nA.y) * p.progress;
 
           const grad = ctx.createRadialGradient(px, py, 0, px, py, 5);
-          grad.addColorStop(0, 'rgba(255, 255, 255, 0.85)');
-          grad.addColorStop(1, 'rgba(99, 102, 241, 0)');
+          grad.addColorStop(0, isAtelier ? 'rgba(255, 248, 235, 0.95)' : (isForge ? 'rgba(242, 246, 248, 0.95)' : (isNexus ? 'rgba(234, 247, 250, 0.95)' : (isAurelis ? 'rgba(21, 90, 138, 0.95)' : 'rgba(255, 255, 255, 0.85)'))));
+          grad.addColorStop(1, isAtelier ? 'rgba(232, 117, 34, 0)' : (isForge ? 'rgba(22, 119, 200, 0)' : (isNexus ? 'rgba(57, 198, 232, 0)' : (isAurelis ? 'rgba(45, 145, 201, 0)' : 'rgba(99, 102, 241, 0)'))));
           ctx.beginPath();
           ctx.arc(px, py, 5, 0, Math.PI * 2);
           ctx.fillStyle = grad;
@@ -195,7 +215,13 @@ const VideoHero = () => {
         }
         ctx.beginPath();
         ctx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(99, 102, 241, ${sw.alpha * 0.6})`;
+        ctx.strokeStyle = isAtelier
+          ? `rgba(232, 117, 34, ${sw.alpha * 0.7})`
+          : (isForge
+              ? `rgba(69, 184, 255, ${sw.alpha * 0.75})`
+              : (isNexus
+                  ? `rgba(57, 198, 232, ${sw.alpha * 0.75})`
+                  : (isAurelis ? `rgba(21, 90, 138, ${sw.alpha * 0.75})` : `rgba(99, 102, 241, ${sw.alpha * 0.6})`)));
         ctx.lineWidth = 2;
         ctx.stroke();
       }
@@ -236,7 +262,7 @@ const VideoHero = () => {
       if (observer) observer.disconnect();
       if (frameId) cancelAnimationFrame(frameId);
     };
-  }, []);
+  }, [isAtelier, isForge, isNexus, isAurelis]);
 
   /* ── Interactive Stardust Trail & Click Shockwaves ── */
   useEffect(() => {
@@ -256,7 +282,9 @@ const VideoHero = () => {
           vy: (Math.random() - 0.5) * 0.8 - 0.3,
           size: Math.random() * 2 + 0.8,
           alpha: 0.75,
-          color: Math.random() > 0.4 ? '255, 255, 255' : '129, 140, 248',
+          color: Math.random() > 0.4
+            ? (isAtelier ? '255, 248, 235' : (isForge ? '221, 229, 234' : (isNexus ? '234, 247, 250' : (isAurelis ? '244, 248, 250' : '255, 255, 255'))))
+            : (isAtelier ? '232, 117, 34' : (isForge ? '69, 184, 255' : (isNexus ? '57, 198, 232' : (isAurelis ? '21, 90, 138' : '129, 140, 248')))),
         });
       }
     };
@@ -271,7 +299,7 @@ const VideoHero = () => {
         x, y, r: 10, maxR: 280, alpha: 0.9
       });
 
-      /* Spawn burst of white & electric indigo star particles */
+      /* Spawn burst of star particles (Warm Champagne/Amber in Atelier, Electric Blue/Orange in Forge, Electric Cyan/Orange in Nexus, Indigo in Default) */
       for (let i = 0; i < 18; i++) {
         const angle = (Math.PI * 2 * i) / 18;
         const speed = Math.random() * 3 + 1.5;
@@ -281,7 +309,17 @@ const VideoHero = () => {
           vy: Math.sin(angle) * speed,
           size: Math.random() * 2.5 + 1,
           alpha: 0.9,
-          color: Math.random() > 0.5 ? '255, 255, 255' : '165, 180, 252',
+          color: Math.random() > 0.5
+            ? (isAurelis ? '21, 90, 138' : '255, 255, 255')
+            : (isAtelier
+                ? '245, 158, 11'
+                : (isForge
+                    ? (Math.random() > 0.35 ? '69, 184, 255' : '232, 117, 34')
+                    : (isNexus
+                        ? (Math.random() > 0.35 ? '57, 198, 232' : '232, 117, 34')
+                        : (isAurelis
+                            ? (Math.random() > 0.30 ? '45, 145, 201' : '232, 117, 34')
+                            : '165, 180, 252')))),
         });
       }
     };
@@ -292,7 +330,7 @@ const VideoHero = () => {
       hero.removeEventListener('mousemove', handleMouseMove);
       hero.removeEventListener('click', handleClick);
     };
-  }, []);
+  }, [isAtelier, isForge, isNexus, isAurelis]);
 
   /* ── Mouse Depth Parallax & Magnetic Button Effect ── */
   const initMouseParallax = useCallback(() => {
@@ -480,7 +518,15 @@ const VideoHero = () => {
     const bx = e.clientX - (rect.left + rect.width / 2);
     const by = e.clientY - (rect.top + rect.height / 2);
     btn.style.transform = `translate(${bx * 0.25}px, ${by * 0.25}px) scale(1.04)`;
-    btn.style.boxShadow = '0 10px 30px rgba(34, 1, 80, 0.7), 0 0 20px rgba(99, 102, 241, 0.4)';
+    btn.style.boxShadow = isAtelier
+      ? '0 10px 30px rgba(23, 32, 42, 0.35), 0 0 20px rgba(232, 117, 34, 0.45)'
+      : (isForge
+          ? '0 10px 25px rgba(0, 0, 0, 0.55), 0 0 20px rgba(69, 184, 255, 0.30)'
+          : (isNexus
+              ? '0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(232, 117, 34, 0.40)'
+              : (isAurelis
+                  ? '0 10px 30px rgba(23, 35, 45, 0.25), 0 0 20px rgba(21, 90, 138, 0.35)'
+                  : '0 10px 30px rgba(34, 1, 80, 0.7), 0 0 20px rgba(99, 102, 241, 0.4)')));
   };
 
   const handleCtaLeave = () => {
@@ -499,15 +545,16 @@ const VideoHero = () => {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: '#0a0015',
+        backgroundColor: isAurelis ? '#F7F9FA' : 'var(--section-darker-bg, #0a0015)',
         display: 'block',
         overflow: 'hidden',
       }}
     >
 
-      {/* ── Plane 1: Background Video ── */}
+      {/* ── Plane 1: Full-Bleed Video Background ── */}
       <div
         ref={videoWrapRef}
+        className="hero-video-wrap"
         style={{
           position: 'absolute',
           inset: 0,
@@ -519,27 +566,46 @@ const VideoHero = () => {
         }}
       >
         <SafeAutoplayVideo
-          src="/hero-video.mp4"
+          key={heroVideoSrc}
+          src={heroVideoSrc}
           useIntersectionObserver={false}
           style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
         />
       </div>
 
+      {/* ── Plane 1b: Warm Atmospheric Tint Overlay ── */}
+      <div className="hero-warm-tint-overlay" />
+
       {/* ── Plane 2: Living Global Network & Stardust Canvas ── */}
       <NetworkCanvas canvasRef={canvasRef} />
 
       {/* ── Plane 2 & 3: Atmospheric Layer & Vignette ── */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 3,
-        background: 'linear-gradient(to bottom, rgba(10,0,21,0.25) 0%, transparent 22%, transparent 55%, rgba(10,0,21,0.65) 80%, #0a0015 100%)',
-      }} />
+      <div className="hero-atmospheric-vignette" />
 
-      <div ref={bgLayerRef} style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 3,
-        background: 'radial-gradient(ellipse 85% 75% at 50% 40%, rgba(5,0,18,0.40) 0%, rgba(10,0,21,0.82) 100%)',
-        willChange: 'transform, opacity',
-      }} />
+      <div
+        ref={bgLayerRef}
+        className="hero-radial-vignette"
+        style={{ willChange: 'transform, opacity' }}
+      />
 
+      {/* ── Aurelis Central Luminous Halo Scrim (Diffuses metallic sphere behind text for pristine contrast) ── */}
+      {isAurelis && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -46%)',
+            width: 'min(92vw, 880px)',
+            height: 'min(70vh, 520px)',
+            borderRadius: '50%',
+            background: 'radial-gradient(ellipse 65% 55% at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(247, 249, 250, 0.84) 42%, rgba(247, 249, 250, 0.35) 72%, transparent 100%)',
+            filter: 'blur(30px)',
+            pointerEvents: 'none',
+            zIndex: 4,
+          }}
+        />
+      )}
 
       {/* ── Plane 4: Foreground Content ── */}
       <div ref={contentRef} style={{
@@ -549,23 +615,25 @@ const VideoHero = () => {
         paddingBottom: '5vh',
         willChange: 'transform',
       }}>
-        <div style={{ textAlign: 'center', padding: '0 24px', width: '100%', maxWidth: '920px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', padding: '0 24px', width: '100%', maxWidth: isForge ? '880px' : '1080px', margin: '0 auto' }}>
 
           {/* ── Motto Signature Block ── */}
-          <div style={{ display: 'inline-block', textAlign: 'center', marginBottom: '32px' }}>
+          <div style={{ display: 'inline-block', textAlign: 'center', marginBottom: isForge ? '28px' : '32px' }}>
             <div
               ref={mottoRef}
               style={{
                 fontSize: 'clamp(11px, 1.2vw, 13px)',
-                fontWeight: 400,
-                color: 'rgba(255,255,255,0.7)',
-                letterSpacing: '0.12em',
+                fontWeight: isAurelis ? 600 : (isForge ? 500 : 400),
+                color: isAurelis ? '#17232D' : (isForge ? '#8EA2AE' : 'var(--hero-motto-color, rgba(255,255,255,0.7))'),
+                letterSpacing: isAurelis ? '0.14em' : (isForge ? '0.16em' : '0.12em'),
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontStyle: 'italic',
+                fontStyle: isForge ? 'normal' : 'italic',
+                textTransform: isForge ? 'uppercase' : 'none',
                 marginBottom: '8px',
                 opacity: 0,
                 visibility: 'hidden',
                 willChange: 'transform, opacity',
+                transition: 'color 0.3s ease'
               }}
             >
               Innovation is our Addiction
@@ -576,32 +644,57 @@ const VideoHero = () => {
               style={{
                 height: '1px',
                 width: '100%',
-                background: 'linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.8), rgba(59, 130, 246, 0.8), transparent)',
-                boxShadow: '0 0 10px rgba(99, 102, 241, 0.7), 0 0 4px rgba(34, 1, 80, 0.9)',
+                background: 'var(--hero-motto-line, linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.8), rgba(59, 130, 246, 0.8), transparent))',
+                boxShadow: 'var(--hero-motto-glow, 0 0 10px rgba(99, 102, 241, 0.7), 0 0 4px rgba(34, 1, 80, 0.9))',
                 transform: 'scaleX(0)',
                 transformOrigin: 'center center',
                 visibility: 'hidden',
                 willChange: 'transform',
+                position: 'relative',
+                transition: 'background 0.3s ease, box-shadow 0.3s ease'
               }}
-            />
+            >
+              {/* Forge Micro-Accent: 3px Precision Orange Center Dot */}
+              {isForge && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '3.5px',
+                    height: '3.5px',
+                    borderRadius: '50%',
+                    backgroundColor: '#E87522',
+                    boxShadow: '0 0 6px #E87522',
+                    display: 'block'
+                  }}
+                />
+              )}
+            </div>
           </div>
 
           {/* ── Main Headline ── */}
-          <div style={{ marginBottom: '22px', overflow: 'visible' }}>
+          <div style={{ marginBottom: isForge ? '20px' : '22px', overflow: 'visible' }}>
             <div
               ref={titleLine1Ref}
+              className="hero-headline-line1"
               style={{
                 display: 'block',
-                fontSize: 'clamp(26px, 4.4vw, 52px)',
+                fontSize: isForge ? 'clamp(22px, 3.4vw, 42px)' : 'clamp(24px, 3.6vw, 46px)',
                 fontWeight: 800,
-                color: '#FFFFFF',
+                color: isAurelis ? '#17232D' : (isForge ? '#EAF3F7' : '#FFFFFF'),
                 lineHeight: 1.18,
                 fontFamily: "'Orbitron', sans-serif",
-                textShadow: '0 2px 28px rgba(0,0,0,0.95), 0 0 40px rgba(255,255,255,0.2)',
+                textShadow: isAurelis
+                  ? 'none'
+                  : (isForge
+                      ? '0 2px 20px rgba(0, 0, 0, 0.95)'
+                      : '0 2px 28px rgba(0,0,0,0.95), 0 0 40px rgba(255,255,255,0.2)'),
                 opacity: 0,
                 visibility: 'hidden',
                 clipPath: 'inset(0% 0% 100% 0%)',
-                letterSpacing: '-0.01em',
+                letterSpacing: isForge ? '0.01em' : '-0.01em',
                 willChange: 'transform, opacity, clip-path',
               }}
             >
@@ -609,22 +702,30 @@ const VideoHero = () => {
             </div>
             <div
               ref={titleLine2Ref}
+              className="hero-headline-line2"
               style={{
                 display: 'block',
-                fontSize: 'clamp(26px, 4.4vw, 52px)',
+                fontSize: isForge ? 'clamp(22px, 3.4vw, 42px)' : 'clamp(24px, 3.6vw, 46px)',
                 fontWeight: 800,
                 lineHeight: 1.18,
                 fontFamily: "'Orbitron', sans-serif",
                 opacity: 0,
                 visibility: 'hidden',
                 clipPath: 'inset(0% 0% 100% 0%)',
-                letterSpacing: '-0.01em',
+                letterSpacing: isForge ? '0.01em' : '-0.01em',
                 willChange: 'transform, opacity, clip-path',
                 marginTop: '4px',
+                color: isAurelis ? '#17232D' : (isForge ? '#EAF3F7' : '#FFFFFF'),
+                textShadow: isAurelis
+                  ? 'none'
+                  : (isForge
+                      ? '0 2px 20px rgba(0, 0, 0, 0.95)'
+                      : '0 2px 28px rgba(0,0,0,0.95)')
               }}
             >
+              Global Commerce &amp;{' '}
               <span className="liquid-gold-gradient-text">
-                Global Commerce &amp; Innovation
+                Innovation
               </span>
             </div>
           </div>
@@ -634,13 +735,14 @@ const VideoHero = () => {
             ref={subtextRef}
             style={{
               fontSize: 'clamp(13px, 1.4vw, 15px)',
-              color: 'rgba(241,245,249,0.68)',
-              maxWidth: '540px',
-              margin: '0 auto 40px auto',
+              color: isAurelis ? '#263845' : (isForge ? '#8EA2AE' : 'rgba(241,245,249,0.68)'),
+              fontWeight: isAurelis ? 500 : 400,
+              textShadow: isAurelis ? '0 1px 6px rgba(255, 255, 255, 0.9)' : 'none',
+              maxWidth: isForge ? '520px' : '560px',
+              margin: '0 auto 36px auto',
               lineHeight: 1.85,
               textAlign: 'center',
               fontFamily: "'Plus Jakarta Sans', sans-serif",
-              fontWeight: 400,
               opacity: 0,
               visibility: 'hidden',
               letterSpacing: '0.015em',

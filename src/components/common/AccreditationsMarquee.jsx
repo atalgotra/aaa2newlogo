@@ -36,7 +36,7 @@ const AccreditationsMarquee = ({ style = {} }) => {
       <div className="marquee-track">
         {partners.map((partner, index) => (
           <div key={index} className="marquee-item">
-            <partner.Icon size={16} style={{ marginRight: '8px', color: '#220150' }} />
+            <partner.Icon size={16} style={{ marginRight: '8px', color: 'var(--accent-secondary, var(--accent-primary, #220150))' }} />
             <span>{partner.name}</span>
           </div>
         ))}

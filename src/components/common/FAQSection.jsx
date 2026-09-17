@@ -57,42 +57,39 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick
             <div>
               <h2 style={{ fontSize: 'clamp(24px, 4.5vw, 36px)', fontWeight: 800, color: 'var(--text-primary, #0F172A)', marginBottom: '10px', lineHeight: 1.25 }}>
                 Got Questions?<br />
-                <span style={{ color: '#220150' }}>We've Got Answers.</span>
+                <span style={{ color: 'var(--brand-indigo, #220150)' }}>We've Got Answers.</span>
               </h2>
-              <p style={{ color: '#64748B', fontSize: '14px', lineHeight: 1.5, marginBottom: '30px', marginTop: '25px', maxWidth: '380px' }}>
+              <p style={{ color: 'var(--text-secondary, #64748B)', fontSize: '14px', lineHeight: 1.5, marginBottom: '30px', marginTop: '25px', maxWidth: '380px' }}>
                 Everything you need to know about our global sourcing, custom manufacturing, and engineering processes.
               </p>
 
-              <div style={{ backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '16px', border: '1px solid rgba(34, 1, 80, 0.08)', boxShadow: '0 6px 20px -6px rgba(34, 1, 80, 0.05)' }}>
+              <div style={{ backgroundColor: 'var(--bg-surface, #FFFFFF)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-light, rgba(34, 1, 80, 0.08))', boxShadow: '0 6px 20px -6px rgba(0, 0, 0, 0.15)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
-                  <div style={{ width: '36px', height: '36px', backgroundColor: 'rgba(34, 1, 80, 0.08)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <MessageCircle color="#220150" size={16} />
+                  <div style={{ width: '36px', height: '36px', backgroundColor: 'var(--selector-item-active-bg, rgba(69, 184, 255, 0.12))', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <MessageCircle color="var(--accent-secondary, var(--accent-primary, #220150))" size={16} />
                   </div>
                   <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary, #0F172A)', margin: 0 }}>
                     Still have questions?
                   </h3>
                 </div>
-                <p style={{ color: '#64748B', fontSize: '13px', lineHeight: 1.4, margin: '0 0 16px 0' }}>
+                <p style={{ color: 'var(--text-secondary, #64748B)', fontSize: '13px', lineHeight: 1.4, margin: '0 0 16px 0' }}>
                   Can't find what you're looking for? Reach out directly to our advisory team.
                 </p>
                 <button
                   onClick={handleContact}
+                  className="btn-primary"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '10px 20px',
-                    backgroundColor: '#220150',
-                    color: '#FFF',
+                    padding: '10px 22px',
                     borderRadius: '10px',
-                    border: 'none',
-                    fontWeight: 700,
                     fontSize: '13px',
                     cursor: 'pointer',
                     transition: 'all 0.25s ease'
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.scale = '1.05'}
-                  onMouseOut={(e) => e.currentTarget.style.scale = '1'}
+                  onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                  onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                 >
                   {contactButtonText}
                 </button>
@@ -109,11 +106,11 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick
                   <div
                     key={index}
                     style={{
-                      backgroundColor: '#FFFFFF',
-                      border: isOpen ? '1px solid rgba(79, 70, 229, 0.4)' : '1px solid rgba(0, 0, 0, 0.06)',
+                      backgroundColor: 'var(--bg-surface, #FFFFFF)',
+                      border: isOpen ? '1px solid var(--accent-secondary, var(--accent-primary, #2563EB))' : '1px solid var(--border-light, rgba(0, 0, 0, 0.06))',
                       borderRadius: '12px',
                       overflow: 'hidden',
-                      boxShadow: isOpen ? '0 8px 24px -4px rgba(34, 1, 80, 0.08)' : '0 2px 6px rgba(0, 0, 0, 0.02)',
+                      boxShadow: isOpen ? '0 8px 24px -4px rgba(0, 0, 0, 0.2)' : '0 2px 6px rgba(0, 0, 0, 0.02)',
                       transition: 'all 0.25s ease'
                     }}
                   >
@@ -127,7 +124,7 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick
                         alignItems: 'center',
                         background: 'none',
                         border: 'none',
-                        color: isOpen ? '#220150' : '#0F172A',
+                        color: isOpen ? 'var(--accent-secondary, var(--accent-primary, #220150))' : 'var(--text-primary, #0F172A)',
                         fontSize: '15px',
                         fontWeight: 700,
                         textAlign: 'left',
@@ -142,7 +139,7 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick
                           width: '26px',
                           height: '26px',
                           borderRadius: '50%',
-                          backgroundColor: isOpen ? '#220150' : 'rgba(0, 0, 0, 0.05)',
+                          backgroundColor: isOpen ? 'var(--accent-primary, #220150)' : 'rgba(255, 255, 255, 0.08)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -152,7 +149,7 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick
                       >
                         {isOpen ?
                           <Minus size={13} color="#FFF" /> :
-                          <Plus size={13} color="#475569" />
+                          <Plus size={13} color="var(--text-secondary, #475569)" />
                         }
                       </div>
                     </button>
@@ -166,7 +163,7 @@ const FAQSection = ({ faqs, title = "Frequently Asked Questions", onContactClick
                           transition={{ duration: 0.25, ease: "easeInOut" }}
                         >
                           <div style={{ padding: '0 20px 16px 20px' }}>
-                            <p style={{ color: '#475569', lineHeight: 1.6, margin: 0, fontSize: '13.5px' }}>
+                            <p style={{ color: 'var(--text-secondary, #64748B)', lineHeight: 1.6, margin: 0, fontSize: '13.5px' }}>
                               {faq.answer}
                             </p>
                           </div>

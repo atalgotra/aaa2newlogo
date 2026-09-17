@@ -16,6 +16,7 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 
 import CookieConsent from './components/cookie/CookieConsent';
 import HomeSkeleton from './components/common/HomeSkeletons';
+import { ThemeProvider } from './context/ThemeContext';
 
 const Capabilities = lazy(() => import('./pages/Capabilities'));
 const Sourcing = lazy(() => import('./pages/services/Sourcing'));
@@ -28,7 +29,7 @@ const Tech = lazy(() => import('./pages/services/Tech'));
 
 // Simple Loading Component for secondary routes
 const PageLoader = () => (
-  <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#140038' }}>
+  <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'var(--app-bg, #0d1f30)' }}>
     <div style={{ width: '36px', height: '36px', border: '2.5px solid rgba(99, 102, 241, 0.2)', borderTopColor: '#6366F1', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
     <style>{`@keyframes spin { 100% { transform: rotate(360deg); } }`}</style>
   </div>
@@ -44,7 +45,7 @@ const AnimatedRoutes = () => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -15 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{ display: 'flex', flexDirection: 'column', flex: 1, backgroundColor: '#140038' }}
+        style={{ display: 'flex', flexDirection: 'column', flex: 1, backgroundColor: 'var(--app-bg, #0d1f30)' }}
       >
         <Routes location={location}>
           <Route path="/" element={<Suspense fallback={<HomeSkeleton />}><Home /></Suspense>} />
@@ -146,9 +147,9 @@ const AppLayout = () => {
   }
 
   return (
-    <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#140038' }}>
+    <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--app-bg, #0d1f30)' }}>
       <Navbar />
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#140038' }}>
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--app-bg, #0d1f30)' }}>
         <Suspense fallback={<PageLoader />}>
           <AnimatedRoutes />
         </Suspense>
@@ -161,27 +162,29 @@ const AppLayout = () => {
 
 function App() {
   return (
-    <SmoothScroll>
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          style: {
-            background: '#220150',
-            color: '#FFFFFF',
-            border: '1px solid rgba(99, 102, 241, 0.5)',
-            boxShadow: '0 12px 35px rgba(0, 0, 0, 0.6)',
-            fontSize: '14px',
-            fontWeight: 600,
-            borderRadius: '14px',
-            padding: '14px 20px'
-          }
-        }}
-      />
-      <Router>
-        <ScrollToTop />
-        <AppLayout />
-      </Router>
-    </SmoothScroll>
+    <ThemeProvider>
+      <SmoothScroll>
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: '#220150',
+              color: '#FFFFFF',
+              border: '1px solid rgba(99, 102, 241, 0.5)',
+              boxShadow: '0 12px 35px rgba(0, 0, 0, 0.6)',
+              fontSize: '14px',
+              fontWeight: 600,
+              borderRadius: '14px',
+              padding: '14px 20px'
+            }
+          }}
+        />
+        <Router>
+          <ScrollToTop />
+          <AppLayout />
+        </Router>
+      </SmoothScroll>
+    </ThemeProvider>
   );
 }
 

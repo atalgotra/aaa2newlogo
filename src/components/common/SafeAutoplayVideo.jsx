@@ -35,6 +35,12 @@ const SafeAutoplayVideo = ({
   const [isNearViewport, setIsNearViewport] = useState(!useIntersectionObserver);
   const [isVisibleInView, setIsVisibleInView] = useState(!useIntersectionObserver);
 
+  // Reset ready and error states whenever video source changes
+  useEffect(() => {
+    setHasError(false);
+    setIsReady(false);
+  }, [src]);
+
   // Viewport proximity detector for lazy video network loading
   useEffect(() => {
     if (!useIntersectionObserver || isNearViewport) return;
@@ -170,7 +176,7 @@ const SafeAutoplayVideo = ({
         width: '100%',
         height: '100%',
         overflow: 'hidden',
-        backgroundColor: '#0a0015',
+        backgroundColor: 'transparent',
         ...style
       }}
     >

@@ -164,7 +164,7 @@ export const EthicalSourcingSkeleton = () => (
 
 /* ── 6. Contact Section & Configurator Skeleton ── */
 export const ContactSectionSkeleton = () => (
-  <section style={{ padding: 'clamp(40px, 6vw, 60px) 0', backgroundColor: '#140038' }}>
+  <section style={{ padding: 'clamp(40px, 6vw, 60px) 0', backgroundColor: '#0d1f30' }}>
     <div className="container">
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '32px' }}>
         {/* 4 info cards on left */}

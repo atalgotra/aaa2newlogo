@@ -45,13 +45,13 @@ const ProductShowcaseCard = ({
         borderRadius: '24px',
         overflow: 'hidden',
         cursor: 'pointer',
-        border: '1px solid rgba(255, 255, 255, 0.12)',
+        border: '1px solid var(--border-light, rgba(255, 255, 255, 0.12))',
         boxShadow: isHovered
-          ? '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(99, 102, 241, 0.3)'
+          ? '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px var(--border-indigo, rgba(69, 184, 255, 0.25))'
           : '0 10px 30px rgba(0, 0, 0, 0.35)',
         transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.6s ease',
         transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
-        borderColor: isHovered ? 'rgba(99, 102, 241, 0.45)' : 'rgba(255, 255, 255, 0.12)',
+        borderColor: isHovered ? 'var(--brand-blue-light, #45B8FF)' : 'var(--border-light, rgba(255, 255, 255, 0.12))',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
@@ -99,17 +99,20 @@ const ProductShowcaseCard = ({
         )
       )}
 
-      {/* Bottom Text Shadow Gradient (Clean & transparent, darkens on hover for expanded content) */}
+      {/* Neutral Luminance Gradient for Text Readability Only (Authentic photo preservation) */}
       <div
         style={{
           position: 'absolute',
-          inset: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: isHovered ? '70%' : '52%',
           background: isHovered
-            ? 'linear-gradient(to top, rgba(10, 0, 25, 0.95) 0%, rgba(10, 0, 25, 0.65) 45%, transparent 80%)'
-            : 'linear-gradient(to top, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.30) 35%, transparent 65%)',
+            ? 'linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.42) 55%, transparent 100%)'
+            : 'linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.20) 50%, transparent 100%)',
           zIndex: 2,
           pointerEvents: 'none',
-          transition: 'background 0.5s ease'
+          transition: 'all 0.4s ease'
         }}
       />
 

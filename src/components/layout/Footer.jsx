@@ -2,8 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { MapPin, Mail, ArrowUp, ShieldCheck, Award } from 'lucide-react';
 import AAA2Logo from '../common/AAA2Logo';
+import { useTheme } from '../../context/ThemeContext';
 
 const Footer = () => {
+  const { currentTheme } = useTheme();
+  const isAtelier = currentTheme === 'atelier';
+  const isForge = currentTheme === 'forge';
+  const isNexus = currentTheme === 'nexus';
+  const isAurelis = currentTheme === 'aurelis';
+
   const location = useLocation();
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
@@ -60,7 +67,7 @@ const Footer = () => {
       <footer
         style={{
           padding: '40px 0 16px',
-          background: 'linear-gradient(180deg, #220150 0%, #220150 100%)',
+          background: 'linear-gradient(180deg, var(--section-dark-bg, #220150) 0%, var(--section-darker-bg, #140038) 100%)',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
           position: 'relative'
         }}
@@ -134,9 +141,15 @@ const Footer = () => {
                     textDecoration: 'none'
                   }}
                   onMouseOver={(e) => {
-                    e.currentTarget.style.backgroundColor = '#220150';
-                    e.currentTarget.style.borderColor = '#6366F1';
-                    e.currentTarget.style.color = '#FFF';
+                    e.currentTarget.style.backgroundColor = isAtelier
+                      ? '#EDE7DA'
+                      : (isForge ? '#202A33' : (isNexus ? '#102B4A' : (isAurelis ? '#1E2D38' : '#220150')));
+                    e.currentTarget.style.borderColor = isAtelier
+                      ? '#D9D2C5'
+                      : (isForge ? 'rgba(69, 184, 255, 0.45)' : (isNexus ? 'rgba(57, 198, 232, 0.45)' : (isAurelis ? 'rgba(45, 145, 201, 0.5)' : '#6366F1')));
+                    e.currentTarget.style.color = isAtelier
+                      ? '#17202A'
+                      : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#FFF')));
                     e.currentTarget.style.transform = 'translateY(-2px)';
                   }}
                   onMouseOut={(e) => {
@@ -155,7 +168,7 @@ const Footer = () => {
 
           {/* Quick Navigation Column */}
           <div style={{ textAlign: 'left' }}>
-            <h4 style={{ color: '#FFFFFF', marginBottom: '12px', fontSize: '13.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
+            <h4 style={{ color: (isAtelier ? 'var(--text-primary, #17202A)' : '#FFFFFF'), marginBottom: '16px', fontSize: '13.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
               Quick Links
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', padding: 0, margin: 0 }}>
@@ -170,13 +183,13 @@ const Footer = () => {
                     to={item.path}
                     style={{
                       textDecoration: 'none',
-                      color: '#94A3B8',
+                      color: isAtelier ? 'var(--text-secondary, #59616A)' : '#94A3B8',
                       fontSize: '13px',
                       transition: 'color 0.2s ease',
                       display: 'inline-block'
                     }}
-                    onMouseOver={(e) => (e.target.style.color = '#93C5FD')}
-                    onMouseOut={(e) => (e.target.style.color = '#94A3B8')}
+                    onMouseOver={(e) => (e.target.style.color = isAtelier ? 'var(--accent-primary, #E87522)' : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#93C5FD'))))}
+                    onMouseOut={(e) => (e.target.style.color = isAtelier ? 'var(--text-secondary, #59616A)' : '#94A3B8')}
                   >
                     {item.label}
                   </Link>
@@ -187,31 +200,31 @@ const Footer = () => {
 
           {/* Memberships & Audits Column */}
           <div style={{ textAlign: 'left' }}>
-            <h4 style={{ color: '#FFFFFF', marginBottom: '16px', fontSize: '13.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
+            <h4 style={{ color: (isAtelier ? 'var(--text-primary, #17202A)' : '#FFFFFF'), marginBottom: '16px', fontSize: '13.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
               Memberships &amp; Audits
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', padding: 0, margin: 0 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94A3B8', fontSize: '13px' }}>
-                <ShieldCheck size={15} color="#FFFFFF" /> NASSCOM IT Member
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isAtelier ? 'var(--text-secondary, #59616A)' : '#94A3B8', fontSize: '13px' }}>
+                <ShieldCheck size={15} color={isAtelier ? 'var(--accent-primary, #E87522)' : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#FFFFFF')))} /> NASSCOM IT Member
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94A3B8', fontSize: '13px' }}>
-                <Award size={15} color="#FFFFFF" /> ISO 27001 Certified
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isAtelier ? 'var(--text-secondary, #59616A)' : '#94A3B8', fontSize: '13px' }}>
+                <Award size={15} color={isAtelier ? 'var(--accent-primary, #E87522)' : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#FFFFFF')))} /> ISO 27001 Certified
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94A3B8', fontSize: '13px' }}>
-                <ShieldCheck size={15} color="#FFFFFF" /> SEPC Registered
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isAtelier ? 'var(--text-secondary, #59616A)' : '#94A3B8', fontSize: '13px' }}>
+                <ShieldCheck size={15} color={isAtelier ? 'var(--accent-primary, #E87522)' : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#FFFFFF')))} /> SEPC Registered
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94A3B8', fontSize: '13px' }}>
-                <Award size={15} color="#FFFFFF" /> BAA Association
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isAtelier ? 'var(--text-secondary, #59616A)' : '#94A3B8', fontSize: '13px' }}>
+                <Award size={15} color={isAtelier ? 'var(--accent-primary, #E87522)' : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#FFFFFF')))} /> BAA Association
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94A3B8', fontSize: '13px' }}>
-                <ShieldCheck size={15} color="#FFFFFF" /> EPCH Certified
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isAtelier ? 'var(--text-secondary, #59616A)' : '#94A3B8', fontSize: '13px' }}>
+                <ShieldCheck size={15} color={isAtelier ? 'var(--accent-primary, #E87522)' : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#FFFFFF')))} /> EPCH Certified
               </li>
             </ul>
           </div>
 
           {/* Get in Touch Column */}
           <div style={{ textAlign: 'left' }}>
-            <h4 style={{ color: '#FFFFFF', marginBottom: '16px', fontSize: '13.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
+            <h4 style={{ color: (isAtelier ? 'var(--text-primary, #17202A)' : '#FFFFFF'), marginBottom: '16px', fontSize: '13.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
               Get in Touch
             </h4>
 
@@ -222,19 +235,22 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', textDecoration: 'none' }}
               >
-                <MapPin size={16} color="#FFFFFF" style={{ marginTop: '2px', flexShrink: 0 }} />
-                <address style={{ color: '#FFFFFF', fontSize: '13px', lineHeight: '1.4', fontStyle: 'normal', cursor: 'pointer', textAlign: 'left' }}
-                  onMouseOver={(e) => e.currentTarget.style.color = '#94A3B8'}
-                  onMouseOut={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                <MapPin size={16} color={isAtelier ? 'var(--accent-primary, #E87522)' : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#FFFFFF')))} style={{ marginTop: '2px', flexShrink: 0 }} />
+                <address style={{ color: isAtelier ? 'var(--text-primary, #17202A)' : '#FFFFFF', fontSize: '13px', lineHeight: '1.4', fontStyle: 'normal', cursor: 'pointer', textAlign: 'left' }}
+                  onMouseOver={(e) => e.currentTarget.style.color = isAtelier ? 'var(--accent-primary, #E87522)' : '#94A3B8'}
+                  onMouseOut={(e) => e.currentTarget.style.color = isAtelier ? 'var(--text-primary, #17202A)' : '#FFFFFF'}
                 >
-                  <strong style={{ color: '#FFFFFF', fontWeight: 600 }}>AAA 2 Innovate Pvt. Ltd.</strong><br />
+                  <strong style={{ color: isAtelier ? 'var(--text-primary, #17202A)' : '#FFFFFF', fontWeight: 600 }}>AAA 2 Innovate Pvt. Ltd.</strong><br />
                   F-40, Sector 6, Noida, UP 201301
                 </address>
               </a>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Mail size={16} color="#FFFFFF" style={{ flexShrink: 0 }} />
-                <a href="mailto:info@aaa2innovate.com" style={{ color: '#FFFFFF', fontSize: '13px', textDecoration: 'none' }}>
+                <Mail size={16} color={isAtelier ? 'var(--accent-primary, #E87522)' : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#FFFFFF')))} style={{ flexShrink: 0 }} />
+                <a href="mailto:info@aaa2innovate.com" style={{ color: isAtelier ? 'var(--text-primary, #17202A)' : '#FFFFFF', fontSize: '13px', textDecoration: 'none' }}
+                  onMouseOver={(e) => e.currentTarget.style.color = isAtelier ? 'var(--accent-primary, #E87522)' : (isForge ? '#45B8FF' : (isNexus ? '#39C6E8' : (isAurelis ? '#2D91C9' : '#93C5FD')))}
+                  onMouseOut={(e) => e.currentTarget.style.color = isAtelier ? 'var(--text-primary, #17202A)' : '#FFFFFF'}
+                >
                   info@aaa2innovate.com
                 </a>
               </div>
@@ -247,8 +263,8 @@ const Footer = () => {
         <div className="container" style={{ marginTop: '28px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px', color: '#64748B', fontSize: '12px' }}>
           <p style={{ margin: 0 }}>&copy; {new Date().getFullYear()} AAA 2 Innovate Pvt. Ltd. All rights reserved.</p>
           <div style={{ display: 'flex', gap: '20px' }}>
-            <Link to="/privacy-policy" style={{ color: '#64748B', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => (e.target.style.color = '#93C5FD')} onMouseOut={(e) => (e.target.style.color = '#64748B')}>Privacy Policy</Link>
-            <Link to="/terms-of-service" style={{ color: '#64748B', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => (e.target.style.color = '#93C5FD')} onMouseOut={(e) => (e.target.style.color = '#64748B')}>Terms of Service</Link>
+            <Link to="/privacy-policy" style={{ color: '#64748B', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => (e.target.style.color = isAtelier ? 'var(--accent-primary, #E87522)' : '#93C5FD')} onMouseOut={(e) => (e.target.style.color = '#64748B')}>Privacy Policy</Link>
+            <Link to="/terms-of-service" style={{ color: '#64748B', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => (e.target.style.color = isAtelier ? 'var(--accent-primary, #E87522)' : '#93C5FD')} onMouseOut={(e) => (e.target.style.color = '#64748B')}>Terms of Service</Link>
           </div>
         </div>
       </footer>
@@ -266,26 +282,48 @@ const Footer = () => {
             width: '40px',
             height: '40px',
             borderRadius: '50%',
-            backgroundColor: '#220150',
-            color: '#FFFFFF',
-            border: '1px solid rgba(99, 102, 241, 0.4)',
+            backgroundColor: isAtelier
+              ? '#F6F2E9'
+              : (isForge ? '#202A33' : (isNexus ? '#E87522' : (isAurelis ? '#155A8A' : '#220150'))),
+            color: isAtelier ? '#17202A' : '#FFFFFF',
+            border: isAtelier
+              ? '1px solid #D9D2C5'
+              : (isForge
+                  ? '1px solid rgba(69, 184, 255, 0.4)'
+                  : (isNexus ? '1px solid rgba(232, 117, 34, 0.6)' : (isAurelis ? '1px solid rgba(45, 145, 201, 0.5)' : '1px solid rgba(99, 102, 241, 0.4)'))),
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
-            boxShadow: '0 6px 20px rgba(34, 1, 80, 0.5)',
+            boxShadow: isAtelier
+              ? '0 6px 20px rgba(23, 32, 42, 0.15)'
+              : (isForge
+                  ? '0 6px 20px rgba(0, 0, 0, 0.6)'
+                  : (isNexus ? '0 6px 20px rgba(0, 0, 0, 0.7)' : (isAurelis ? '0 6px 20px rgba(21, 90, 138, 0.35)' : '0 6px 20px rgba(34, 1, 80, 0.5)'))),
             zIndex: 9999,
             transition: 'all 0.3s ease'
           }}
           onMouseOver={(e) => {
             e.currentTarget.style.transform = 'translateY(-3px)';
-            e.currentTarget.style.backgroundColor = '#3730A3';
-            e.currentTarget.style.boxShadow = '0 10px 25px rgba(99, 102, 241, 0.6)';
+            e.currentTarget.style.backgroundColor = isAtelier
+              ? '#EDE7DA'
+              : (isForge ? '#1677C8' : (isNexus ? '#D06316' : (isAurelis ? '#2D91C9' : '#3730A3')));
+            e.currentTarget.style.boxShadow = isAtelier
+              ? '0 10px 25px rgba(23, 32, 42, 0.25)'
+              : (isForge
+                  ? '0 10px 25px rgba(22, 119, 200, 0.6)'
+                  : (isNexus ? '0 10px 25px rgba(232, 117, 34, 0.5)' : (isAurelis ? '0 10px 25px rgba(45, 145, 201, 0.55)' : '0 10px 25px rgba(99, 102, 241, 0.6)')));
           }}
           onMouseOut={(e) => {
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.backgroundColor = '#220150';
-            e.currentTarget.style.boxShadow = '0 6px 20px rgba(34, 1, 80, 0.5)';
+            e.currentTarget.style.backgroundColor = isAtelier
+              ? '#F6F2E9'
+              : (isForge ? '#202A33' : (isNexus ? '#E87522' : (isAurelis ? '#155A8A' : '#220150')));
+            e.currentTarget.style.boxShadow = isAtelier
+              ? '0 6px 20px rgba(23, 32, 42, 0.15)'
+              : (isForge
+                  ? '0 6px 20px rgba(0, 0, 0, 0.6)'
+                  : (isNexus ? '0 6px 20px rgba(0, 0, 0, 0.7)' : (isAurelis ? '0 6px 20px rgba(21, 90, 138, 0.35)' : '0 6px 20px rgba(34, 1, 80, 0.5)')));
           }}
         >
           <ArrowUp size={18} strokeWidth={2.5} />

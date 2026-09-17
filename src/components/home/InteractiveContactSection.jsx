@@ -156,7 +156,7 @@ const InteractiveContactSection = ({ selectedCategoryForConfigurator }) => {
                   Global Operating Hours
                 </h3>
                 <p className="contact-card-value" style={{ color: 'var(--text-secondary)', fontSize: '13px', lineHeight: 1.4, margin: 0 }}>
-                  Mon – Sat: 9:00 AM – 7:30 PM IST
+                  Mon – Sat: 10:00 AM – 6:30 PM IST
                 </p>
               </div>
             </div>

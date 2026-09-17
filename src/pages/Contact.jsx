@@ -184,8 +184,8 @@ const Contact = () => {
                   <div>
                     <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--brand-indigo)', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>Operating Hours</h3>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.55, margin: 0 }}>
-                      Monday - Friday<br />
-                      9:00 AM - 6:00 PM (IST)
+                      Monday – Saturday<br />
+                      10:00 AM – 6:30 PM (IST)
                     </p>
                   </div>
                 </div>

@@ -208,7 +208,7 @@ const Logistics = () => {
                     alt="Zipaworld Automated Dashboard" 
                     style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }} 
                   />
-                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to top, rgba(34, 1, 80, 0.95) 0%, rgba(34, 1, 80, 0.4) 60%, transparent 100%)', zIndex: 2 }}></div>
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '65%', background: 'linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 60%, transparent 100%)', zIndex: 2 }}></div>
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.8, y: 15 }}
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}

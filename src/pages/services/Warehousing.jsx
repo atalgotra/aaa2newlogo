@@ -231,7 +231,7 @@ Optimized for urgent air freight and high-volume exports, with digital connectiv
                   style={{ position: 'relative', display: 'flex', borderRadius: '24px', overflow: 'hidden', alignItems: 'flex-end', justifyContent: 'center', minHeight: '380px', border: '1px solid var(--border-light)', boxShadow: '0 15px 35px rgba(34,1,80,0.1)' }}
                 >
                   <img loading="lazy" src="https://aaawebisteimages.s3.ap-south-1.amazonaws.com/faceless_processing.png" alt="Faceless Processing" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }} />
-                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to top, rgba(34, 1, 80, 0.95) 0%, rgba(34, 1, 80, 0.4) 60%, transparent 100%)', zIndex: 2 }}></div>
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '65%', background: 'linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 60%, transparent 100%)', zIndex: 2 }}></div>
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.8, y: 15 }}
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
