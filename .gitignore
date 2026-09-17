@@ -25,3 +25,4 @@ dist-ssr
 
 s3-archive.zip
 s3-archive/
+*.zip
